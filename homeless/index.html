@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Homeless in Singapore</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
+  <script src='https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.1.2/scrollama.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.min.js'></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      background-color: #121212;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .header {
+      font-family: 'Playfair Display', serif;
+      font-style: bold;
+      font-size: 64px;
+      color: white;
+      text-align: center;
+      z-index: 99;
+    }
+    .caption {  
+      text-align: center;
+      z-index: 99; 
+    }
+    p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 18px;
+      color: white;
+    }
+    .introWrapper {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .blurryRect {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .introWrapper .arrow {
+      position: absolute;
+      text-align: center;
+      bottom: 20px;
+    }
+    .intro {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    .introWrapper img {
+      -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+      filter: grayscale(100%);
+      padding-top: 40px;
+    }
+
+    #scrolly {
+      position: absolute;
+    }
+    article {
+      position: relative;
+      padding: 0;
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+    #chart {
+      position: -webkit-sticky;
+      position: sticky;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      width: 100vw;
+      height: 100vh;
+    }
+    .step {
+      margin: 0 auto 2rem auto;
+      color: #fff;
+      background-color: transparent
+    }
+    .step:last-child {
+      margin-bottom: 0;
+    }
+    .step.is-active {
+    }
+    .step-transparent {
+      background-color: transparent !important;
+    }
+    .step-text {
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.5rem;
+      color: #fff;
+      height: auto;
+      background-color: #121212;
+      opacity: 0.8;
+    }
+    .btn-step-text {
+      padding: 5px;
+      background-color: #F8012F;
+      color: white;
+    } 
+  </style>
+
+</head>
+
+<body>
+  <main>
+    <div class='introWrapper'>
+      <div class='intro'>
+        <div class='header'>Homelessness in Singapore</div>
+        <div class='caption'><p>Homelessness exists in Singapore. It is difficult for this issue to gain momentum and for policies to be formulated without knowing the size of the homeless population. To find out, a first of its kind nationwide street count of homeless people was conducted in July 2019 as part of a study done by Assistant Professor Ng Kok Hoe of the Lee Kuan Yew School of Public Policy. This visualization presents the findings of this study based on data found in its published report.</p></div>
+        <img src="homeless.jpg" alt="Homeless" width='500px'>
+        <svg class='blurryRect'>
+          <defs>
+            <filter id="blur">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="30" />
+            </filter>
+          </defs>
+        </svg>
+      </div>
+      <svg x="0px" y="0px" width="48px" height="26px" viewBox="0 0 48 26" enable-background="new 0 0 48 26" class='arrow'><g><path fill="#fff" d="M24.146,26c-0.53,0-1.039-0.284-1.414-0.659L0.586,3.158c-0.781-0.781-0.781-2.066,0-2.846 c0.78-0.781,2.048-0.791,2.828-0.009L24.137,21.02L44.576,0.305c0.776-0.787,2.042-0.796,2.829-0.021 c0.786,0.776,0.794,2.042,0.019,2.828L25.57,25.332C25.196,25.711,24.686,26,24.153,26C24.151,26,24.149,26,24.146,26z"></path></g></svg>
+    </div>
+    <section id='scrolly'>
+      <div id='chart'></div>
+      <article>
+        <div class='step' data-step='0'></div>
+        <div class='step' data-step='1'>
+          <div class='step-text'>
+            <p>Based on the single night count that took place in July 2019, there were a total of 921 homeless people in Singapore. Homelessness was geographically widespread on count night, with observations recorded in 23 of the 24 districts covered. There was significant variation aross districts.</p>
+          </div>
+        </div>
+        <div class='step' data-step='2'>
+          <div class='step-text'>
+            <p>A large homeless population resides in the City district (comprising Downtown Core, Marina East, Marina South, Straits View and Outram),  Bedok and Jurong West. These are locations in Singapore with a traditionally older resident population.</p>
+          </div>
+        </div>
+        <div class='step' data-step='3'>
+          <div class='step-text'>
+            <p>The most common location where the homeless sleep at was void decks (31.9%), followed by commercial buildings (28.6%). This could be because the physical environment of these locations are more likely exposed (i.e in full view of passers-by) and well-lit at night, which bodes well for the safety of these homeless</p>
+          </div>
+        </div>
+        <div class='step' data-step='4'>
+          <div class='step-text'>
+            <p>Amongst the 921 homeless people found in the single night count, only 191 were awake and 88 of them were interviewed.</p>
+          </div>
+        </div>
+        <div class='step' data-step='5'>
+          <div class='step-text'>
+            <p>The statistics shown from now on are only reflective of these 88 people. They are mostly Singaporean citizens(88%), male(92%), older and in work. Persistent street homelessness combined with constant instability characterises their housing insecurity. What are reasons for homelessness?</p>
+          </div>
+        </div>
+        <div class='step' data-step='6'>
+          <div class='step-text'>
+            <p>The first is insecure work and poverty. While 60% of the homeless people interviewed work — with some holding full-time jobs — they have irregular work and low wages. Common occupations cited included cleaning, odd jobs, security and retail, which are among the lowest-paying occupations in Singapore, resulting in inability to afford any form of accomomdation. Low-wage work can also mean working during odd hours — when public transport is not available. Travelling at this time is expensive, so some opt to sleep near their workplace instead.</p>
+          </div>
+        </div>
+        <div class='step' data-step='7'>
+          <div class='step-text'>
+            <p>The second cause is the loss of social resources or the breakdown of family support. The study found that nearly 40% of the interviewees had housing in their names, usually public rental housing or purchased flats. But because of family conflicts they were no longer able to live in their homes.</p>
+          </div>
+        </div>
+        <div class='step' data-step='8'>
+          <div class='step-text'>
+            <p>Barriers to accessing housing services make up the third cause. Inadequate housing standards within the public rental sector has been documented as a contributing factor towards homelessness in Singapore. Public rental flats are small and have no separate bedrooms, but must be shared by two single people (who are usually strangers). The flats are affordable, but the lack of privacy and difficulties in getting along with co-tenants are seen as deal breakers for some.</p>
+          </div>
+        </div>
+        <div class='step' data-step='9'>
+
+        </div>
+        <div class='step' data-step='10'>
+          <div class='step-text'>
+            <p>Singapore is also missing an official definition of homelessness. The closest thing that applies is the Destitute Persons Act, which seems out of step with the patterns of homelessness and homeless people’s needs in contemporary Singapore</p>
+          </div>
+        </div>
+        <div class='step' data-step='111'>
+          <div class='step-text1'>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+  
+  <script>
+    // Ensure that page is flushed to top everytime a user refreshes the page
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+
+    // using d3 for convenience
+    var total, interviewed_num
+    var main = d3.select('main')
+    var scrolly = main.select('#scrolly');
+    var figure = scrolly.select('#chart');
+    var article = scrolly.select('article');
+    var step = article.selectAll('.step');
+
+    var circles, geojson, data, projection, points
+    const margin = {top: 10, right: 10, bottom: 10, left: 10},
+          width = window.innerWidth - margin.left - margin.right,
+          height = window.innerHeight - margin.top - margin.bottom +30
+
+    var mapLoaded = false
+    const distance = 1
+    const radius = 1.5
+    const radius_new = 15
+
+    const numPoints = [
+       {district: "DOWNTOWN CORE", value: 50},
+       {district: "MARINA EAST", value: 50},
+       {district: "MARINA SOUTH", value: 50},
+       {district: "STRAITS VIEW", value: 41},
+       {district: "OUTRAM", value: 50},
+       {district: "BEDOK", value: 74},
+       {district: "KALLANG", value: 55},
+       {district: "TIONG BAHRU", value: 47}, 
+       {district: "ANG MO KIO", value: 46},
+       {district: "JURONG WEST", value: 45}, 
+       {district: "TOA PAYOH", value: 41},
+       {district: "YISHUN", value: 40},
+       {district: "HOUGANG", value: 39},
+       {district: "CLEMENTI", value: 38},
+       {district: "WOODLANDS", value: 36},
+       {district: "TAMPINES", value: 33},
+       {district: "BUKIT BATOK", value: 30},
+       {district: "BUKIT MERAH", value: 26},
+       {district: "JURONG EAST", value: 26},
+       {district: "SERANGOON", value: 16},
+       {district: "BISHAN", value: 15},
+       {district: "PASIR RIS", value: 13},
+       {district: "CHOA CHU KANG", value: 12},
+       {district: "QUEENSTOWN", value: 9},
+       {district: "PUNGGOL", value: 7}, 
+       {district: "BUKIT PANJANG", value: 6},
+       {district: "SEMBAWANG", value: 4},
+       {district: "SENGKANG", value: 3},
+       {district: "BUKIT TIMAH", value: 2},
+       {district: "GEYLANG", value: 70},
+       {district: "NEWTON", value: 13},
+       {district: "ORCHARD", value: 13},
+       {district: "OUTRAM", value: 13},
+       {district: "MUSEUM", value: 1},
+       {district: "SINGAPORE RIVER", value: 13},
+       {district: "ROCHOR", value: 23}
+    ]
+
+    //////////////////// Set up and initiate containers ///////////////////////
+    var svg = d3.select("#chart").append("svg")
+      .attr("viewBox", `0 0 ${width} ${height+30}`)
+      .style("width", "100%")
+      .style("height", "100%")
+      .style("overflow", "visible")
+      .attr('position', 'relative')
+
+    d3.select('.blurryRect')
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height*0.5 + margin.top + margin.bottom)
+      .append("rect")
+      .attr('fill', '#000')
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height*0.5 + margin.top + margin.bottom)
+      .attr('opacity', 0.3)
+
+    g = svg.append("g")
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+    ///////////////////// Add annotations to the chart ///////////////////////
+    // modify opacity on scroll
+    // const annotations = [
+    //   {
+    //     note: {
+    //       label: "96 homeless",
+    //       title: "City"
+    //     },
+    //     type: d3.annotationCalloutCircle,
+    //     subject: {
+    //       radius: 100,         // circle radius
+    //       radiusPadding: 15   // white space around circle befor connector
+    //     },
+    //     color: ["red"],
+    //     x: 740,
+    //     y: window.innerHeight <= 800 ? 440 : 460,
+    //     dy: 100,
+    //     dx: 70
+    //   },
+    //   {
+    //     note: {
+    //       label: "96 homeless",
+    //       title: "Bedok"
+    //     },
+    //     color: ["red"],
+    //     x: 930,
+    //     y: 400,
+    //     dy: 70,
+    //     dx: 70
+    //   },
+    //   {
+    //     note: {
+    //       label: "96 homeless",
+    //       title: "Jurong East"
+    //     },
+    //     color: ["red"],
+    //     x: 430,
+    //     y: 400,
+    //     dy: 100,
+    //     dx: -70
+    //   },
+    //   {
+    //     note: {
+    //       label: "96 homeless",
+    //       title: "Queenstown"
+    //     },
+    //     color: ["lightsalmon"],
+    //     x: 550,
+    //     y: 480,
+    //     dy: 80,
+    //     dx: -70
+    //   },
+    //   {
+    //     note: {
+    //       label: "96 homeless",
+    //       title: "Sembawang"
+    //     },
+    //     color: ["lightsalmon"],
+    //     x: 630,
+    //     y: 70,
+    //     dy: 0,
+    //     dx: 120
+    //   },
+    //   {
+    //     note: {
+    //       label: "96 homeless",
+    //       title: "Punggol"
+    //     },
+    //     color: ["lightsalmon"],
+    //     x: 880,
+    //     y: 180,
+    //     dy: -20,
+    //     dx: 50
+    //   }
+    // ]
+
+    const annotations = [
+      {
+        note: {
+          label: "251 homeless",
+          title: "CITY",
+          align: "left",  // try right or left
+          wrap: 200,  // try something smaller to see text split in several lines
+          padding: 10   // More = text lower
+        },
+        type: d3.annotationCalloutRect,
+        subject: {
+          width: window.innerHeight > 900 ? 150 : 120,
+          height: window.innerHeight > 900 ? 130 : 100
+        },
+        color: ["red"],
+        x: window.innerWidth > 1800 ? 900 : window.innerWidth > 1500 ? 800 : 675,
+        y: window.innerHeight > 900 ? 550 : window.innerHeight <= 800 ? 420 : 460,
+        dy: 130,
+        dx: 100
+      },
+      {
+        note: {
+          title: "KALLANG",
+          align: "left",  // try right or left
+          wrap: 200,  // try something smaller to see text split in several lines
+          padding: 10   // More = text lower
+        },
+        color: ["red"],
+        x: window.innerWidth > 1800 ? 1000: window.innerWidth > 1500 ? 900 : 760,
+        y: window.innerHeight > 900 ? 530 : window.innerHeight <= 800 ? 400 : 440,
+        dy: 40,
+        dx: 80
+      }  
+    ]
+
+    const makeAnnotations = d3.annotation()
+      .annotations(annotations)
+
+    d3.select('#chart svg')
+      .append("g")
+      .attr('class', 'annotations-group')
+
+    // initialize scrollama
+    var scroller = scrollama();
+  
+    // initialize zoom
+    const zoom = d3.zoom()
+      .scaleExtent([1, 40])
+      .on("zoom", zoomed);
+
+    function zoomed() {
+      g.attr("transform", d3.event.transform);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////// Scrollama event handlers ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function handleResize() {
+
+      // 1. update height of step elements
+      var stepH = Math.floor(window.innerHeight);
+      step.style('height', stepH + 'px');
+      var figureHeight = window.innerHeight
+      var figureMarginTop = (window.innerHeight - figureHeight) / 2  
+      figure
+        .style('height', figureHeight + 'px')
+        .style('top', figureMarginTop + 'px');
+      // 3. tell scrollama to update new element dimensions
+      scroller.resize();
+
+    }
+
+    function handleStepEnter(response) {
+
+      // response = { element, direction, index }
+
+      total = data.find(d=>d.metric == "total").data['single']
+      interviewed_num = data.find(d=>d.metric == "Interviewees").data['total']
+
+      // fade in current step
+      step.classed('is-active', function (d, i) {
+          return i === response.index;
+      })
+
+      if (response.index === 0) { // initial empty map
+
+        d3.selectAll('#chart svg path')
+          .transition()
+          .duration(500)
+          .attr('opacity', 0.3)
+
+        let circles = d3.selectAll('circle')
+        if(circles.empty()===false){
+          circles.remove()
+        }
+
+      } else if (response.index === 1) { // dot density map  
+
+        d3.selectAll('#chart svg path')
+          .transition()
+          .duration(500)
+          .attr('opacity', 0.8)
+
+        if(mapLoaded == false) {
+          dotDensityMap(geojson, total)
+        }   
+        mapLoaded = true 
+
+      } else if (response.index === 2) { // highlight selected districts
+
+        //scroller.offsetTrigger([0.33])
+        //scroller.onStepProgress(handleStepProgress)
+
+        var toHighlightHigh = ['KALLANG', 'BEDOK', 'JURONGEAST', 'DOWNTOWNCORE', 'MARINAEAST', 'MARINASOUTH', 'STRAITSVIEW', 'OUTRAM']
+        toHighlightHigh.forEach(el=>{
+          g.select('.'+el)
+            .attr('stroke', 'red')
+            .attr('stroke-width', 2)
+        })
+
+        var  toHighlightHigh1 = ['BEDOK', 'JURONGEAST']
+        toHighlightHigh1.forEach(el=>{
+          g.select('#label-'+el)
+            .attr('opacity', 1)
+            .attr('fill', 'red')
+        })
+
+        var toHighlightLow = ['SEMBAWANG', 'QUEENSTOWN', 'PUNGGOL']
+         toHighlightLow.forEach(el=>{
+          g.select('.'+el)
+            .attr('stroke', 'lightsalmon')
+            .attr('stroke-width', 2)
+
+          g.select('#label-'+el)
+            .attr('opacity', 1)
+            .attr('fill', 'lightsalmon')
+        })
+
+        var toHighlight = toHighlightHigh.concat(toHighlightLow)
+        points.forEach(d=>{
+          d.opacity = toHighlight.indexOf(d[3].toUpperCase().trim().replace(/ +/g, "")) != -1 ? 1 : 0.2
+        })
+        update(points, init=false) 
+
+        d3.select('.annotations-group').call(makeAnnotations)
+          .attr('font-size', window.innerWidth > 1500 ? '14px' : '10px')
+          .attr('opacity', 1)
+
+        g.selectAll('path')
+          .transition().duration(500)
+          .attr('opacity', 1)
+
+        d3.selectAll('text.axisLabel').remove()
+
+        zoom.transform(d3.select('#chart svg g'), d3.zoomIdentity.scale(1));
+
+        if(mapLoaded == false) {
+          dotDensityMap(geojson, total)
+        }
+        mapLoaded = true
+
+      } else if (response.index === 3) { // location where homeless found
+
+        mapLoaded = false
+        svg.transition().duration(750).call(
+          zoom.transform,
+          d3.zoomIdentity.translate(width / 2, height/2-250).scale(1.5).translate(-width/2, -height/2+250)
+        )
+
+        let locationData = data.find(d=>(d.metric == "Location") & (d.type == "Single night count")).data
+        var barchart_points = []
+        var barchart_labels = []
+        var keys = Object.keys(locationData) 
+        Object.values(locationData).map((perc,i) => {
+          var num = Math.floor(perc/100 * total)
+          var results = getTilesBar(num, i)
+          results.labels.push(keys[i])
+          barchart_points.push(results.tiles)
+          barchart_labels.push(results.labels)
+        })
+
+        var arr = []
+        while(arr.length < total){
+          var r = Math.floor(Math.random() * total) + 1;
+          if(arr.indexOf(r) === -1) arr.push(r);
+        }
+        barchart_points = barchart_points.flat()
+        barchart_points.map((d,i)=>{
+          d.unshift(arr[i])
+        })
+
+        update(barchart_points, false)
+        updateLabels(barchart_labels)
+
+        d3.select('.annotations-group')
+          .attr('opacity', 0)
+
+        g.selectAll('path')
+          .transition().duration(500)
+          .attr('opacity', 0)
+
+      } else if (response.index === 4) { // square representing the number of homeless found
+
+        let grid_points = getTiles(total, radius, 31)
+        grid_points.map((d,i)=>{
+          d.unshift(i)
+        })  
+        update(grid_points, false)
+        d3.selectAll('text.axisLabel').remove()
+
+      } else if (response.index === 5) { // and then zooming in to only the number of homeless interviewed
+
+        scroller.offsetTrigger([0.3])
+        scroller.onStepProgress(handleStepProgress)
+
+      //} else if (response.index === 6) { // number of men 
+
+        //let perc = data.find(d=>d.metric == "Interviewees").data['gender']['Men']
+        //modifyDots(perc)
+
+      //} else if (response.index === 7) { // number of singaporeans
+
+        //let perc = data.find(d=>d.metric == "Interviewees").data['citizenship']['Singaporean']
+        //modifyDots(perc)
+
+      } else if (response.index === 6) { 
+
+        let perc = data.find(d=>d.metric == "Reason for homelessness").data['Unemployment, irregular work, and low wages']
+        modifyDots(perc)
+
+      } else if (response.index === 7) { 
+
+        let perc = data.find(d=>d.metric == "Reason for homelessness").data['Family Conflict and break-up']
+        modifyDots(perc)
+
+      } else if (response.index === 8) { 
+
+        let perc = data.find(d=>d.metric == "Reason for homelessness").data['Difficulties getting the housing services they needed']
+        modifyDots(perc)
+
+      } else if (response.index === 9) { 
+  
+        d3.select('article')
+          .style('margin', '1em')
+          .style('max-width', '20rem')
+
+        g.attr('display', 'none')
+
+        g1 = svg.append("g").attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+        cluster()
+
+      } else if (response.index === 10) { 
+      }
+    
+    }
+
+    function modifyDots(perc) {
+
+      let total = Math.floor(interviewed_num * perc)
+      console.log(total)
+      g.selectAll('circle').each(function(d,i){
+        if(i<=total){
+          d3.select(this).attr('fill', 'red')
+        } else {
+          d3.select(this).attr('fill', 'white')
+        }
+      })
+
+    }
+
+    function cluster() {
+
+      let data = [{
+        id: 1,
+        text: ["OUTREACH SERVICES"],
+        r: 100
+      }, 
+      {
+        id: 2,
+        r: 100,
+        text: ["SHELTER SERVICES"]
+      },
+      {
+        id: 3,
+        r: 100,
+        text: ["PUBLIC RENTAL", "HOUSING SCHEME"]
+      },
+      {
+        id: 4,
+        r: 100,
+        text: ["DESTITUTE PERSONS", "ACT"]
+      },
+      {
+        id: 5,
+        r: 100,
+        text: ["WAGE AND WORK", "CONDITIONS"]
+      },
+      {
+        id: 6,
+        r: 100,
+        text: ["COMMUNITY AND SOCIETY"]
+      },
+      ]
+
+      //Calculate the centers for each branch based on d3's pack layout
+      var pack = d3.pack()
+        .size([width, height])
+        .padding(50);
+
+      var nest = d3.nest()
+      var root = d3.hierarchy({data:nest.entries(data)},function(d){return d.data;}).sum(function(d) {return d.r })
+      var nodes = pack(root)
+
+      //Draw the pack layout
+      var wrapper = g1.selectAll('.branch').data(nodes.children)
+        .enter().append('g')
+        .attr('class', 'branch')
+        .attr('id', function (d) { return 'branch-' + d.data.id })
+        //.style("filter", "url(#gooeyCodeFilter)")
+
+      // Append branch circles
+      wrapper.append("circle")
+          .attr('class', function (d) { return d.id })
+          .attr('cx', function (d) { return d.x; })
+          .attr('cy', function (d) { return d.y; })
+          .attr('r', function (d) { return d.r; })
+          .attr('fill', 'white')
+
+      //Append branch labels
+      text = wrapper.append("text")
+          .attr("class", "branchLabel")
+          .attr("transform", function (d) { return "translate(" + (d.x) + ", " + (d.y) + ")"; })
+          .attr('font-weight', 'bold')
+          .attr('font-size', '14px')
+          .attr('text-anchor', 'middle')
+          .attr('fill', 'red')
+          .append('tspan')
+            .attr('x', '0')
+            .attr('y', '0')
+            .text(function (d) { return d.data.text[0] })
+          
+      text.append('tspan')
+            .attr('x', '0')
+            .attr('y', '20')
+            .text(function (d) { return d.data.text[1] })
+    } 
+
+    function handleStepProgress(response) {
+
+      if (response.index === 5) {
+        if(response.progress > 0 & response.progress <= 0.2) {
+
+          var ids_to_keep = locateIDs(352, 31, interviewed_num)
+          var ids_to_remove = d3.range(0, total).filter(el => ids_to_keep.flat().indexOf(el) == -1)
+
+          ids_to_remove.map(id=>{
+            d3.select('#circle-'+id).classed('remove', true)
+          })
+
+          d3.selectAll('circle.remove')
+            .transition().duration(500)
+            .attr('opacity', 0)
+            .remove()
+
+        } else if(response.progress > 0.2 & response.progress <= 0.4) {
+          console.log(window.innerHeight)
+          var buffer = window.innerHeight <=900 ? 40 : 100
+          svg.transition().duration(750).call(
+            zoom.transform,
+            d3.zoomIdentity.translate (width/2, height/2).scale(8).translate(-width/2, -height/2+buffer)
+          )
+
+        }
+      }
+
+    }
+
+    // function handleStepProgress(response) {
+      
+    //   if (response.index === 2) {
+    //     if(response.progress > 0 & response.progress <= 0.2) {
+
+    //       let toHighlight = ['KALLANG', 'BEDOK', 'JURONGEAST', 'DOWNTOWNCORE', 'MARINAEAST', 'MARINASOUTH', 'STRAITSVIEW', 'OUTRAM']
+    //       toHighlight.forEach(el=>{
+    //         g.select('.'+el)
+    //           .attr('stroke', 'red')
+    //           .attr('stroke-width', 2)
+    //       })
+    //       points.forEach(d=>{
+    //         d.opacity = toHighlight.indexOf(d[3].toUpperCase().trim().replace(/ +/g, "")) != -1 ? 1 : 0.2
+    //       })
+    //       console.log(points)
+    //       update(points, init=false)
+    //       d3.select('.annotations-group').call(makeAnnotations)
+
+    //     } else if(response.progress > 0.2 & response.progress <= 0.4) {
+
+    //       let toHighlight = ['CHOACHUKANG', 'SEMBAWANG', 'QUEENSTOWN', 'PUNGGOL']
+    //        toHighlight.forEach(el=>{
+    //         g.select('.'+el)
+    //           .attr('stroke', 'lightsalmon')
+    //           .attr('stroke-width', 2)
+    //       })
+    //       points.forEach(d=>{
+    //         d.opacity = toHighlight.indexOf(d[3].toUpperCase().trim().replace(/ +/g, "")) != -1 ? 1 : 0.2
+    //       })
+    //       console.log(points)
+    //       update(points, init=false)   
+
+    //     }
+    //   }
+
+    // }
+
+    function handleStepExit(response) {
+      response.element.classList.remove('is-active');
+    }
+
+    function setupStickyfill() {
+      d3.selectAll('.sticky').each(function () {
+        Stickyfill.add(this);
+      });
+    }
+
+    function init() {
+
+      d3.queue()   
+        .defer(d3.json, 'singapore_districts.json')
+        .defer(d3.json, 'homeless_data.json')
+        .await(prepData)
+
+      setupStickyfill();
+
+      // 1. force a resize on load to ensure proper dimensions are sent to scrollama
+      handleResize();
+
+      // 2. setup the scroller passing options
+      //    this will also initialize trigger observations
+      // 3. bind scrollama event handlers (this can be chained like below)
+      scroller.setup({
+        step: '#scrolly article .step',
+        offset: 0.3,
+        debug: false,
+        progress: true,
+        threshold: 1
+      })
+      .onStepEnter(handleStepEnter)
+
+      // setup resize event
+      window.addEventListener('resize', handleResize);
+
+    }
+
+    function prepData(error, json1, json2) {
+
+      geojson = json1
+      data = json2
+
+      let margin = 20
+      projection = d3.geoMercator().fitExtent([[margin, margin], [width - margin, height - margin]], geojson)
+      let pathGenerator = d3.geoPath().projection(projection)
+
+      g.selectAll('path')
+        .data(geojson.features)
+      .enter()
+        .append('path')
+        .attr('d', pathGenerator)
+        .attr('class', d=>d.properties['PLN_AREA_N'].toUpperCase().trim().replace(/ +/g, ""))
+        .attr('fill', 'none')
+        .attr('stroke', 'white')
+        .attr('stroke-width', 0.5)
+        .attr('opacity', 0.3)
+
+      // store an array of each country's centroid
+      var centroids = []
+      geojson.features.map(d=> {
+        centroids.push({
+          name: d.properties['PLN_AREA_N'].toUpperCase().replace(/ +/g, ""),
+          x: pathGenerator.centroid(d)[0],
+          y: pathGenerator.centroid(d)[1]
+        })
+      })
+
+      // append district labels to centroid
+      g.selectAll(".label")
+          .data(centroids)
+        .enter().append('text')
+         .attr("class", "label")
+         .attr('id', d=>"label-" + d.name)
+         .style("text-anchor", "middle")
+         .attr("dx", 0)
+         .attr("dy", 0)
+         .attr('font-size', window.innerWidth > 1500 ? '14px' : '10px')
+         .attr('font-weight', 'bold')
+         .attr('fill', 'white')
+         .attr('x', d=>d.x)
+         .attr('y', d=>d.y)
+         .attr('opacity', 0)
+         .text(function(d) { return d.name })
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////// Create dot density map ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function dotDensityMap(districts, total) {
+
+      points = districts.features.map(geo => {
+        var value = numPoints.filter(d=>d.district == geo.properties['PLN_AREA_N'].toUpperCase())[0]
+        var dots = value ? value.value : 0
+        return makeDots(
+          geo.properties['PLN_AREA_N'].toUpperCase(),
+          geo.geometry.coordinates[0].map(projection), 
+          dots, 
+          {distance: distance, edgeDistance: Math.max(3,distance)}
+        ) 
+      }) 
+
+      var arr = []
+      while(arr.length < total){
+        var r = Math.floor(Math.random() * total) + 1;
+        if(arr.indexOf(r) === -1) arr.push(r);
+      }
+      points = points.flat()
+      points.map((d,i)=>{
+        d.unshift(arr[i])
+      })   
+      update(points, init=true)
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////// Updated node positions ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function update(data, init) {
+
+      circles = g.selectAll('circle').data(data, d=>d[0])
+      
+      circles.exit().remove()
+
+      let entered_circles = circles
+        .enter().append('circle')
+          .attr('id', d => 'circle-' + d[0])
+          .attr('cx', d => d[1])
+          .attr('cy', d => d[2])
+          .attr('r', radius)
+          .attr('opacity', d=> init===true ? 0 : d.opacity? d.opacity: 1)
+          .attr('fill', 'white')
+
+      circles = circles.merge(entered_circles)
+
+      circles.transition()
+        .duration(1000)
+        .ease(d3.easeQuadOut)
+        .delay(function(d,i) { return init===true ? d[0] * 1.8 : 0 })
+        .attr('cx', d => d[1])
+        .attr('cy', d => d[2])
+        .attr('r', radius)
+         .attr('opacity', d=> init===true ? 1 : d.opacity? d.opacity: 1)
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////// Updated node labels //////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function updateLabels(data) {
+
+      let labels = g.selectAll('text').data(data, d=>d[0])
+      
+      labels.exit().remove()
+
+      let entered_labels = labels
+        .enter().append('text')
+          .attr('class', 'axisLabel')
+          .attr('opacity', 0)
+          .attr('x', d => d[1])
+          .attr('y', d => d[2])
+          .attr('text-anchor', 'middle')
+          .attr('fill', 'white')
+          .attr('font-size', '8px')
+          .text(d=>d[3])
+
+      labels = labels.merge(entered_labels)
+
+      labels.transition()
+        .duration(1000)
+        .ease(d3.easeQuadOut)
+        .attr('opacity', 1)
+        .attr('x', d => d[1])
+        .attr('y', d => d[2])
+        .text(d=>d[3])
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// Grid of dots /////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function getTiles(dots, radius, tilesPerRow) {
+      
+      var nodeRadius = radius * 2
+      var tileSize = nodeRadius * 3
+      var barWidth = (tilesPerRow+1) * tileSize
+
+      var tiles = []
+      for(var i = 0; i < dots; i++) {
+        var rowNumber = Math.floor(i / tilesPerRow)
+        tiles.push([
+          (i % tilesPerRow) * tileSize + (width/2 - barWidth/2) + tileSize, 
+          (rowNumber + 1) * tileSize + (radius>=15 ? 0 : (height/4))
+        ])
+      }
+      return tiles
+
+    }
+
+    function getTilesBar(num, counter) {
+
+      var nodeRadius = radius * 2
+      var tileSize = nodeRadius * 3
+      var tilesPerRow = 9
+      var barWidth = (tilesPerRow+1) * tileSize
+
+      var tiles = []
+      for(var i = 0; i < num; i++) {
+        var rowNumber = Math.floor(i / tilesPerRow)
+        tiles.push([
+          ((i % tilesPerRow) * tileSize) + (counter * barWidth) + (width/2 - (barWidth*9)/2),
+          -(rowNumber + 1) * tileSize + (height/2)
+        ])
+      }
+      labels = [
+        counter,
+        (counter * barWidth) + (width/2 - (barWidth*9)/2) + barWidth/2,
+        (height/2) + 20
+      ]
+      return {tiles: tiles, labels: labels}
+
+    }
+
+    function getRandPos(num) {
+
+      var maxVelocity = 8
+      var tiles = []
+      for(var i = 0; i < num; i++) {
+        var velocity = Math.random() * 2 + 1
+        var angle = Math.random() * 360
+
+        tiles.push({
+          x: Math.random() * (width - radius_new),
+          y: Math.random() * (height - radius_new),
+          vx: velocity * Math.cos(angle * Math.PI / 180),
+          vy: velocity * Math.sin(angle * Math.PI / 180)
+        })
+      }
+      return tiles
+
+    }
+
+    function locateIDs(startId, multiple, total) {
+
+      var ids_to_keep = []
+      var num_rows = 9
+      var num_cols = 9
+      for (let i = 0; i < num_cols; i++) {
+        ids_to_keep.push(d3.range(startId+multiple*i, startId+multiple*i+num_rows))
+      }
+      var to_add = total - (num_rows * num_cols)
+      ids_to_keep.push(d3.range(startId+multiple*num_rows, startId+multiple*num_rows+to_add))
+      return ids_to_keep
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////////// Generate dots bounded within polygon /////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    /*
+    Generate points at random locations inside polygon.
+        polygon: polygon (Array of points [x,y])
+        numPoints: number of points to generate
+
+    Returns an Array of points [x,y].
+
+    The returned Array will have a property complete, which is set to false if the
+    desired number of points could not be generated within `options.numIterations` attempts
+    */
+    function makeDots(name, polygon, numPoints, options) { 
+
+      options = Object.assign({
+        // DEFAULT OPTIONS:
+        maxIterations: numPoints * 50,
+        distance: null, // by default: MIN(width, height) / numPoints / 4,
+        edgeDistance: options.distance
+      },options);
+
+      numPoints = Math.floor(numPoints)
+
+      // calculate bounding box
+      
+      let xMin = Infinity,
+        yMin = Infinity,
+        xMax = -Infinity,
+        yMax = -Infinity
+      
+      polygon.forEach(p => {
+        if (p[0]<xMin) xMin = p[0]
+        if (p[0]>xMax) xMax = p[0]
+        if (p[1]<yMin) yMin = p[1]
+        if (p[1]>yMax) yMax = p[1]
+      });
+
+      let width = xMax - xMin
+      let height = yMax - yMin
+      
+      // default options depending on bounds
+      
+      options.distance = options.distance || Math.min(width, height) / numPoints / 4
+      options.edgeDistance = options.edgeDistance || options.distance
+      
+      // generate points
+      
+      let points = [];
+      
+      outer:
+      for (let i=0; i<options.maxIterations; i++) {
+        let p = [xMin + Math.random() * width, yMin + Math.random() * height, name]
+        if (d3.polygonContains(polygon, p)) {
+          // check distance to other points
+          for (let j=0; j<points.length; j++) {
+            let dx = p[0]-points[j][0],
+                dy = p[1]-points[j][1]
+            
+            if (Math.sqrt(dx*dx+dy*dy) < options.distance) continue outer;
+          }
+          // check distance to polygon edge
+          for (let j=0; j<polygon.length-1; j++) {
+            if (distPointEdge(p, polygon[j], polygon[j+1]) < options.edgeDistance) continue outer;
+          }
+          points.push(p)
+          if (points.length == numPoints) break;
+        }
+      }
+      
+      points.complete = (points.length >= numPoints)
+      
+      return points
+    }
+
+    // ported from https://stackoverflow.com/q/30559799
+    function distPointEdge(p, l1, l2) {
+
+      let A = p[0] - l1[0],
+          B = p[1] - l1[1],
+          C = l2[0] - l1[0],
+          D = l2[1] - l1[1];
+
+      let dot = A * C + B * D;
+      let len_sq = C * C + D * D;
+      
+      // alpha is proportion of closest point on the line between l1 and l2
+      let alpha = -1;
+      if (len_sq != 0) //in case of 0 length line
+          alpha = dot / len_sq;
+
+      // points on edge closest to p
+      let X, Y;
+
+      if (alpha < 0) {
+        X = l1[0];
+        Y = l1[1];
+      }
+      else if (alpha > 1) {
+        X = l2[0];
+        Y = l2[1];
+      }
+      else {
+        X = l1[0] + alpha * C;
+        Y = l1[1] + alpha * D;
+      }
+
+      let dx = p[0] - X;
+      let dy = p[1] - Y;
+      
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function rectCollide() {
+        var nodes, sizes, masses
+        var size = constant([0, 0])
+        var strength = 1
+        var iterations = 1
+
+        function force() {
+            var node, size, mass, xi, yi
+            var i = -1
+            while (++i < iterations) { iterate() }
+
+            function iterate() {
+                var j = -1
+                var tree = d3.quadtree(nodes, xCenter, yCenter).visitAfter(prepare)
+
+                while (++j < nodes.length) {
+                    node = nodes[j]
+                    size = sizes[j]
+                    mass = masses[j]
+                    xi = xCenter(node)
+                    yi = yCenter(node)
+
+                    tree.visit(apply)
+                }
+            }
+
+            function apply(quad, x0, y0, x1, y1) {
+                var data = quad.data
+                var xSize = (size[0] + quad.size[0]) / 2
+                var ySize = (size[1] + quad.size[1]) / 2
+                if (data) {
+                    if (data.index <= node.index) { return }
+
+                    var x = xi - xCenter(data)
+                    var y = yi - yCenter(data)
+                    var xd = Math.abs(x) - xSize
+                    var yd = Math.abs(y) - ySize
+
+                    if (xd < 0 && yd < 0) {
+                        var l = Math.sqrt(x * x + y * y)
+                        var m = masses[data.index] / (mass + masses[data.index])
+
+                        if (Math.abs(xd) < Math.abs(yd)) {
+                            node.vx -= (x *= xd / l * strength) * m
+                            data.vx += x * (1 - m)
+                        } else {
+                            node.vy -= (y *= yd / l * strength) * m
+                            data.vy += y * (1 - m)
+                        }
+                    }
+                }
+
+                return x0 > xi + xSize || y0 > yi + ySize ||
+                       x1 < xi - xSize || y1 < yi - ySize
+            }
+
+            function prepare(quad) {
+                if (quad.data) {
+                    quad.size = sizes[quad.data.index]
+                } else {
+                    quad.size = [0, 0]
+                    var i = -1
+                    while (++i < 4) {
+                        if (quad[i] && quad[i].size) {
+                            quad.size[0] = Math.max(quad.size[0], quad[i].size[0])
+                            quad.size[1] = Math.max(quad.size[1], quad[i].size[1])
+                        }
+                    }
+                }
+            }
+        }
+
+        function xCenter(d) { return d.x + d.vx + sizes[d.index][0] / 2 }
+        function yCenter(d) { return d.y + d.vy + sizes[d.index][1] / 2 }
+
+        force.initialize = function (_) {
+            sizes = (nodes = _).map(size)
+            masses = sizes.map(function (d) { return d[0] * d[1] })
+        }
+
+        force.size = function (_) {
+            return (arguments.length
+                 ? (size = typeof _ === 'function' ? _ : constant(_), force)
+                 : size)
+        }
+
+        force.strength = function (_) {
+            return (arguments.length ? (strength = +_, force) : strength)
+        }
+
+        force.iterations = function (_) {
+            return (arguments.length ? (iterations = +_, force) : iterations)
+        }
+
+        return force
+    }
+
+    function boundedBox() {
+        var nodes, sizes
+        var bounds
+        var size = constant([0, 0])
+
+        function force() {
+            var node, size
+            var xi, x0, x1, yi, y0, y1
+            var i = -1
+            while (++i < nodes.length) {
+                node = nodes[i]
+                size = sizes[i]
+                xi = node.x + node.vx
+                x0 = bounds[0][0] - xi
+                x1 = bounds[1][0] - (xi + size[0])
+                yi = node.y + node.vy
+                y0 = bounds[0][1] - yi
+                y1 = bounds[1][1] - (yi + size[1])
+                if (x0 > 0 || x1 < 0) {
+                    node.x += node.vx
+                    node.vx = -node.vx
+                    if (node.vx < x0) { node.x += x0 - node.vx }
+                    if (node.vx > x1) { node.x += x1 - node.vx }
+                }
+                if (y0 > 0 || y1 < 0) {
+                    node.y += node.vy
+                    node.vy = -node.vy
+                    if (node.vy < y0) { node.vy += y0 - node.vy }
+                    if (node.vy > y1) { node.vy += y1 - node.vy }
+                }
+            }
+        }
+
+        force.initialize = function (_) {
+            sizes = (nodes = _).map(size)
+        }
+
+        force.bounds = function (_) {
+            return (arguments.length ? (bounds = _, force) : bounds)
+        }
+
+        force.size = function (_) {
+            return (arguments.length
+                 ? (size = typeof _ === 'function' ? _ : constant(_), force)
+                 : size)
+        }
+
+        return force
+    }
+
+    function constant(_) {
+        return function () { return _ }
+    }
+
+    // kick things off
+    init();
+
+  </script>
+</body>
+
+</html>

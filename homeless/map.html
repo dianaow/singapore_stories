@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <title>Singapore Planning Area</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.min.js'></script>
+    <style>
+      body {
+        padding: 0px;
+        margin: 0px;
+        height: 100vh;
+      }
+      .svg-container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+      }
+      .svg-content {
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
+      path.area{
+        stroke-width:0.3;
+        fill: #ffffbf;
+        stroke: black;
+      }
+      path.area.highlight{
+        fill:#78c679;
+      }
+    </style>
+</head>
+<body>
+  <div id="container" class="svg-container"></div>
+    <div id="tooltip" class="hidden">
+      <p><span id="value"></p>
+    </div>
+  <script>
+    
+  var margin = {top: 0, right: 0, bottom: 0, left: 0},
+      vizWidth = window.innerWidth,
+      vizHeight = window.innerHeight,
+      plotWidth = vizWidth - margin.left - margin.right,
+      plotHeight = vizHeight - margin.top - margin.bottom
+
+  var viz = d3.select("#container").append("svg")
+              .classed("svg-content",true)
+              .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
+              .attr("preserveAspectRatio", "xMinYMin meet")
+              .attr("width", '100%')
+              .attr("height", '100%');
+
+  var plot = viz.append("g")
+      .attr("class","plot")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  function mouseout() {
+    d3.select(this).classed("highlight",false)
+  }
+
+  d3.json("singapore_districts.json", function(sg) {
+
+    data = sg
+    updateMap(data, plotWidth, plotHeight) 
+
+  })
+
+  function updateMap(data, panelWidth, panelHeight) {
+
+    var projection = d3.geoMercator().fitSize([panelWidth,panelHeight],data),
+        geoPath = d3.geoPath(projection);
+
+    var areas = plot.selectAll("path").data(data.features)
+
+    var areasEnter = areas.enter().append("path")
+
+    areas = areas.merge(areasEnter)
+
+    areas
+      .attr("d",geoPath)
+      .classed("area",true)
+      .on('mouseover', function(d) {
+        d3.select(this).classed("highlight",true);
+      })
+      .on('mouseout',mouseout);
+
+    areas.exit().remove()
+
+    var centroids = data.features.map(function (feature){
+      return geoPath.centroid(feature);
+    });
+
+  }
+
+  // on window resize
+  window.addEventListener("resize", draw);
+
+  function draw() {
+    // Resize SVG
+    var bounds = d3.select('.svg-content').node().getBoundingClientRect()
+
+    viz.attr('viewbox', `0 0 ${bounds.width} ${bounds.height}`)
+
+    updateMap(data, bounds.width, bounds.height)
+
+  }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Karla" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <style>
+      body {
+        font-family: 'Karla', sans-serif;
+        background:#F0EFEF;
+        color: black
+      }
+      text {
+        font-family: 'Karla', sans-serif;
+      }
+      h1, h2, h3 {
+        font-family: 'Merriweather', serif;
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
+      .wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center
+      }
+      .box-group {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        padding: 10px;
+      }
+      #chart {
+        width: 100%;
+        height: 65%;
+        overflow-y: scroll;
+      }
+      .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+          background-color: #F0EFEF !important;
+          border-color: black !important;
+          color: black !important;
+      }
+      .dropdown-item:hover, .dropdown-item:active, .dropdown-item:visited {
+          background-color: #F0EFEF !important;
+          border-color: black !important;
+          color: black !important;
+      }
+      span {
+        display: inline-flex;
+        align-items: center;
+        padding: 0px 10px;
+      }
+      .domain {
+        opacity: 0;
+      }
+      .searchBar {
+        margin: 40px 0px 20px 0px;
+      }
+      @media (max-width: 1024px) { 
+        .box-group {
+          display: flex;
+          flex-direction: column;
+          width: 96%;
+          padding: 10px;
+        }
+        h2, h4 {
+          padding-left: 20px;
+        }
+        #chart {
+          height: 75%;
+        }
+        .searchBar {
+          margin: 20px 0px 15px 0px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class ='wrapper'>
+      <div class ='box-group'>
+        <div>
+          <h2>Spatial diversity of ethnic groups in Singapore</h2>
+          <h4>Explore the ethnic makeup of multiracial Singapore by living spaces</h4>
+        </div>
+        <div class='row justify-content-center searchBar'>
+          <span>How concentrated</span>
+          <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              All ethnic groups
+            </button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" type='button'>All ethnic groups</a>
+              <button class="dropdown-item" type='button'>Chinese</a>
+              <button class="dropdown-item" type='button'>Malays</a>
+              <button class="dropdown-item" type='button'>Indians</a>
+              <button class="dropdown-item" type='button'>Others</a>
+            </div>
+          </div>
+          <span>are in each geographical area</span>
+        </div>
+        <div id="xaxis"></div>
+        <div id="chart"></div>  
+      </div>
+    </div> 
+    <script src="index.js"></script>
+  </body>
+
+</html>

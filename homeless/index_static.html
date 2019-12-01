@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+  </head>
+
+  <body>
+    <div id='chart'></div>
+    <script>
+      var circles
+      const margin = {top: 10, right: 10, bottom: 10, left: 10},
+            width = screen.width - margin.left - margin.right,
+            height = screen.height - margin.top - margin.bottom
+
+      const distance = 1
+      const radius = 1.5
+      const radius_new = 15
+
+      const numPoints = [
+         {district: "DOWNTOWN CORE", value: 50},
+         {district: "MARINA EAST", value: 50},
+         {district: "MARINA SOUTH", value: 50},
+         {district: "STRAITS VIEW", value: 41},
+         {district: "OUTRAM", value: 50},
+         {district: "BEDOK", value: 74},
+         {district: "KALLANG", value: 55},
+         {district: "TIONG BAHRU", value: 47}, 
+         {district: "ANG MO KIO", value: 46},
+         {district: "JURONG WEST", value: 45}, 
+         {district: "TOA PAYOH", value: 41},
+         {district: "YISHUN", value: 40},
+         {district: "HOUGANG", value: 39},
+         {district: "CLEMENTI", value: 38},
+         {district: "WOODLANDS", value: 36},
+         {district: "TAMPINES", value: 33},
+         {district: "BUKIT BATOK", value: 30},
+         {district: "BUKIT MERAH", value: 26},
+         {district: "JURONG EAST", value: 26},
+         {district: "SERANGOON", value: 16},
+         {district: "BISHAN", value: 15},
+         {district: "PASIR RIS", value: 13},
+         {district: "CHOA CHU KANG", value: 12},
+         {district: "QUEENSTOWN", value: 9},
+         {district: "PUNGGOL", value: 7}, 
+         {district: "BUKIT PANJANG", value: 6},
+         {district: "SEMBAWANG", value: 4},
+         {district: "SENGKANG", value: 3},
+         {district: "BUKIT TIMAH", value: 2},
+         {district: "GEYLANG", value: 70},
+         {district: "NEWTON", value: 13},
+         {district: "ORCHARD", value: 13},
+         {district: "OUTRAM", value: 13},
+         {district: "MUSEUM", value: 1},
+         {district: "SINGAPORE RIVER", value: 13},
+         {district: "ROCHOR", value: 23}
+      ]
+
+      //////////////////// Set up and initiate containers ///////////////////////
+      var svg = d3.select("#chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+
+      g = svg.append("g")
+          .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+      d3.queue()   
+        .defer(d3.json, 'singapore_districts.json')
+        .defer(d3.json, 'homeless_data.json')
+        .await(init)
+
+      function init(error, geojson, data) {
+
+        let total = data.find(d=>d.metric == "total").data['single']
+        let interviewed_num = data.find(d=>d.metric == "Interviewees").data['total']
+        let men_perc = data.find(d=>d.metric == "Interviewees").data['gender']['Men']
+        let men_total = Math.floor(interviewed_num * men_perc)
+
+        dotDensityMap(geojson, total)
+
+        let locationData = data.find(d=>(d.metric == "Location") & (d.type == "Single night count")).data
+        var barchart_points = []
+        var barchart_labels = []
+        var keys = Object.keys(locationData) 
+        Object.values(locationData).map((perc,i) => {
+          var num = Math.floor(perc/100 * total)
+          var results = getTilesBar(num, i)
+          results.labels.push(keys[i])
+          barchart_points.push(results.tiles)
+          barchart_labels.push(results.labels)
+        })
+
+        var arr = []
+        while(arr.length < total){
+          var r = Math.floor(Math.random() * total) + 1;
+          if(arr.indexOf(r) === -1) arr.push(r);
+        }
+        barchart_points = barchart_points.flat()
+        barchart_points.map((d,i)=>{
+          d.unshift(arr[i])
+        })
+
+        setTimeout(function() {
+
+          update(barchart_points, false)
+          updateLabels(barchart_labels)
+          g.selectAll('path')
+            .transition().duration(500)
+            .attr('opacity', 0)
+            .remove()
+
+        }, 3000)
+
+        let grid_points = getTiles(total, radius, 31)
+        grid_points.map((d,i)=>{
+          d.unshift(i)
+        })  
+
+        setTimeout(function() {
+
+          update(grid_points, false)
+          d3.selectAll('text.axisLabel').remove()
+
+        }, 6000)
+
+        var ids_to_keep = locateIDs(352, 31, interviewed_num)
+        var ids_to_remove = d3.range(0, total).filter(el => ids_to_keep.flat().indexOf(el) == -1)
+
+        setTimeout(function() {
+
+          ids_to_remove.map(id=>{
+            d3.select('#circle-'+id).classed('remove', true)
+          })
+
+          d3.selectAll('circle.remove')
+            .transition().duration(500)
+            .attr('opacity', 0)
+            .remove()
+
+        }, 8000)
+
+        const zoom = d3.zoom()
+          .scaleExtent([1, 40])
+          .on("zoom", zoomed);
+
+        setTimeout(function() {
+
+          //let grid_points_new = getTiles(interviewed_num, radius_new, Math.floor(width / (radius_new*6)))
+          //grid_points_new.map((d,i)=>{
+            //d.unshift(ids_to_keep.flat()[i])
+            //d.push(radius_new)
+          //})  
+          //update(grid_points_new, false)
+
+          svg.transition().duration(750).call(
+            zoom.transform,
+            d3.zoomIdentity.translate(width / 2, height/2-70).scale(7).translate(-width/2, -height/2+70)
+          );
+
+        }, 10000)
+
+        function zoomed() {
+          g.attr("transform", d3.event.transform);
+        }
+
+        //setTimeout(function() { 
+
+          //let ids_to_color = ids_to_keep.flat().slice(0, men_total)
+          //ids_to_color.map(id=>{
+            //d3.select('#circle-'+id).classed('color', true)
+          //})
+          //d3.selectAll('circle.color')
+            //.transition().duration(500)
+            //.attr('fill', 'red')
+
+        //}, 12000)
+
+      }
+
+      function locateIDs(startId, multiple, total) {
+
+        var ids_to_keep = []
+        var num_rows = 9
+        var num_cols = 9
+        for (let i = 0; i < num_cols; i++) {
+          ids_to_keep.push(d3.range(startId+multiple*i, startId+multiple*i+num_rows))
+        }
+        var to_add = total - (num_rows * num_cols)
+        ids_to_keep.push(d3.range(startId+multiple*num_rows, startId+multiple*num_rows+to_add))
+        return ids_to_keep
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      //////////////////////////// Create dot density map ///////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      function dotDensityMap(districts, total) {
+
+        let margin = 20
+        let projection = d3.geoMercator().fitExtent([[margin, margin], [width - margin, height - margin]], districts)
+        let pathGenerator = d3.geoPath().projection(projection)
+
+        let points = districts.features.map(geo => {
+            var value = numPoints.filter(d=>d.district == geo.properties['PLN_AREA_N'].toUpperCase())[0]
+            var dots = value ? value.value : 0
+            return makeDots(geo.geometry.coordinates[0].map(projection), dots, {distance: distance, edgeDistance: Math.max(3,distance)}) 
+        }) 
+
+        var arr = []
+        while(arr.length < total){
+          var r = Math.floor(Math.random() * total) + 1;
+          if(arr.indexOf(r) === -1) arr.push(r);
+        }
+        points = points.flat()
+        points.map((d,i)=>{
+          d.unshift(arr[i])
+        })   
+        g.selectAll('path')
+          .data(districts.features)
+        .enter()
+          .append('path')
+          .attr('d', pathGenerator)
+          .attr('fill', 'none')
+          .attr('stroke', '#bbbbbb')
+          .attr('stroke-width', 1)
+
+        update(points, init=true)
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      //////////////////////////// Updated node positions ///////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      function update(data, init) {
+
+        circles = g.selectAll('circle').data(data, d=>d[0])
+        
+        circles.exit().remove()
+
+        let entered_circles = circles
+          .enter().append('circle')
+            .attr('id', d => 'circle-' + d[0])
+            .attr('cx', d => d[1])
+            .attr('cy', d => d[2])
+            .attr('r', d => d[3] ? d[3] : radius)
+            .attr('opacity', init===true ? 0 : 1)
+
+        circles = circles.merge(entered_circles)
+
+        circles.transition()
+          .duration(1800)
+          .ease(d3.easeQuadOut)
+          .delay(function(d,i) { return init===true ? d[0] * 1.8 : 0 })
+          .attr('cx', d => d[1])
+          .attr('cy', d => d[2])
+          .attr('r', d => d[3] ? d[3] : radius)
+          .attr('opacity', 1)
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      //////////////////////////// Updated node positions ///////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      function updateLabels(data) {
+
+        let labels = g.selectAll('text').data(data, d=>d[0])
+        
+        labels.exit().remove()
+
+        let entered_labels = labels
+          .enter().append('text')
+            .attr('class', 'axisLabel')
+            .attr('opacity', 0)
+            .attr('x', d => d[1])
+            .attr('y', d => d[2])
+            .attr('text-anchor', 'middle')
+            .attr('font-size', 11)
+            .text(d=>d[3])
+
+        labels = labels.merge(entered_labels)
+
+        labels.transition()
+          .duration(1000)
+          .ease(d3.easeQuadOut)
+          .attr('opacity', 1)
+          .attr('x', d => d[1])
+          .attr('y', d => d[2])
+          .text(d=>d[3])
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      //////////////////////////////// Grid of dots /////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      function getTiles(dots, radius, tilesPerRow) {
+        
+        var nodeRadius = radius * 2
+        var tileSize = nodeRadius * 3
+        var barWidth = (tilesPerRow+1) * tileSize
+
+        var tiles = []
+        for(var i = 0; i < dots; i++) {
+          var rowNumber = Math.floor(i / tilesPerRow)
+          tiles.push([
+            (i % tilesPerRow) * tileSize + (width/2 - barWidth/2) + tileSize, 
+            (rowNumber + 1) * tileSize + (radius>=15 ? 0 : (height/4))
+          ])
+        }
+        return tiles
+
+      }
+
+      function getTilesBar(num, counter) {
+
+        var nodeRadius = radius * 2
+        var tileSize = nodeRadius * 3
+        var tilesPerRow = 9
+        var barWidth = (tilesPerRow+1) * tileSize
+
+        var tiles = []
+        for(var i = 0; i < num; i++) {
+          var rowNumber = Math.floor(i / tilesPerRow)
+          tiles.push([
+            ((i % tilesPerRow) * tileSize) + (counter * barWidth) + (width/2 - (barWidth*9)/2),
+            -(rowNumber + 1) * tileSize + (height/2)
+          ])
+        }
+        labels = [
+          counter,
+          (counter * barWidth) + (width/2 - (barWidth*9)/2) + barWidth/2,
+          (height/2) + 20
+        ]
+        return {tiles: tiles, labels: labels}
+
+      }
+
+      function getRandPos(num) {
+
+        var maxVelocity = 8
+        var tiles = []
+        for(var i = 0; i < num; i++) {
+          var velocity = Math.random() * 2 + 1
+          var angle = Math.random() * 360
+
+          tiles.push({
+            x: Math.random() * (width - radius_new),
+            y: Math.random() * (height - radius_new),
+            vx: velocity * Math.cos(angle * Math.PI / 180),
+            vy: velocity * Math.sin(angle * Math.PI / 180)
+          })
+        }
+        return tiles
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      //////////////////// Generate dots bounded within polygon /////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      /*
+      Generate points at random locations inside polygon.
+          polygon: polygon (Array of points [x,y])
+          numPoints: number of points to generate
+
+      Returns an Array of points [x,y].
+
+      The returned Array will have a property complete, which is set to false if the
+      desired number of points could not be generated within `options.numIterations` attempts
+      */
+      function makeDots(polygon, numPoints, options) { 
+
+        options = Object.assign({
+          // DEFAULT OPTIONS:
+          maxIterations: numPoints * 50,
+          distance: null, // by default: MIN(width, height) / numPoints / 4,
+          edgeDistance: options.distance
+        },options);
+
+        numPoints = Math.floor(numPoints)
+
+        // calculate bounding box
+        
+        let xMin = Infinity,
+          yMin = Infinity,
+          xMax = -Infinity,
+          yMax = -Infinity
+        
+        polygon.forEach(p => {
+          if (p[0]<xMin) xMin = p[0]
+          if (p[0]>xMax) xMax = p[0]
+          if (p[1]<yMin) yMin = p[1]
+          if (p[1]>yMax) yMax = p[1]
+        });
+
+        let width = xMax - xMin
+        let height = yMax - yMin
+        
+        // default options depending on bounds
+        
+        options.distance = options.distance || Math.min(width, height) / numPoints / 4
+        options.edgeDistance = options.edgeDistance || options.distance
+        
+        // generate points
+        
+        let points = [];
+        
+        outer:
+        for (let i=0; i<options.maxIterations; i++) {
+          let p = [xMin + Math.random() * width, yMin + Math.random() * height]
+          if (d3.polygonContains(polygon, p)) {
+            // check distance to other points
+            for (let j=0; j<points.length; j++) {
+              let dx = p[0]-points[j][0],
+                  dy = p[1]-points[j][1]
+              
+              if (Math.sqrt(dx*dx+dy*dy) < options.distance) continue outer;
+            }
+            // check distance to polygon edge
+            for (let j=0; j<polygon.length-1; j++) {
+              if (distPointEdge(p, polygon[j], polygon[j+1]) < options.edgeDistance) continue outer;
+            }
+            points.push(p);
+            if (points.length == numPoints) break;
+          }
+        }
+        
+        points.complete = (points.length >= numPoints)
+        
+        return points
+      }
+
+      // ported from https://stackoverflow.com/q/30559799
+      function distPointEdge(p, l1, l2) {
+
+        let A = p[0] - l1[0],
+            B = p[1] - l1[1],
+            C = l2[0] - l1[0],
+            D = l2[1] - l1[1];
+
+        let dot = A * C + B * D;
+        let len_sq = C * C + D * D;
+        
+        // alpha is proportion of closest point on the line between l1 and l2
+        let alpha = -1;
+        if (len_sq != 0) //in case of 0 length line
+            alpha = dot / len_sq;
+
+        // points on edge closest to p
+        let X, Y;
+
+        if (alpha < 0) {
+          X = l1[0];
+          Y = l1[1];
+        }
+        else if (alpha > 1) {
+          X = l2[0];
+          Y = l2[1];
+        }
+        else {
+          X = l1[0] + alpha * C;
+          Y = l1[1] + alpha * D;
+        }
+
+        let dx = p[0] - X;
+        let dy = p[1] - Y;
+        
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      function rectCollide() {
+          var nodes, sizes, masses
+          var size = constant([0, 0])
+          var strength = 1
+          var iterations = 1
+
+          function force() {
+              var node, size, mass, xi, yi
+              var i = -1
+              while (++i < iterations) { iterate() }
+
+              function iterate() {
+                  var j = -1
+                  var tree = d3.quadtree(nodes, xCenter, yCenter).visitAfter(prepare)
+
+                  while (++j < nodes.length) {
+                      node = nodes[j]
+                      size = sizes[j]
+                      mass = masses[j]
+                      xi = xCenter(node)
+                      yi = yCenter(node)
+
+                      tree.visit(apply)
+                  }
+              }
+
+              function apply(quad, x0, y0, x1, y1) {
+                  var data = quad.data
+                  var xSize = (size[0] + quad.size[0]) / 2
+                  var ySize = (size[1] + quad.size[1]) / 2
+                  if (data) {
+                      if (data.index <= node.index) { return }
+
+                      var x = xi - xCenter(data)
+                      var y = yi - yCenter(data)
+                      var xd = Math.abs(x) - xSize
+                      var yd = Math.abs(y) - ySize
+
+                      if (xd < 0 && yd < 0) {
+                          var l = Math.sqrt(x * x + y * y)
+                          var m = masses[data.index] / (mass + masses[data.index])
+
+                          if (Math.abs(xd) < Math.abs(yd)) {
+                              node.vx -= (x *= xd / l * strength) * m
+                              data.vx += x * (1 - m)
+                          } else {
+                              node.vy -= (y *= yd / l * strength) * m
+                              data.vy += y * (1 - m)
+                          }
+                      }
+                  }
+
+                  return x0 > xi + xSize || y0 > yi + ySize ||
+                         x1 < xi - xSize || y1 < yi - ySize
+              }
+
+              function prepare(quad) {
+                  if (quad.data) {
+                      quad.size = sizes[quad.data.index]
+                  } else {
+                      quad.size = [0, 0]
+                      var i = -1
+                      while (++i < 4) {
+                          if (quad[i] && quad[i].size) {
+                              quad.size[0] = Math.max(quad.size[0], quad[i].size[0])
+                              quad.size[1] = Math.max(quad.size[1], quad[i].size[1])
+                          }
+                      }
+                  }
+              }
+          }
+
+          function xCenter(d) { return d.x + d.vx + sizes[d.index][0] / 2 }
+          function yCenter(d) { return d.y + d.vy + sizes[d.index][1] / 2 }
+
+          force.initialize = function (_) {
+              sizes = (nodes = _).map(size)
+              masses = sizes.map(function (d) { return d[0] * d[1] })
+          }
+
+          force.size = function (_) {
+              return (arguments.length
+                   ? (size = typeof _ === 'function' ? _ : constant(_), force)
+                   : size)
+          }
+
+          force.strength = function (_) {
+              return (arguments.length ? (strength = +_, force) : strength)
+          }
+
+          force.iterations = function (_) {
+              return (arguments.length ? (iterations = +_, force) : iterations)
+          }
+
+          return force
+      }
+
+      function boundedBox() {
+          var nodes, sizes
+          var bounds
+          var size = constant([0, 0])
+
+          function force() {
+              var node, size
+              var xi, x0, x1, yi, y0, y1
+              var i = -1
+              while (++i < nodes.length) {
+                  node = nodes[i]
+                  size = sizes[i]
+                  xi = node.x + node.vx
+                  x0 = bounds[0][0] - xi
+                  x1 = bounds[1][0] - (xi + size[0])
+                  yi = node.y + node.vy
+                  y0 = bounds[0][1] - yi
+                  y1 = bounds[1][1] - (yi + size[1])
+                  if (x0 > 0 || x1 < 0) {
+                      node.x += node.vx
+                      node.vx = -node.vx
+                      if (node.vx < x0) { node.x += x0 - node.vx }
+                      if (node.vx > x1) { node.x += x1 - node.vx }
+                  }
+                  if (y0 > 0 || y1 < 0) {
+                      node.y += node.vy
+                      node.vy = -node.vy
+                      if (node.vy < y0) { node.vy += y0 - node.vy }
+                      if (node.vy > y1) { node.vy += y1 - node.vy }
+                  }
+              }
+          }
+
+          force.initialize = function (_) {
+              sizes = (nodes = _).map(size)
+          }
+
+          force.bounds = function (_) {
+              return (arguments.length ? (bounds = _, force) : bounds)
+          }
+
+          force.size = function (_) {
+              return (arguments.length
+                   ? (size = typeof _ === 'function' ? _ : constant(_), force)
+                   : size)
+          }
+
+          return force
+      }
+
+      function constant(_) {
+          return function () { return _ }
+      }
+
+    </script>
+  </body>
+</html>
