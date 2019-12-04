@@ -44,23 +44,102 @@ var color = d3.scaleOrdinal()
   .domain(groups)
   .range(["mediumblue", "gold", "teal", "hotpink"])
 
+var svgLegend = d3.selectAll('.gLegend')
+
+svgLegend.selectAll('.legend-pill')
+  .data(groups)
+  .enter().append('div')
+    .attr("class", "legend-pill")
+    .style("background-color", d=>color(d))
+    .style("color", "white")
+    .text(d=>d)
+
 init()
+
+function createForm(data) {
+
+  var byParam = d3.nest()
+    .key(function(d) { return d.race})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.value - +a.value }) 
+    .entries(data)
+
+  // Run update function when text area changes
+  // $(".dropdown-menu button").click(function(){
+  //   var value = $(this).text().trim()
+  //   $('.dropdown-toggle').text(value)
+  //   if(value=='All ethnic groups'){
+  //     update(data, bySubzone_list)
+  //   } else {
+  //     var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+  //     let bySubzone_list_copy = bySubzone.map(d=>d.key)
+  //     bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
+  //     update(data, bySubzone_list_copy)
+  //   }
+  // })
+
+  $(".legend-pill").click(function(){
+    var value = $(this).text().trim()
+    if(value=='All ethnic groups'){
+      update(data, bySubzone_list)
+    } else {
+      var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+      let bySubzone_list_copy = bySubzone.map(d=>d.key)
+      bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
+      update(data, bySubzone_list_copy)
+    }
+  })
+    
+}
+
+function createDropdown(data) {
+
+  var PA_list = data.map(d=>d.planning_area).filter(onlyUnique)
+
+  var byParam = d3.nest()
+    .key(function(d) { return d.planning_area})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.value - +a.value }) 
+    .entries(data)
+
+  d3.select('.dropdown-menu').selectAll('.dropdown-item')
+    .data(PA_list)
+    .enter().append('div')
+      .attr("class", "dropdown-item")
+      .text(d=>d)
+
+  $(".dropdown-item").click(function(){
+    var value = $(this).text().trim()
+
+    $('.dropdown-toggle').text(value)
+    if(value=='All planning areas'){
+      update(data, bySubzone_list)
+    } else {
+      var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+      let bySubzone_list_copy = bySubzone.map(d=>d.key)
+      bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
+      update(data, bySubzone_list_copy)
+    }
+  })
+
+}
 
 function init() {
 
   d3.queue()   
-    .defer(d3.csv, './resident-population-by-subzone-ethnic-group-and-sex.csv')  
+    .defer(d3.csv, './resident-population-by-subzone-ethnic-group-and-sex.csv') 
+    .defer(d3.json, "../homeless/sgp_subzone.geojson")
     .await(initializeData);  
 
 }
 
-function initializeData(error, csv){
+function initializeData(error, csv, topojson){
 
   let data = csv.map((d,i) => {
     return {
       race: d.level_1,
       gender: d.level_2,
-      planning_area: d.level_3,
+      planning_area: d.level_3.split('-',2)[0],
       subzone: d.level_4,
       value: +d.value
     } 
@@ -79,6 +158,8 @@ function initializeData(error, csv){
 
   update(race_by_subzone, bySubzone_list)
   createForm(race_by_subzone)
+  createDropdown(race_by_subzone)
+  updateMap(topojson)
 }
 
 function update(data, sort_list) {
@@ -172,6 +253,14 @@ function update(data, sort_list) {
       .style("visibility","visible")
     d3.selectAll("#tooltip")
       .style('display', 'block')
+    d3.select('.sgp-path-' + d.subzone.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+      .style('stroke-width', 1.5)
+    d3.select('.plot-subzone-text')
+      .text(d.subzone)
+    d3.selectAll('#district-path-' + d.planning_area.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+      .style('fill', '#D3D3D3')
+    d3.select('.plot-pa-text')
+      .text(d.planning_area)
   })
   .on('mousemove', function(d) {
     updateTooltipContent(d)
@@ -184,6 +273,14 @@ function update(data, sort_list) {
       .style("visibility","hidden")
     d3.selectAll("#tooltip")
       .style('display', 'none')
+    d3.select('.sgp-path-' + d.subzone.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+      .style('stroke-width', 0.3)
+    d3.select('.plot-subzone-text')
+      .text("")
+    d3.selectAll('#district-path-' + d.planning_area.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+      .style('fill', 'transparent')
+    d3.select('.plot-pa-text')
+      .text("")
   })
 
   // CREATE AXES // 
@@ -235,31 +332,8 @@ function updateTooltipContent(d) {
     .style('color', 'black')
     .style('font-size', '10px')
     .style('padding', '9px')
-    .html("<div><span><u>" + d.subzone + "</u></span><br><span>" + d.race + "</span><br><span><b>" + d.value + " people</b></span></div>")
-
-}
-
-function createForm(data) {
-
-  var byParam = d3.nest()
-    .key(function(d) { return d.race})
-    .key(function(d) { return d.subzone})
-    .sortValues(function(a,b) { return +b.value - +a.value }) 
-    .entries(data)
-
-  // Run update function when text area changes
-  $(".dropdown-menu button").click(function(){
-    var value = $(this).text().trim()
-    $('.dropdown-toggle').text(value)
-    if(value=='All ethnic groups'){
-      update(data, bySubzone_list)
-    } else {
-      var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
-      let bySubzone_list_copy = bySubzone.map(d=>d.key)
-      bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
-      update(data, bySubzone_list_copy)
-    }
-  })
+    .html("<div><span><u>" + d.subzone + "</u></span><br><span><b>" + d.value + " " + d.race + "</b></span></div>")
+    //.html("<div><span><u>" + d.subzone + "</u></span><br><span>" + d.race + "</span><br><span><b>" + d.value + " people</b></span></div>")
 
 }
 
@@ -281,4 +355,79 @@ function mergeArrays(...arrays) {
         }
     }, [])
     return uniqueArray
+}
+
+
+
+var plotWidth = 620
+var plotHeight = 300
+
+var viz = d3.select(".svg-container").append("svg")
+            .classed("svg-content",true)
+            .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
+            //.attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("width", '100%')
+            .attr("height", '100%');
+
+var plot = viz.append("g")
+    .attr("class","plot")
+    .attr("transform", "translate(" + 80 + "," + 0 + ")");
+
+var plot_desc = viz.append("g")
+    .attr("class","plot_desc")
+    .attr("transform", "translate(" + 415 + "," + 200 + ")");
+
+plot_desc.append('rect')
+  .attr('width', 20)
+  .attr('height', 5)
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('fill', 'black')
+
+plot_desc.append('rect')
+  .attr('width', 20)
+  .attr('height', 10)
+  .attr('x', 0)
+  .attr('y', 20)
+  .attr('fill', '#d3d3d3')
+  .attr('stroke-width', 0.3)
+
+plot_desc.append('text')
+  .attr('x', 25)
+  .attr('y', 5)
+  .attr('font-size', '10px')
+  .text('Subzone:')
+
+plot_desc.append('text')
+  .attr('x', 25)
+  .attr('y', 28)
+  .attr('font-size', '10px')
+  .text('Planning area')
+
+plot_desc.append('text')
+  .attr('class', 'plot-subzone-text')
+  .attr('x', 100)
+  .attr('y', 5)
+  .attr('font-size', '12px')
+  .attr('text-decoration', 'underline')
+
+plot_desc.append('text')
+  .attr('class', 'plot-pa-text')
+  .attr('x', 100)
+  .attr('y', 28)
+  .attr('font-size', '12px')
+  .attr('text-decoration', 'underline')
+
+function updateMap(data) {
+
+  var projection = d3.geoMercator().fitSize([plotWidth,plotHeight],data)
+  var path = d3.geoPath(projection)
+
+  var areas = plot.selectAll("path").data(data.features)
+  areas.enter().append("path")
+    .attr("d",path)
+    .attr('id', (d,i)=>'district-path-'+d.properties['PLN_AREA_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+    .attr('class', (d,i)=>'sgp-path-'+d.properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+    .classed("area",true)
+
 }

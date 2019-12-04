@@ -13,8 +13,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Karla" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
     <style>
       body {
+        position: relative;
         font-family: 'Karla', sans-serif;
         background:#F0EFEF;
         color: black
@@ -57,7 +59,6 @@
       span {
         display: inline-flex;
         align-items: center;
-        padding: 0px 10px;
       }
       .domain {
         opacity: 0;
@@ -82,18 +83,61 @@
           margin: 20px 0px 15px 0px;
         }
       }
+      .svg-container {
+          position: absolute;
+          top: 5px;
+          right: 120px;
+          width: 650px;
+          height: 300px;
+      }
+      .svg-content {
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
+      path.area{
+        stroke-width:0.3;
+        fill: transparent;
+        stroke: black;
+      }
+      path.area.highlight{
+        fill:#78c679;
+      }
+      #xaxis {
+        margin-top: 35px;
+      }
+      .legend-pill {
+        color: white;
+        border-radius: 0.25rem; 
+        padding: 4px 8px;
+        text-align: center;
+        display: inline-block;
+        font-size: 0.8em;
+        margin-right: 10px;
+      }
+      .legend-pill:hover {
+        cursor: pointer;
+      }
+      .dropdown {
+        margin: 0px 10px;
+      }
+      .dropdown-menu {
+        overflow-y: scroll;
+        max-height: 240px;
+      }
     </style>
   </head>
 
   <body>
+    <div class="svg-container"></div>
     <div class ='wrapper'>
       <div class ='box-group'>
         <div>
           <h2>Spatial diversity of ethnic groups in Singapore</h2>
           <h4>Explore the ethnic makeup of multiracial Singapore by living spaces</h4>
         </div>
-        <div class='row justify-content-center searchBar'>
-          <span>How concentrated</span>
+        <div class='row searchBar'>
+          <!--<span>How concentrated</span>
           <div class="dropdown">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               All ethnic groups
@@ -106,7 +150,18 @@
               <button class="dropdown-item" type='button'>Others</a>
             </div>
           </div>
-          <span>are in each geographical area</span>
+          <span>are in each geographical area</span>-->
+          <span>Search by: </span>
+          <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              All planning areas
+            </button>
+            <div class="dropdown-menu">
+            </div>
+          </div>
+        </div>
+        <div class='gLegend'>
+         <span>Sort by: </span> 
         </div>
         <div id="xaxis"></div>
         <div id="chart"></div>  

@@ -3,7 +3,7 @@
 <head>
     <title>Singapore Planning Area</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="//d3js.org/topojson.v2.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.min.js'></script>
     <style>
       body {
@@ -23,7 +23,7 @@
       }
       path.area{
         stroke-width:0.3;
-        fill: transparent;
+        fill: #ffffbf;
         stroke: black;
       }
       path.area.highlight{
@@ -43,67 +43,46 @@
       vizHeight = window.innerHeight,
       plotWidth = vizWidth - margin.left - margin.right,
       plotHeight = vizHeight - margin.top - margin.bottom
-
   var viz = d3.select("#container").append("svg")
               .classed("svg-content",true)
               .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
               .attr("preserveAspectRatio", "xMinYMin meet")
               .attr("width", '100%')
               .attr("height", '100%');
-
   var plot = viz.append("g")
       .attr("class","plot")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
   function mouseout() {
     d3.select(this).classed("highlight",false)
   }
-
-  d3.json("MP14_SUBZONE_WEB_PL.json", function(error, sg) {
-
+  d3.json("sgp_subzone.geojson", function(sg) {
     data = sg
     updateMap(data, plotWidth, plotHeight) 
-
   })
-
   function updateMap(data, panelWidth, panelHeight) {
 
-    var projection = d3.geoMercator().fitSize([panelWidth,panelHeight], topojson.feature(data, data.objects.MP14_SUBZONE_WEB_PL)),
-        path = d3.geoPath(projection);
+    var projection = d3.geoMercator().fitSize([panelWidth,panelHeight],data)
+    var geoPath = d3.geoPath(projection)
 
-    var areas = plot.selectAll("path").data(topojson.feature(data, data.objects.MP14_SUBZONE_WEB_PL).features)
-    areas.enter().append("path")
-      .attr("d",path)
-      .attr('class', (d,i)=>'sgp-path-'+i)
+    plot.selectAll("path").data(data.features)
+      .enter().append("path")
+      .attr("d",geoPath)
       .classed("area",true)
       .on('mouseover', function(d) {
+        console.log(d.properties)
         d3.select(this).classed("highlight",true);
       })
       .on('mouseout',mouseout);
 
-    d3.select('.sgp-path-301').remove()
-    d3.select('.sgp-path-15').remove()
-    d3.select('.sgp-path-16').remove()
-    d3.select('.sgp-path-17').remove()
-    d3.select('.sgp-path-18').remove()
-    d3.select('.sgp-path-19').remove()
-    d3.select('.sgp-path-233').remove()
-
   }
-
   // on window resize
   window.addEventListener("resize", draw);
-
   function draw() {
     // Resize SVG
     var bounds = d3.select('.svg-content').node().getBoundingClientRect()
-
     viz.attr('viewbox', `0 0 ${bounds.width} ${bounds.height}`)
-
     updateMap(data, bounds.width, bounds.height)
-
   }
-
   </script>
 </body>
 </html>
