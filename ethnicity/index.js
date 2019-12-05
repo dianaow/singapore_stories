@@ -2,7 +2,8 @@ var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWid
 var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 10
 var canvasDim = { width: screenWidth, height: screenHeight}
 
-var bySubzone, bySubzone_list
+var bySubzone, bySubzone_list, sort_list_PA
+var dropdownValue = 'All planning areas'
 var axisPad = 6
 
 var margin = {top: 0, right: screen.width <= 420 ? 20 : 40, bottom: 20, left: screen.width <= 420 ? 20 : 150}
@@ -39,10 +40,10 @@ var lines = svg.append('g')
 var nodes = svg.append('g')
   .attr('class', 'nodes')
 
-var groups = ['Chinese', 'Malays', 'Indians', 'Others']
+var groups = ['All ethnic groups', 'Chinese', 'Malays', 'Indians', 'Others']
 var color = d3.scaleOrdinal()
   .domain(groups)
-  .range(["mediumblue", "gold", "teal", "hotpink"])
+  .range(["transparent","mediumblue", "gold", "teal", "hotpink"])
 
 var svgLegend = d3.selectAll('.gLegend')
 
@@ -51,7 +52,8 @@ svgLegend.selectAll('.legend-pill')
   .enter().append('div')
     .attr("class", "legend-pill")
     .style("background-color", d=>color(d))
-    .style("color", "white")
+    .style('border', '1px solid black')
+    .style("color", d=>(['transparent', 'gold'].indexOf(color(d)) != -1) ? "black" : "white")
     .text(d=>d)
 
 init()
@@ -80,13 +82,25 @@ function createForm(data) {
 
   $(".legend-pill").click(function(){
     var value = $(this).text().trim()
-    if(value=='All ethnic groups'){
-      update(data, bySubzone_list)
-    } else {
+    let bySubzone_list_copy = bySubzone.map(d=>d.key)
+
+    if(value!='All ethnic groups') {
       var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
-      let bySubzone_list_copy = bySubzone.map(d=>d.key)
-      bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
-      update(data, bySubzone_list_copy)
+    } else {
+      var sort_list_new = bySubzone_list_copy
+    } 
+
+    if(dropdownValue == 'All planning areas') {
+      if(value=='All ethnic groups'){
+        update(data, bySubzone_list)
+      } else {
+        bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
+        update(data, bySubzone_list_copy)
+      }
+    } else {
+        sort_list_PA.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
+        bySubzone_list_copy.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
+        update(data, bySubzone_list_copy)
     }
   })
     
@@ -95,6 +109,7 @@ function createForm(data) {
 function createDropdown(data) {
 
   var PA_list = data.map(d=>d.planning_area).filter(onlyUnique)
+  PA_list.unshift('All planning areas')
 
   var byParam = d3.nest()
     .key(function(d) { return d.planning_area})
@@ -110,15 +125,58 @@ function createDropdown(data) {
 
   $(".dropdown-item").click(function(){
     var value = $(this).text().trim()
+    dropdownValue = value
 
     $('.dropdown-toggle').text(value)
     if(value=='All planning areas'){
+
       update(data, bySubzone_list)
+
+      d3.selectAll("circle").attr('fill-opacity', 1)
+      d3.selectAll('.y_axis text').attr('opacity', 1)
+      d3.selectAll('.y_axis line').attr('stroke-opacity', 1)
+
+      plot.selectAll("path")
+        .style('fill', 'transparent')
+      plot_desc.select('.plot-pa-text')
+        .text("")
+
     } else {
-      var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+
+      sort_list_PA = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
       let bySubzone_list_copy = bySubzone.map(d=>d.key)
-      bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
+      bySubzone_list_copy.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
       update(data, bySubzone_list_copy)
+
+      //var filtered = bySubzone_list_copy.filter(
+          //function(e) {
+            //return this.indexOf(e) < 0;
+          //},
+          //sort_list_new 
+      //)
+
+      d3.selectAll("circle").attr('fill-opacity', 0.4)
+      d3.selectAll('.y_axis text').attr('opacity', 0.4)
+      d3.selectAll('.y_axis line').attr('stroke-opacity', 0.4)
+
+      plot.selectAll("path")
+        .style('fill', 'transparent')
+      //plot_desc.select('.plot-pa-text')
+        //.text("")
+
+      sort_list_PA.map(d=>{
+        var id = d.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase()
+        var PLANNING_AREA = value.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase()
+        d3.selectAll("circle[id*='" + id + "']").attr('fill-opacity', 1)
+        d3.select('.axis-tick-'+id).attr('opacity', 1)
+        d3.select('.axis-line-'+id).attr('stroke-opacity', 1)
+
+        d3.selectAll('#district-path-' + PLANNING_AREA)
+          .style('fill', '#D3D3D3')
+        plot_desc.select('.plot-pa-text')
+          .text(PLANNING_AREA)
+      })
+
     }
   })
 
@@ -140,7 +198,9 @@ function initializeData(error, csv, topojson){
       race: d.level_1,
       gender: d.level_2,
       planning_area: d.level_3.split('-',2)[0],
+      PLANNING_AREA: d.level_3.split('-',2)[0].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
       subzone: d.level_4,
+      SUBZONE: d.level_4.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
       value: +d.value
     } 
   })
@@ -182,7 +242,7 @@ function update(data, sort_list) {
   data.sort(function(a,b) { return sort_list.indexOf(a.subzone) - sort_list.indexOf(b.subzone) })
 
   data.forEach((d,i) => {
-    data[i].id = d.subzone.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.race
+    data[i].id = d.SUBZONE + "-" + d.race
     data[i].x = xScale(d.value),
     data[i].y = yScale(d.subzone)
   })
@@ -253,11 +313,12 @@ function update(data, sort_list) {
       .style("visibility","visible")
     d3.selectAll("#tooltip")
       .style('display', 'block')
-    d3.select('.sgp-path-' + d.subzone.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+
+    d3.select('.sgp-path-' + d.SUBZONE)
       .style('stroke-width', 1.5)
     d3.select('.plot-subzone-text')
       .text(d.subzone)
-    d3.selectAll('#district-path-' + d.planning_area.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+    d3.selectAll('#district-path-' + d.PLANNING_AREA)
       .style('fill', '#D3D3D3')
     d3.select('.plot-pa-text')
       .text(d.planning_area)
@@ -273,11 +334,12 @@ function update(data, sort_list) {
       .style("visibility","hidden")
     d3.selectAll("#tooltip")
       .style('display', 'none')
-    d3.select('.sgp-path-' + d.subzone.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+
+    d3.select('.sgp-path-' + d.SUBZONE)
       .style('stroke-width', 0.3)
     d3.select('.plot-subzone-text')
       .text("")
-    d3.selectAll('#district-path-' + d.planning_area.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+    d3.selectAll('#district-path-' + d.PLANNING_AREA)
       .style('fill', 'transparent')
     d3.select('.plot-pa-text')
       .text("")
@@ -308,9 +370,9 @@ function update(data, sort_list) {
     .call(g => {
       g.selectAll("text")
       .attr("x", -axisPad*2)
+      .attr("y" , screen.width <= 420 ? "-0.9em" : 0)
       .style("font-weight", "normal")
       .style('font-size', screen.width <= 420 ? '7px' : '10px')
-      .attr("y" , screen.width <= 420 ? "-0.9em" : 0)
       .attr('fill', '#635f5d')
       .style("cursor", "pointer")
 
@@ -320,6 +382,13 @@ function update(data, sort_list) {
         .attr('opacity', 0.3)
 
      })
+
+  d3.selectAll(".y_axis text").attr('class', function(d) { 
+    return 'axis-tick-'+d.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase() 
+  })
+  d3.selectAll(".y_axis line").attr('class', function(d) { 
+    return 'axis-line-'+d.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase() 
+  })
 
 }
 
