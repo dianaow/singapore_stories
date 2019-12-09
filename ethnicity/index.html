@@ -8,18 +8,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="../vendor/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Karla" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.min.js'></script>
     <style>
+      * {
+        box-sizing: border-box;
+      }
       body {
         position: relative;
         font-family: 'Karla', sans-serif;
         background:#F0EFEF;
-        color: black
+        color: black;
       }
       text {
         font-family: 'Karla', sans-serif;
@@ -64,24 +68,7 @@
         opacity: 0;
       }
       .searchBar {
-        margin: 40px 0px 20px 0px;
-      }
-      @media (max-width: 1024px) { 
-        .box-group {
-          display: flex;
-          flex-direction: column;
-          width: 96%;
-          padding: 10px;
-        }
-        h2, h4 {
-          padding-left: 20px;
-        }
-        #chart {
-          height: 75%;
-        }
-        .searchBar {
-          margin: 20px 0px 15px 0px;
-        }
+        margin: 0px;
       }
       .svg-container {
           position: absolute;
@@ -91,6 +78,7 @@
           height: 300px;
       }
       .svg-content {
+          display: block;
           position: absolute;
           top: 0;
           left: 0;
@@ -106,6 +94,10 @@
       #xaxis {
         margin-top: 35px;
       }
+      .ethnic-groups-pills {
+        display: inline-block;
+        margin: 20px 0px 0px 0px;
+      }
       .legend-pill {
         color: white;
         border-radius: 0.25rem; 
@@ -118,6 +110,9 @@
       .legend-pill:hover {
         cursor: pointer;
       }
+      .legend-pill-active {
+        border: 4px black;
+      }
       .dropdown {
         margin: 0px 10px;
       }
@@ -128,6 +123,53 @@
       .dropdown-item:hover {
         cursor: pointer;
       }
+
+      @media (max-width: 1024px) {
+        .svg-content {
+          display: none;
+        }
+        .ethnic-groups-pills {
+          display: inline-block;
+        }
+        h2 {
+          font-size: 1.6em;
+        }
+        h4 {
+          font-size: 1.2em;
+        }
+        p {
+          font-size: 0.7em;
+          width: 100% !important;
+        }
+      }
+
+      @media (max-width: 700px) { 
+        .box-group {
+          display: flex;
+          flex-direction: column;
+          width: 96%;
+          padding: 10px;
+        }
+        #chart {
+          height: 75%;
+        }
+        h2 {
+          font-size: 1.5em;
+        }
+        h4 {
+          font-size: 1.1em;
+        }
+        .searchBar {
+          margin: 0px 0px 10px 0px;
+        }
+        .svg-content {
+          display: none;
+        }
+        .ethnic-groups-pills {
+          display: block;
+        }
+      }
+
     </style>
   </head>
 
@@ -138,6 +180,7 @@
         <div>
           <h2>Spatial diversity of ethnic groups in Singapore</h2>
           <h4>Explore the ethnic makeup of multiracial Singapore by living spaces</h4>
+          <p style='width: 60%;font-size:0.8em'>Planning areas are the main urban planning and census divisions of Singapore delineated by the Urban Redevelopment Authority. These 55 planning areas are further subdivided into subzones.</p>
         </div>
         <div class='row searchBar'>
           <!--<span>How concentrated</span>
@@ -155,22 +198,31 @@
           </div>
           <span>are in each geographical area</span>-->
           <span>Search by: </span>
-          <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="dropdown dd-1">
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               All planning areas
             </button>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu dropdown-1">
             </div>
           </div>
         </div>
         <div class='gLegend'>
-         <span>Sort population count by: </span> 
+         <span>Sort by: </span> 
+          <div class="dropdown dd-2" style='display: inline-block'>
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Population count
+            </button>
+            <div class="dropdown-menu dropdown-2"></div>
+          </div> 
+          <div class='ethnic-groups-pills'></div>     
         </div>
-        <div id="xaxis"></div>
+        <div id="xaxis" style='position: relative;'>
+          <p style='position: absolute; left: 0px; top: 0px'>Subzone</p>
+        </div>
         <div id="chart"></div>  
       </div>
     </div> 
-    <script src="index.js"></script>
+    <script src="index1.js"></script>
   </body>
 
 </html>

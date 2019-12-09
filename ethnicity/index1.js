@@ -2,9 +2,10 @@ var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWid
 var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 10
 var canvasDim = { width: screenWidth, height: screenHeight}
 
-var bySubzone, bySubzone_list, sort_list_PA
-var dropdownValue = 'All planning areas'
-var sortValue = 'All ethnic groups'
+var bySubzone, byRace, sort_list_PA
+
+var paValue = 'All planning areas'
+var selectedRace = undefined
 var view_type = 'Population count'
 var axisPad = 6
 
@@ -47,7 +48,7 @@ var color = d3.scaleOrdinal()
   .domain(groups)
   .range(["mediumblue", "gold", "teal", "hotpink"])
 
-var svgLegend = d3.selectAll('.gLegend')
+var svgLegend = d3.selectAll('.ethnic-groups-pills')
 
 svgLegend.selectAll('.legend-pill')
   .data(groups)
@@ -58,61 +59,54 @@ svgLegend.selectAll('.legend-pill')
     .style("color", d=>(['transparent', 'gold'].indexOf(color(d)) != -1) ? "black" : "white")
     .text(d=>d)
 
+var xScaleCount = d3.scaleLinear()
+  //.domain(d3.extent(data, d=>d.value))
+  .domain([0, 60000])
+  .rangeRound([0, width])
+
+var xScalePerc = d3.scaleLinear()
+  .domain([0, 100])
+  .rangeRound([0, width])
+
+var xScalePercTrunc = d3.scaleLinear()
+  .domain([0, 8])
+  .rangeRound([0, width])
+
+const annotations = [
+  {
+    note: {
+      label: "There are 89310 Chinese living in Tampines East",
+      align: "left",  // try right or left
+      wrap: 130,  // try something smaller to see text split in several lines
+      padding: 5   // More = text lower
+    },
+    type: d3.annotationCalloutCircle,
+    subject: {
+      radius: 10,         // circle radius
+      radiusPadding: 10   
+    },
+    color: ["black"],
+    x: 0,
+    y: 0,
+    dy: 0,
+    dx: -120
+  },
+]
+
+const makeAnnotations = d3.annotation()
+  .annotations(annotations)
+
+d3.select('#chart svg')
+  .append("g")
+  .attr('class', 'annotations-group')
+  //.attr('transform', 'translate(' + (xScaleCount.range()[1]+margin.left).toString() + ',' + 20  + ')')
+  .attr('transform', 'translate(' + (xScaleCount.range()[1]+margin.left+xScaleCount(1000)).toString() + ',' + 20  + ')')
+
 init()
 
-function createForm(data) {
+function interactiveLogic(data, bySubzone_list) {
 
-  var byParam = d3.nest()
-    .key(function(d) { return d.race})
-    .key(function(d) { return d.subzone})
-    .sortValues(function(a,b) { return +b.value - +a.value }) 
-    .entries(data)
-
-  // Run update function when text area changes
-  // $(".dropdown-menu button").click(function(){
-  //   var value = $(this).text().trim()
-  //   $('.dropdown-toggle').text(value)
-  //   if(value=='All ethnic groups'){
-  //     update(data, bySubzone_list)
-  //   } else {
-  //     var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
-  //     let bySubzone_list_copy = bySubzone.map(d=>d.key)
-  //     bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
-  //     update(data, bySubzone_list_copy)
-  //   }
-  // })
-
-  $(".legend-pill").click(function(){
-    var value = $(this).text().trim()
-    sortValue = value
-    let bySubzone_list_copy = bySubzone.map(d=>d.key)
-
-    if(sortValue!='All ethnic groups') {
-      var sort_list_new = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
-    } else {
-      var sort_list_new = bySubzone_list_copy
-    } 
-
-    if(dropdownValue == 'All planning areas') {
-      if(sortValue=='All ethnic groups'){
-        update(data, bySubzone_list)
-      } else {
-        bySubzone_list_copy.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
-        update(data, bySubzone_list_copy)
-      }
-    } else {
-        sort_list_PA.sort(function(a,b) { return sort_list_new.indexOf(a) - sort_list_new.indexOf(b) })
-        bySubzone_list_copy.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
-        update(data, bySubzone_list_copy)
-    }
-  })
-    
-}
-
-function createDropdown(data) {
-
-  var PA_list = data.map(d=>d.planning_area).filter(onlyUnique)
-  PA_list.unshift('All planning areas')
+  var CURRENT_SORT_LIST = bySubzone_list
 
   var byParam = d3.nest()
     .key(function(d) { return d.planning_area})
@@ -120,24 +114,124 @@ function createDropdown(data) {
     .sortValues(function(a,b) { return +b.value - +a.value }) 
     .entries(data)
 
-  d3.select('.dropdown-1').selectAll('.dropdown-item')
-    .data(PA_list)
-    .enter().append('div')
-      .attr("class", "dropdown-item")
-      .text(d=>d)
+  var byParam_WnSubzonePerc = d3.nest()
+    .key(function(d) { return d.planning_area})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.perc_wn_subzone - +a.perc_wn_subzone}) 
+    .entries(data)
+
+  var byParam_WnRacePerc = d3.nest()
+    .key(function(d) { return d.planning_area})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.perc_wn_race - +a.perc_wn_race})
+    .entries(data)
+
+  var byRaceSubzone = d3.nest()
+    .key(function(d) { return d.race})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.value - +a.value }) 
+    .entries(data)
+
+  var byRaceSubzone_WnSubzonePerc = d3.nest()
+    .key(function(d) { return d.race})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.perc_wn_subzone - +a.perc_wn_subzone}) 
+    .entries(data)
+
+  var byRaceSubzone_WnRacePerc = d3.nest()
+    .key(function(d) { return d.race})
+    .key(function(d) { return d.subzone})
+    .sortValues(function(a,b) { return +b.perc_wn_race - +a.perc_wn_race}) 
+    .entries(data)
+
+  // Ethnicity buttons
+  $(".legend-pill").click(function(){
+
+    d3.selectAll('.legend-pill').style('border', '1px solid black')
+    d3.select(this).style('border', '4px solid black')
+
+    var value = $(this).text().trim()
+    selectedRace = value
+    var new_sort_order = CURRENT_SORT_LIST 
+
+    if(view_type=='Population count'){
+      new_sort_order = byRaceSubzone.filter(d=>d.key == selectedRace)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+    } else if(view_type=='Within subzone %'){
+      new_sort_order = byRaceSubzone_WnSubzonePerc.filter(d=>d.key == selectedRace)[0].values.sort(function(a,b) { return a.values[0].perc_wn_subzone - b.values[0].perc_wn_subzone }).map(d=>d.key)
+    } else if(view_type=='Within race %'){
+      new_sort_order = byRaceSubzone_WnRacePerc.filter(d=>d.key == selectedRace)[0].values.sort(function(a,b) { return a.values[0].perc_wn_race - b.values[0].perc_wn_race }).map(d=>d.key)
+    }
+
+    if(paValue == 'All planning areas') {
+
+      CURRENT_SORT_LIST.sort(function(a,b) { return new_sort_order.indexOf(a) - new_sort_order.indexOf(b) })
+      
+    } else {
+
+      if(view_type=='Population count'){
+        sort_list_PA = byParam.filter(d=>d.key == paValue)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+      } else if(view_type=='Within subzone %'){
+        sort_list_PA = byParam_WnSubzonePerc.filter(d=>d.key == paValue)[0].values.sort(function(a,b) { return a.values[0].perc_wn_subzone - b.values[0].perc_wn_subzone }).map(d=>d.key)
+      } else if(view_type=='Within race %'){
+        sort_list_PA = byParam_WnRacePerc.filter(d=>d.key == paValue)[0].values.sort(function(a,b) { return a.values[0].perc_wn_race - b.values[0].perc_wn_race }).map(d=>d.key)
+      }
+
+      sort_list_PA.sort(function(a,b) { return new_sort_order.indexOf(a) - new_sort_order.indexOf(b) })
+      CURRENT_SORT_LIST.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
+    }
+
+    update(data, CURRENT_SORT_LIST, view_type)
+
+  })
+
+  $(".dropdown-2 .dropdown-item").click(function(){
+    var value = $(this).text().trim()
+    $('.dd-2 .dropdown-toggle').text(value)
+    view_type = value
+    var new_sort_order = CURRENT_SORT_LIST 
+
+    if(paValue=='All planning areas'){
+      if(selectedRace == undefined){
+
+        d3.select('.annotations-group').attr('display', 'block')
+        CURRENT_SORT_LIST = bySubzone.map(d=>d.key)
+
+      } else {
+
+        if(view_type=='Population count'){
+          new_sort_order = byRaceSubzone.filter(d=>d.key == selectedRace)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+        } else if(view_type=='Within subzone %'){
+          new_sort_order = byRaceSubzone_WnSubzonePerc.filter(d=>d.key == selectedRace)[0].values.sort(function(a,b) { return a.values[0].perc_wn_subzone - b.values[0].perc_wn_subzone }).map(d=>d.key)
+        } else if(view_type=='Within race %'){
+          new_sort_order = byRaceSubzone_WnRacePerc.filter(d=>d.key == selectedRace)[0].values.sort(function(a,b) { return a.values[0].perc_wn_race - b.values[0].perc_wn_race }).map(d=>d.key)
+        }
+        CURRENT_SORT_LIST.sort(function(a,b) { return new_sort_order.indexOf(a) - new_sort_order.indexOf(b) })
+
+      }
+
+    } else {
+
+      CURRENT_SORT_LIST.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
+      
+    }
+    update(data, CURRENT_SORT_LIST, view_type)
+
+  })
 
   $(".dropdown-1 .dropdown-item").click(function(){
+    
     var value = $(this).text().trim()
-    dropdownValue = value
+    paValue = value
 
     $('.dd-1 .dropdown-toggle').text(value)
     if(value=='All planning areas'){
 
-      update(data, bySubzone_list, view_type)
+      CURRENT_SORT_LIST = bySubzone.map(d=>d.key)
 
-      d3.selectAll("circle").attr('fill-opacity', 1)
-      d3.selectAll('.y_axis text').attr('opacity', 1)
-      d3.selectAll('.y_axis line').attr('stroke-opacity', 1)
+      d3.select('.annotations-group').attr('display', 'block')
+      d3.selectAll("circle").style('fill-opacity', 1)
+      d3.selectAll('.y_axis text').style('opacity', 1)
+      d3.selectAll('.y_axis line').style('stroke-opacity', 1)
 
       plot.selectAll("path")
         .style('fill', 'transparent')
@@ -146,56 +240,60 @@ function createDropdown(data) {
 
     } else {
 
-      sort_list_PA = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
-      let bySubzone_list_copy = bySubzone.map(d=>d.key)
-      bySubzone_list_copy.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
-      update(data, bySubzone_list_copy)
+      if(view_type=='Population count'){
+        sort_list_PA = byParam.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].value - b.values[0].value }).map(d=>d.key)
+      } else if(view_type=='Within subzone %'){
+        sort_list_PA = byParam_WnSubzonePerc.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].perc_wn_subzone - b.values[0].perc_wn_subzone }).map(d=>d.key)
+      } else if(view_type=='Within race %'){
+        sort_list_PA = byParam_WnRacePerc.filter(d=>d.key == value)[0].values.sort(function(a,b) { return a.values[0].perc_wn_race - b.values[0].perc_wn_race }).map(d=>d.key)
+      }
 
-      //var filtered = bySubzone_list_copy.filter(
-          //function(e) {
-            //return this.indexOf(e) < 0;
-          //},
-          //sort_list_new 
-      //)
-
-      d3.selectAll("circle").attr('fill-opacity', 0.4)
-      d3.selectAll('.y_axis text').attr('opacity', 0.4)
-      d3.selectAll('.y_axis line').attr('stroke-opacity', 0.4)
+      CURRENT_SORT_LIST.sort(function(a,b) { return sort_list_PA.indexOf(a) - sort_list_PA.indexOf(b) })
+      
+      d3.select('.annotations-group').attr('display', 'none')
+      d3.selectAll("circle").style('fill-opacity', 0.4)
+      d3.selectAll('.y_axis text').style('opacity', 0.4)
+      d3.selectAll('.y_axis line').style('stroke-opacity', 0.4)
 
       plot.selectAll("path")
         .style('fill', 'transparent')
-      //plot_desc.select('.plot-pa-text')
-        //.text("")
 
       sort_list_PA.map(d=>{
         var id = d.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase()
         var PLANNING_AREA = value.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase()
-        d3.selectAll("circle[id*='" + id + "']").attr('fill-opacity', 1)
-        d3.select('.axis-tick-'+id).attr('opacity', 1)
-        d3.select('.axis-line-'+id).attr('stroke-opacity', 1)
+        d3.selectAll("circle[id*='" + id + "']").style('fill-opacity', 1)
+        d3.select('.axis-tick-'+id).style('opacity', 1)
+        d3.select('.axis-line-'+id).style('stroke-opacity', 1)
 
         d3.selectAll('#district-path-' + PLANNING_AREA)
           .style('fill', '#D3D3D3')
         plot_desc.select('.plot-pa-text')
-          .text(PLANNING_AREA)
+          .text(PLANNING_AREA) 
       })
 
     }
+    update(data, CURRENT_SORT_LIST, view_type)
+
   })
+
+}
+
+function createForm(data) {
+
+  var PA_list = data.map(d=>d.planning_area).filter(onlyUnique)
+  PA_list.unshift('All planning areas')
+
+  d3.select('.dropdown-1').selectAll('.dropdown-item')
+    .data(PA_list)
+    .enter().append('div')
+      .attr("class", "dropdown-item")
+      .text(d=>d)
 
   d3.select('.dropdown-2').selectAll('.dropdown-item')
     .data(['Population count', 'Within subzone %', 'Within race %'])
     .enter().append('div')
       .attr("class", "dropdown-item")
       .text(d=>d)
-
-  $('.dd-2 .dropdown-toggle').text(value)
-  $(".dropdown-2 .dropdown-item").click(function(){
-    var value = $(this).text().trim()
-    view_type = value
-    sortValue = 'All ethnic groups'
-    update(data, bySubzone_list, view_type)
-  })
 
 }
 
@@ -224,24 +322,20 @@ function initializeData(error, csv, topojson){
 
   var race_by_subzone = data.filter(d=>(d.race!='Total') & (d.gender=='Total'))
 
-  // find sort list
   bySubzone = d3.nest()
     .key(function(d) { return d.subzone })
     .rollup(function(leaves) { return d3.sum(leaves, function(d) {return +d.value}) })
     .entries(race_by_subzone)
 
   bySubzone.sort(function(a,b) { return +a.value - +b.value })
-  bySubzone_list = bySubzone.map(d=>d.key)
+  var bySubzone_list = bySubzone.map(d=>d.key)
 
-  update(race_by_subzone, bySubzone_list, view_type)
-  createForm(race_by_subzone)
-  createDropdown(race_by_subzone)
-  updateMap(topojson)
-
-  let byRace = d3.nest()
+  byRace = d3.nest()
     .key(function(d) { return d.race})
     .rollup(function(leaves) { return d3.sum(leaves, function(d) {return +d.value}) })
     .entries(race_by_subzone)
+
+  byRace.sort(function(a,b) { return +a.value - +b.value })
 
   race_by_subzone.forEach(d=>{
     let subzone_total = bySubzone.find(el=>el.key==d.subzone).value
@@ -250,20 +344,15 @@ function initializeData(error, csv, topojson){
     d.perc_wn_race = (d.value/race_total)*100
   })
 
+  update(race_by_subzone, bySubzone_list, view_type)
+  createForm(race_by_subzone)
+  interactiveLogic(race_by_subzone, bySubzone_list)
+  updateMap(topojson)
+
+  d3.select('.annotations-group').call(makeAnnotations)
+    .attr('font-size', window.innerWidth > 1500 ? '14px' : '10px')
+    .attr('opacity', 1)
 }
-
-var xScale = d3.scaleLinear()
-  //.domain(d3.extent(data, d=>d.value))
-  .domain([0, 60000])
-  .rangeRound([0, width])
-
-var xScalePerc = d3.scaleLinear()
-  .domain([0, 100])
-  .rangeRound([0, width])
-
-var xScalePercTrunc = d3.scaleLinear()
-  .domain([0, 8])
-  .rangeRound([0, width])
 
 function update(data, sort_list, type) {
 
@@ -286,20 +375,29 @@ function update(data, sort_list, type) {
 
   if(type=='Population count'){
     data.forEach((d,i) => {
-      data[i].x = xScale(d.value)
+      if(d.value > 61000) {
+        data[i].x = xScaleCount(61000)
+      } else {
+        data[i].x = xScaleCount(d.value)
+      }
     })
+    xScale = xScaleCount
   }
 
   if(type=='Within subzone %'){
     data.forEach((d,i) => {
       data[i].x = xScalePerc(d.perc_wn_subzone)
     })
+    xScale = xScalePerc 
+    d3.select('.annotations-group').attr('display', 'none')
   }
 
   if(type=='Within race %'){
     data.forEach((d,i) => {
       data[i].x = xScalePercTrunc(d.perc_wn_race)
     })
+    xScale = xScalePercTrunc
+    d3.select('.annotations-group').attr('display', 'none')
   }
 
   // CREATE NODES (each representing an entity)
