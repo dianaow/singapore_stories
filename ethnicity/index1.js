@@ -46,7 +46,7 @@ var nodes = svg.append('g')
 var groups = ['Chinese', 'Malays', 'Indians', 'Others']
 var color = d3.scaleOrdinal()
   .domain(groups)
-  .range(["mediumblue", "gold", "teal", "hotpink"])
+  .range(["mediumblue", "orange", "teal", "hotpink"])
 
 var svgLegend = d3.selectAll('.ethnic-groups-pills')
 
@@ -56,7 +56,7 @@ svgLegend.selectAll('.legend-pill')
     .attr("class", "legend-pill")
     .style("background-color", d=>color(d))
     .style('border', '1px solid black')
-    .style("color", d=>(['transparent', 'gold'].indexOf(color(d)) != -1) ? "black" : "white")
+    .style("color", d=>(['transparent', 'orange'].indexOf(color(d)) != -1) ? "black" : "white")
     .text(d=>d)
 
 var xScaleCount = d3.scaleLinear()
@@ -93,7 +93,7 @@ const annotations = [
   },
 ]
 
-const makeAnnotations = d3.annotation()
+makeAnnotations = d3.annotation()
   .annotations(annotations)
 
 d3.select('#chart svg')
@@ -433,7 +433,7 @@ function update(data, sort_list, type) {
   var byEntity = d3.nest().key(function(d) { return d.race }).entries(data)
 
   line = d3.line()
-    .x(d => xScale(d.value))
+    .x(d => d.x)
     .y(d => yScale(d.subzone))
     .curve(d3.curveCatmullRom.alpha(0.5));
 
@@ -584,7 +584,7 @@ function mergeArrays(...arrays) {
 var plotWidth = 620
 var plotHeight = 300
 
-var viz = d3.select(".svg-container").append("svg")
+var viz = d3.select(".fixed-map-container").append("svg")
             .classed("svg-content",true)
             .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
             //.attr("preserveAspectRatio", "xMinYMin meet")

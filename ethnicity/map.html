@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="../vendor/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Karla" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.min.js'></script>
+    <style>
+      body {
+        position: relative;
+        font-family: 'Karla', sans-serif;
+        background:#F0EFEF;
+        color: black;
+        margin: 0px;
+      }
+      text {
+        font-family: 'Karla', sans-serif;
+      }
+      h1 {
+        font-size: 2em;
+      }
+      h2 {
+        font-size: 1.6em;
+      }
+      h3 {
+        font-size: 1.4em;
+      }
+      h4 {
+        font-size: 1.2em;
+      }
+      h1, h2, h3 {
+        font-family: 'Merriweather', serif;
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
+      p, h3, h4 {
+        margin: 5px 0px;
+        padding: 0px;
+      }
+      .wrapper {
+        width: 100vw;
+        display: flex;
+        justify-content: center
+      }
+      .box-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 90%;
+        justify-content: center;
+      }
+      .section-1 {
+        width: 100%;
+        height: 85vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      .description{
+        width: 25%;
+        height:100%;    
+      }
+      .map-container-large {
+        width: 75%;
+        height:100%;
+      }
+
+      .section-2 {
+        width: 100%;
+        height: 45vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+      .section-2 .box {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .section-2 .box-text {
+        display: flex;
+        flex-direction: column;
+        width: 93%;
+      }
+
+      .section-3 {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .section-3 .box {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+      }
+      .map-container {
+        width: 45%;
+        height: 350px;
+        padding: 10px;
+      }
+
+      .section-4 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        margin-top: 40px;
+        position: relative;
+      }
+      #chart {
+        width: 100%;
+        height: 60%;
+        overflow-y: scroll;
+      }
+      .fixed-map-container {
+          position: absolute;
+          top: 5px;
+          right: 100px;
+          width: 650px;
+          height: 300px;
+      }
+      .section-4 .svg-content {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
+      .section-4 path.area{
+        stroke-width:0.3;
+        fill: transparent;
+        stroke: black;
+      }
+      .section-4 path.area.highlight{
+        fill:#78c679;
+      }
+
+      .section-4 .legend-container {
+        margin: 20px 0px;
+      }
+      .section-4 .legend-row {
+        margin: 10px 0px;
+      }
+      .legend-pill {
+        color: white;
+        border-radius: 0.25rem; 
+        padding: 4px 8px;
+        text-align: center;
+        font-size: 0.8em;
+        width: 60px;
+        display: inline-block;
+      }
+      .legend-text {
+        display: inline-block;
+        font-size: 0.8em;
+        margin: 5px;
+      }
+      .annotation-note-title {
+        font-size: 0.8em;
+      }
+      .annotations-group-mini .annotation-note-title {
+        font-size: 0.65em;
+      }
+
+
+      .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+          background-color: #F0EFEF !important;
+          border-color: black !important;
+          color: black !important;
+      }
+      .dropdown-item:hover, .dropdown-item:active, .dropdown-item:visited {
+          background-color: #F0EFEF !important;
+          border-color: black !important;
+          color: black !important;
+      }
+      span {
+        display: inline-flex;
+        align-items: center;
+      }
+      .section-4 .domain {
+        opacity: 0;
+      }
+      .searchBar {
+        margin: 10px 0px 0px 0px;
+      }
+      #xaxis {
+        margin-top: 60px;
+      }
+      .ethnic-groups-pills {
+        display: inline-block;
+        margin: 20px 0px 0px 0px;
+      }
+      .legend-pill {
+        color: white;
+        border-radius: 0.25rem; 
+        padding: 4px 8px;
+        text-align: center;
+        display: inline-block;
+        font-size: 0.8em;
+        margin-right: 10px;
+      }
+      .legend-pill:hover {
+        cursor: pointer;
+      }
+      .legend-pill-active {
+        border: 4px black;
+      }
+      .dropdown {
+        margin: 0px 10px;
+      }
+      .dropdown-menu {
+        overflow-y: scroll;
+        max-height: 240px;
+      }
+      .dropdown-item:hover {
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+        .svg-content {
+          display: none;
+        }
+        .ethnic-groups-pills {
+          display: inline-block;
+        }
+        h2 {
+          font-size: 1.6em;
+        }
+        h4 {
+          font-size: 1.2em;
+        }
+        p {
+          font-size: 0.7em;
+          width: 100% !important;
+        }
+      }
+
+      @media (max-width: 700px) { 
+        .box-group {
+          display: flex;
+          flex-direction: column;
+          width: 96%;
+          padding: 10px;
+        }
+        #chart {
+          height: 75%;
+        }
+        h2 {
+          font-size: 1.5em;
+        }
+        h4 {
+          font-size: 1.1em;
+        }
+        .searchBar {
+          margin: 0px 0px 10px 0px;
+        }
+        .svg-content {
+          display: none;
+        }
+        .ethnic-groups-pills {
+          display: block;
+        }
+      }
+
+      /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+      @media screen and (max-width: 800px) {
+        .map-container {
+          width: 100%;
+          height: 350px;
+          padding: 10px;
+        }
+      }
+
+      @media screen and (min-width: 1680px) {
+        .section-2 {
+          width: 100%;
+          height: 75vh;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+        }
+        .map-container {
+          width: 45%;
+          height: 440px;
+          padding: 10px;
+        }
+        .annotation-note-title {
+          font-size: 1em;
+        }
+        .annotations-group-mini .annotation-note-title {
+          font-size: 0.7em;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class='wrapper'>
+      <div class='box-group'>
+
+        <h1>Are there any prominent ethnic enclaves in Singapore?</h1>
+        <div class="section-1">
+          <div class='description'>
+            <p>I defined a residential enclave as a subzone with high ethnic concentraction: <b><u>the largest percentage of people within an ethnic group living in the same area as compared to other groups.</u></b> Prominent enclaves are those which additionally have a <b>high population count</b></p>
+            <p>While there is no data on the spatial distribution of ethnic groups down to postal codes, it can been observed that there are still disproportionately more of certain races concentrated in certain geographical areas.</p>
+            <p style='font-size:0.7em'>Planning areas are the main urban planning and census divisions of Singapore delineated by the Urban Redevelopment Authority. These 55 planning areas are further subdivided into subzones.</p>
+            <div class='legend-container'></div>
+          </div>
+          <div class="map-container-large map-container-0"></div>
+        </div>
+
+        <div class="section-2">
+          <div class='box'>
+              <h3>Concentration</h3>
+              <h4>% of people within an ethnic group living in a subzone</h4>
+            <div class='box-text'>
+              <p><b>Singapore's most mature and populous housing estates are in Tampines, Bedok, Woodlands and Jurong. Across all ethnic groups, these areas have high percentage of people within each ethnic group living there.</b></p>
+              <br>
+              <p><b>All ethnic groups have similar distribution spread</b>, not deviating far from the theoretical average of 0.43% of race population living in each subzone. The Malays are the least spread group across Singapore, mainly concentrating in Tampines, Bedok and Woodlands. For the Chinese, Indians and Others, in many subzones, having a high 'concentration' does not correlate with having a high 'representation'.</p>
+            </div>
+          </div>
+          <div class='box'>
+              <h3>Representation</h3>
+              <h4>Difference in share of national population and subzone population</h4>
+            <div class='box-text'>
+              <p>Because the population of the majority race is disproportionate to the minority race, there will almost always be more Chinese living in a subzone. <b>In fact, the Chinese have the highest population count in all subzones, with the exception of Little India</b></p>
+              <br>
+              <p>To more accurately measure representation, the percentage of people belonging to each group for Singapore as a whole is subtracted from the percentage of people within a subzone belonging to the same group. <b>A group is highly represented if its share of the subzone population is larger than its share of the national population for Chinese (74.3%), Malays (13.3%), Indians (9.1%) and Others (3.3%).</b></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-3">
+          <h3>Chinese: Most populous</h3>
+          <div class='box'>
+            <div class="map-container map-container-Chinese-perc_wn_race"></div>
+            <div class="map-container map-container-Chinese-perc_wn_subzone"></div>
+          </div>
+
+          <h3>Malays: Most concentrated in mature estates</h3>
+          <div class='box'>
+            <div class="map-container map-container-Malays-perc_wn_race"></div>
+            <div class="map-container map-container-Malays-perc_wn_subzone"></div>
+          </div>
+
+          <h3>Indians: Interspersed with Chinese</h3>
+          <div class='box'>
+            <div class="map-container map-container-Indians-perc_wn_race"></div>
+            <div class="map-container map-container-Indians-perc_wn_subzone"></div>
+          </div>
+
+          <h3>Others: Most dissimilar residential areas</h3>
+          <div class='box'>
+            <div class="map-container map-container-Others-perc_wn_race"></div>
+            <div class="map-container map-container-Others-perc_wn_subzone"></div>
+          </div>
+        </div>
+
+      <div class ='section-4'>
+        <div class="fixed-map-container"></div>
+        <div>
+          <h2>Spatial diversity of ethnic groups in Singapore</h2>
+          <h4>Explore the ethnic makeup of multiracial Singapore by living spaces</h4>
+        </div>
+        <div class='row searchBar'>
+          <span>Search by: </span>
+          <div class="dropdown dd-1">
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              All planning areas
+            </button>
+            <div class="dropdown-menu dropdown-1">
+            </div>
+          </div>
+        </div>
+        <div class='gLegend'>
+         <span>Sort by: </span> 
+          <div class="dropdown dd-2" style='display: inline-block'>
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Population count
+            </button>
+            <div class="dropdown-menu dropdown-2"></div>
+          </div> 
+          <div class='ethnic-groups-pills'></div>     
+        </div>
+        <div id="xaxis" style='position: relative;'>
+          <p style='position: absolute; left: 0px; top: 0px'>Subzone</p>
+        </div>
+        <div id="chart"></div>  
+      </div>
+
+      </div>
+    </div>
+    <script>
+    var race_by_subzone, annotationsLoc_nested
+    var groups = ['Chinese', 'Malays', 'Indians', 'Others']
+    var color = d3.scaleOrdinal()
+      .domain(groups)
+      .range(["mediumblue", "orange", "teal", "hotpink"])
+      //.range(["#0000cd", '#ffa500', "#008080", "#ff69b4"])
+
+    var annotationsLoc = [
+      {'name': 'Jurong West Central', 'dx': -60, 'dy': -40, 'direction': 'right', 'race': 'Chinese'},
+      {'name': 'Tampines East', 'dx': 40, 'dy': 0, 'direction': 'left', 'race': 'Malays'},
+      {'name': 'Simei', 'dx': 20, 'dy': 0, 'direction': 'left', 'race': 'Others'},
+      {'name': 'Woodlands East', 'dx': 20, 'dy': -60, 'direction': 'left', 'race': 'Malays'},
+      {'name': 'Sengkang Town Centre', 'dx': 20, 'dy': -80, 'direction': 'left', 'race': 'Chinese'},
+      {'name': 'Rivervale', 'dx': 0, 'dy': 0, 'direction': 'left', 'race': 'Indians'},
+      {'name': 'Trafalgar', 'dx': -20, 'dy': -40, 'direction': 'right', 'race': 'Indians'},
+      {'name': 'Hougang West', 'dx': 60, 'dy': 10, 'direction': 'left', 'race': 'Chinese'},
+      {'name': 'Bedok North', 'dx': 20, 'dy': 50, 'direction': 'left', 'race': 'Malays'},
+      {'name': 'Bedok South', 'dx': 20, 'dy': 0, 'direction': 'left', 'race': 'Others'},
+      {'name': 'Frankel', 'dx': 20, 'dy': 40, 'direction': 'left', 'race': 'Others'},
+      {'name': 'Bendemeer', 'dx': 40, 'dy': 100, 'direction': 'left', 'race': 'Indians'}
+    ]
+
+    var annotationsLocMini = [
+      {'name': 'Jurong West Central', 'dx': -20, 'dy': -20, 'direction': 'right', 'race': ''},
+      {'name': 'Tampines East', 'dx': 20, 'dy': 0, 'direction': 'left', 'race': ''},
+      {'name': 'Tampines West', 'dx': 20, 'dy': 20, 'direction': 'left', 'race': ''},
+      {'name': 'Woodlands East', 'dx': 20, 'dy': -20, 'direction': 'left', 'race': ''},
+      {'name': 'Bedok North', 'dx': 20, 'dy': 40, 'direction': 'left', 'race': ''},
+      {'name': 'Bedok South', 'dx': 20, 'dy': 10, 'direction': 'left', 'race': ''},
+      {'name': 'Yunnan', 'dx': -10, 'dy': -20, 'direction': 'right', 'race': ''},
+      {'name': 'Pasir Ris Drive', 'dx': 20, 'dy': -20, 'direction': 'left', 'race': ''},
+
+      {'name': 'Springleaf', 'dx': 20, 'dy': -60, 'direction': 'left', 'race': 'Chinese'},
+      {'name': 'Anak Bukit', 'dx': 10, 'dy': -20, 'direction': 'left', 'race': 'Chinese'},
+      {'name': 'China Square', 'dx': 20, 'dy': 0, 'direction': 'left', 'race': 'Chinese'},
+      {'name': "People's Park", 'dx': 40, 'dy': 20, 'direction': 'left', 'race': 'Chinese'},
+      {'name': "Bugis", 'dx': 40, 'dy': 0, 'direction': 'left', 'race': 'Chinese'},
+
+      {'name': "Pasir Ris Drive", 'dx': 20, 'dy': 20, 'direction': 'left', 'race': 'Chinese'},
+      {'name': 'Changi West', 'dx': 20, 'dy': 0, 'direction': 'left', 'race': 'Malays'},
+      {'name': "North Coast", 'dx': 20, 'dy': -20, 'direction': 'left', 'race': 'Malays'},
+      {'name': "Woodlands West", 'dx': 0, 'dy': 0, 'direction': 'right', 'race': 'Malays'},
+
+      {'name': "Little India", 'dx': 20, 'dy': -20, 'direction': 'left', 'race': 'Others'},
+      {'name': "Kampong Glam", 'dx': 40, 'dy': 0, 'direction': 'left', 'race': 'Indians'},
+      {'name': "Farrer Park", 'dx': -20, 'dy': -20, 'direction': 'right', 'race': 'Indians'},
+      {'name': "Selegie", 'dx': 10, 'dy': 40, 'direction': 'left', 'race': 'Indians'},
+      {'name': "Tanjong Rhu", 'dx': 10, 'dy': 20, 'direction': 'left', 'race': 'Indians'},
+
+      {'name': "Tanglin", 'dx': 40, 'dy': 0, 'direction': 'left', 'race': 'Others'},
+      {'name': "Fort Canning", 'dx': 20, 'dy': 10, 'direction': 'left', 'race': 'Others'},
+      {'name': "Sentosa", 'dx': 20, 'dy': 0, 'direction': 'left', 'race': 'Others'},
+      {'name': "Newton Circus", 'dx': 20, 'dy': -10, 'direction': 'left', 'race': 'Others'},
+      {'name': "Boat Quay", 'dx': 20, 'dy': 20, 'direction': 'left', 'race': 'Others'}
+    ]
+
+    init()
+
+    function init() {
+
+      d3.queue()   
+        .defer(d3.csv, './resident-population-by-subzone-ethnic-group-and-sex.csv') 
+        .defer(d3.json, "../homeless/sgp_subzone.geojson")
+        .defer(d3.csv, "../ethnicity/subzone_perc.csv")
+        .await(initializeData) 
+
+    }
+
+    function initializeData(error, csv, topojson, csv1){
+
+      let data = csv.map((d,i) => {
+        return {
+          id: i,
+          race: d.level_1,
+          gender: d.level_2,
+          planning_area: d.level_3.split('-',2)[0],
+          PLANNING_AREA: d.level_3.split('-',2)[0].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
+          subzone: d.level_4,
+          SUBZONE: d.level_4.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
+          value: +d.value
+        } 
+      })
+
+      let subzone_perc = csv1.map((d,i) => {
+        return {
+          id: i,
+          race: d.level_1,
+          subzone: d.level_4,
+          SUBZONE: d.level_4.trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
+          perc_wn_subzone: +d.diff
+        } 
+      })
+
+      var race_by_subzone = data.filter(d=>(d.race!='Total') & (d.gender=='Total'))
+
+      bySubzone = d3.nest()
+        .key(function(d) { return d.subzone })
+        .rollup(function(leaves) { return d3.sum(leaves, function(d) {return +d.value}) })
+        .entries(race_by_subzone)
+
+      bySubzone.sort(function(a,b) { return +a.value - +b.value })
+      var bySubzone_list = bySubzone.map(d=>d.key)
+
+      byRace = d3.nest()
+        .key(function(d) { return d.race})
+        .rollup(function(leaves) { return d3.sum(leaves, function(d) {return +d.value}) })
+        .entries(race_by_subzone)
+
+      byRace.sort(function(a,b) { return +a.value - +b.value })
+
+      race_by_subzone.forEach(d=>{
+        let subzone_total = bySubzone.find(el=>el.key==d.subzone).value
+        d.perc_wn_subzone = (d.value/subzone_total)*100
+        let race_total = byRace.find(el=>el.key==d.race).value
+        d.perc_wn_race = (d.value/race_total)*100
+      })
+
+      annotationsLoc_nested = d3.nest()
+        .key(function(d) { return d.race})
+        .entries(annotationsLoc)
+
+      annotationsLoc_nested.for
+      d3.select('.legend-container')
+        .selectAll('.legend-row')
+        .data(annotationsLoc_nested)
+        .enter().append('div')
+          .attr("class", "legend-row")
+          .append('div')
+            .attr("class", "legend-pill")
+            .style("background-color", function(d) { return color(d.key) })
+            .style("color", "white")
+            .text(d=>d.key)
+
+      d3.selectAll('.legend-row')
+          .append('div')
+            .attr("class", "legend-text")
+            .style('color', d=>color(d.key))
+            .text(function(d,i){ return d.values[0].name})
+
+      d3.selectAll('.legend-row')
+          .append('div')
+            .attr("class", "legend-text")
+              .style('color', d=>color(d.key))
+              .text(function(d,i){ return d.values[1].name})
+
+      d3.selectAll('.legend-row')
+          .append('div')
+            .attr("class", "legend-text")
+            .style('color', d=>color(d.key))
+            .text(function(d,i){ return d.values[2].name})
+
+      //var attributes = ['value', 'perc_wn_race', 'perc_wn_subzone']
+      var attributes = ['perc_wn_race']
+      attributes.map((d,i)=>{
+        let plotWidth =  Math.max(window.innerWidth, screen.width) * 0.7
+        let plotHeight = plotWidth/1.7
+        createMap(d,i, plotWidth, plotHeight)
+      })
+
+      groups.map(function(d,i){
+        let oneRace = subzone_perc.filter(el=>el.race == d)
+        let plotWidth =  Math.max(window.innerWidth, screen.width) * 0.4
+        let plotHeight = plotWidth/1.7
+        return createMapEthnic(oneRace ,d, topojson, 'perc_wn_subzone', plotWidth, plotHeight)
+      })
+
+      groups.map(function(d,i){
+        let oneRace = race_by_subzone.filter(el=>el.race == d)
+        let plotWidth = Math.max(window.innerWidth, screen.width) * 0.4
+        let plotHeight = plotWidth/1.7
+        return createMapEthnic(oneRace ,d, topojson, 'perc_wn_race', plotWidth, plotHeight)
+      })
+
+      function createMap(attribute, index, plotWidth, plotHeight) {
+
+        var viz = d3.select(".map-container-"+index).append("svg")
+                    .classed("svg-content",true)
+                    .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
+                    //.attr("preserveAspectRatio", "xMinYMin meet")
+                    .attr("width", '100%')
+                    .attr("height", '100%');
+
+        var plot = viz.append("g")
+            .attr("class","plot")
+            .attr("transform", "translate(" + 0 + "," + 40 + ")");
+   
+        var opacity = d3.scaleLinear()
+          .domain([0, attribute=='perc_wn_race' ? 3.5 : 50])
+          .range([0,1])
+
+        race_by_subzone.sort(function(a,b) { return +b[attribute] - +a[attribute] })
+
+        var race_by_subzone_uniq = race_by_subzone.filter((thing, index, self) =>
+          index === self.findIndex((t) => (
+            t.subzone === thing.subzone
+          ))
+        )
+
+        //Merge the stats and GeoJSON data
+        race_by_subzone_uniq.forEach((d,i)=>{
+          
+          var dataState = d['SUBZONE'];
+
+          for(var n = 0; n < topojson.features.length; n++){
+
+            //find the corresponding subzone inside the GeoJSON
+            var jsonState = topojson.features[n].properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase();
+
+            // if statment to merge by name of subzone
+            if(dataState == jsonState){
+              //Copy the data value into the JSON
+              // basically creating a new value column in JSON data
+              topojson.features[n].properties.value = d['perc_wn_race'];
+              topojson.features[n].properties.race = d.race;
+              break;
+            } 
+
+          }
+        })
+
+        var projection = d3.geoMercator().fitSize([plotWidth,plotHeight],topojson)
+        var path = d3.geoPath(projection)
+
+        var areas = plot.selectAll("path").data(topojson.features)
+
+        areas.enter().append("path")
+          .attr("d",path)
+          .attr('id', (d,i)=>'district-path-'+d.properties['PLN_AREA_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+          .attr('class', (d,i)=>'sgp-path-'+d.properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+          .classed("area",true)
+          .attr('stroke', 'black')
+          .attr('stroke-width', '0.5px')
+          .attr('fill', function(d){
+            return d.properties.value>0 ? color(d.properties.race)  : 'transparent'
+          })
+          .attr('fill-opacity', d=>opacity(d.properties.value))
+
+        // store an array of each subzone's centroid
+        var centroids = []
+        topojson.features.map(d=> {
+          centroids.push({
+            name: d.properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
+            x: path.centroid(d)[0],
+            y: path.centroid(d)[1]
+          })
+        })
+
+        var annotations = []
+        groups.map(race=>{
+          var race_by_subzone_top = race_by_subzone_uniq.filter(d=>d.race == race)
+          for(var n = 0; n < 3; n++){
+            A = generateAnnotations(race_by_subzone_top[n], centroids, annotationsLoc, 'large')
+            annotations.push(A)
+          }
+        })
+
+        d3.select('.map-container-0 svg')
+          .append("g")
+          .attr('class', 'annotations-group-large')
+          .attr("transform", "translate(" + 0 + "," + 40 + ")");
+
+        makeAnnotations = d3.annotation()
+        .annotations(annotations)
+
+        d3.select('.annotations-group-large').call(makeAnnotations)
+
+      }
+
+      function generateAnnotations(el, centroids, annotations, mapType){
+
+        let centroid = centroids.find(d=>d.name == el['SUBZONE'])
+        let dLoc = annotations.find(d=>d.name == el['subzone'])
+
+        if(mapType=='mini'){
+          var perc = el['perc_wn_race'] > 4 ? " (" + Math.round( el['perc_wn_race'] * 10 ) / 10 + ')%' : ""
+        } else if(mapType=='large'){
+          var perc = ""
+        }
+        
+        return {
+          note: {
+            title: el['subzone'] + perc,
+            align: dLoc ? dLoc.direction : 'left'  
+          },
+          connector: {
+            end: "dot"
+          },
+          color: ['black'],
+          x: centroid.x,
+          y: centroid.y,
+          dx: dLoc ? dLoc.dx : 0,
+          dy: dLoc ? dLoc.dy : 0
+        }
+
+      }
+      
+      function createMapEthnic(data, index, topojson, attribute, plotWidth, plotHeight) {
+
+        data.sort(function(a,b) { return +b[attribute] - +a[attribute] })
+
+        var viz = d3.select(".map-container-"+index+'-'+attribute).append("svg")
+                    .classed("svg-content",true)
+                    .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
+                    //.attr("preserveAspectRatio", "xMinYMin meet")
+                    .attr("width", '100%')
+                    .attr("height", '100%');
+
+        var plot = viz.append("g")
+            .attr("class","plot")
+            .attr("transform", "translate(" + 0 + "," + 50 + ")");
+        
+        var opacity = d3.scaleLinear()
+          .domain([0, attribute=='perc_wn_race' ? 4 : 35])
+          .range([0,1])
+
+        var opacityNeg = d3.scaleLinear()
+          .domain([0, attribute=='perc_wn_race' ? 4 : -35])
+          .range([0,1])
+
+        //Merge the stats and GeoJSON data
+        for(var n = 0; n < topojson.features.length; n++){
+
+          //find the corresponding subzone inside the GeoJSON
+          var jsonState = topojson.features[n].properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase();
+          var row = data.find(d=>d['SUBZONE']==jsonState)
+          var dataState = row ? row['race'] : ''
+          var dataValue = row ? row[attribute] : ''
+
+          //Copy the data value into the JSON
+          // basically creating a new value column in JSON data
+          topojson.features[n].properties.value = dataValue;
+          topojson.features[n].properties.race = dataState;
+      
+        }
+
+        var projection = d3.geoMercator().fitSize([plotWidth,plotHeight],topojson)
+        var path = d3.geoPath(projection)
+
+        var areas = plot.selectAll("path").data(topojson.features)
+
+        areas.enter().append("path")
+          .attr("d",path)
+          .attr('id', (d,i)=>'district-path-'+d.properties['PLN_AREA_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+          .attr('class', (d,i)=>'sgp-path-'+d.properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase())
+          .classed("area",true)
+          .attr('stroke', color(index))
+          .attr('stroke-width', '0.3px')
+          .attr('fill', function(d){ 
+            return d.properties.value>0 ? color(d.properties.race) : 'black'
+          })
+          .attr('fill-opacity', function(d) {
+            return d.properties.value>0 ? opacity(d.properties.value) : opacityNeg(d.properties.value)
+          })
+
+        var centroids = []
+        topojson.features.map(d=> {
+          centroids.push({
+            name: d.properties['SUBZONE_N'].trim().replace(/[^A-Z0-9]+/ig, "_").toUpperCase(),
+            x: path.centroid(d)[0],
+            y: path.centroid(d)[1]
+          })
+        })
+
+        var annotations = []
+        for(var n = 0; n < 5; n++){
+          //.log(data[n].subzone, data[n].race)
+          A = generateAnnotations(data[n], centroids, annotationsLocMini, 'mini')
+          annotations.push(A)
+        }
+
+        d3.select('.map-container-' + index + '-'+ attribute + ' svg')
+          .append("g")
+          .attr('class', 'annotations-group-mini annotations-group-'+ index + '-'+ attribute)
+          .attr("transform", "translate(" + 0 + "," + 50 + ")")
+
+        makeAnnotations = d3.annotation()
+          .annotations(annotations)
+
+        d3.select('.annotations-group-'+ index + '-'+ attribute).call(makeAnnotations)
+
+        var legendWidth = 150
+        var legendsvg = d3.select('.map-container-' + index + '-'+ attribute + ' svg')
+          .append("g")
+          .attr('class', 'subtitle-legend-'+ index + '-'+ attribute)
+          .attr("transform", "translate(" + (plotWidth-legendWidth/2).toString() + "," + 10 + ")")
+
+        createGradient(data, legendsvg, index, attribute, legendWidth)
+
+      }
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //////////////// Create the gradient for the legend ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function createGradient(data, legendsvg, index, attribute, legendWidth) {
+
+      if(attribute == 'perc_wn_race'){
+
+        var RANGE = [0,4]
+        var colorDomain = [0, 4]
+        var colorRange = [color(index),color(index)]
+        var opacityRange = [0, 1]
+
+      } else {
+
+        var RANGE = [-35,35]
+        var colorDomain = [-35, 0, 35]
+        var colorRange = ['black','transparent',color(index)]
+        var opacityRange = [1, 0, 1]
+      }
+
+      var countScale = d3.scaleLinear()
+        .domain(RANGE)
+        .range([0, legendWidth])
+
+      var opacityScale = d3.scaleLinear()
+        .domain(colorDomain)
+        .range(opacityRange)
+
+      var colorScale = d3.scaleLinear()
+        .domain(colorDomain)
+        .range(colorRange)
+
+      //Calculate the variables for the temp gradient
+      var numStops = 10;
+      countRange = countScale.domain();
+      countRange[2] = countRange[1] - countRange[0];
+      countPoint = [];
+      for(var i = 0; i < numStops; i++) {
+        countPoint.push(i * countRange[2]/(numStops-1) + countRange[0]);
+      }//for i
+
+      //Create the gradient
+      d3.select('.map-container-' + index + '-'+ attribute + ' svg')
+        .append("defs")
+        .append("linearGradient")
+        .attr("id", "legend-traffic-" + index + '-'+ attribute)
+        .attr("x1", "0%").attr("y1", "0%")
+        .attr("x2", "100%").attr("y2", "0%")
+        .selectAll("stop") 
+        .data(d3.range(numStops))                
+        .enter().append("stop") 
+        .attr("offset", function(d,i) { 
+          return countScale( countPoint[i] )/legendWidth;
+        })   
+        .attr("stop-color", function(d,i) { 
+          return colorScale( countPoint[i] ); 
+        })
+        .attr("stop-opacity", function(d,i) { 
+          return opacityScale( countPoint[i] ); 
+        });
+
+      drawLegend(data, legendsvg, legendWidth, RANGE, index, attribute)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////// Draw the legend ////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function drawLegend(data, legendsvg, legendWidth, RANGE, index, attribute) {
+
+      //Draw the Rectangle
+      legendsvg.append("rect")
+        .attr("class", "legendRect")
+        .attr("x", -legendWidth/2)
+        .attr("y", 50)
+        //.attr("rx", hexRadius*1.25/2)
+        .attr("width", legendWidth)
+        .attr("height", 10)
+        .style("fill", "url(#legend-traffic-" + index + '-'+ attribute + ")");
+        
+      //Set scale for x-axis
+      var xScale = d3.scaleLinear()
+         .range([-legendWidth/2, legendWidth/2])
+         .domain(RANGE);
+
+      //Define x-axis
+      var xAxis = d3.axisBottom()
+          .ticks(5)
+          //.tickFormat(formatPercent)
+          .scale(xScale);
+
+      //Set up X axis
+      legendsvg.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", "translate(0," + 60 + ")")
+        .call(xAxis);
+
+      // add the y Axis
+      var yScale = d3.scaleLinear()
+                .range([50, 0])
+                .domain(attribute == 'perc_wn_race' ? [0, 0.11] : [0, 0.08]);
+
+      //Define y-axis
+      var yAxis = d3.axisLeft(yScale)
+        .ticks(3)
+        .scale(yScale);
+
+      legendsvg.append("g")
+        .attr("class", "yaxis")
+        .attr("transform", "translate(" + -legendWidth/2 + "," + 0 + ")")
+        .call(yAxis);
+
+      // Compute summary statistics used for the box:
+      data.sort(function(a,b) { return +b[attribute] - +a[attribute] })
+      var data_arr = data.map(function(d){  return d[attribute] }) 
+
+      var q1 = d3.quantile(data_arr, .25)
+      var median = d3.quantile(data_arr, .5)
+      var q3 = d3.quantile(data_arr, .75)
+      var interQuantileRange = q3 - q1
+      var min = q1 - 1.5 * interQuantileRange
+      var max = q1 + 1.5 * interQuantileRange
+
+      //Append median label
+      legendsvg.append("text")
+        .attr("x", xScale(median))
+        .attr("y", 0)
+        .style("text-anchor", "middle")
+        .attr('fill', 'black')
+        .style('font-size', '8px')
+        .text(Math.round( median * 100 ) / 100 + '%')
+
+      //Append median dotted line
+      legendsvg.append("line")
+        .attr('stroke', 'black')
+        .style('stroke-width', '1px')
+        .style("stroke-dasharray", ("3, 3")) 
+        .attr('x1', xScale(median))
+        .attr('y1', 5)
+        .attr('x2', xScale(median))
+        .attr('y2', 50)
+
+      // Compute kernel density estimation
+      var kde = kernelDensityEstimator(kernelEpanechnikov(7), xScale.ticks(10))
+      var density =  kde(data_arr)
+
+      // Plot the area
+      legendsvg.append("path")
+        .attr("class", "mypath")
+        .datum(density)
+        .attr("fill", 'transparent')
+        .attr("opacity", ".8")
+        .attr("stroke", "#000")
+        .attr("stroke-width", 1)
+        .attr("stroke-linejoin", "round")
+        .attr("d",  
+          d3.line()
+          .curve(d3.curveBasis)
+            .x(function(d) { return xScale(d[0]); })
+            .y(function(d) { return yScale(d[1]); })
+        );
+
+      // Function to compute density
+      function kernelDensityEstimator(kernel, X) {
+        return function(V) {
+          return X.map(function(x) {
+            return [x, d3.mean(V, function(v) { return kernel(x - v); })];
+          });
+        };
+      }
+      function kernelEpanechnikov(k) {
+        return function(v) {
+          return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
+        };
+      }
+
+    }
+    </script>
+    <script src="../vendor/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="index1.js"></script>
+  </body>
+
+</html>

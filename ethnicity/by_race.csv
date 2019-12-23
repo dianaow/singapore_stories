@@ -1,0 +1,904 @@
+year,level_1,level_2,level_3,level_4,value,total,perc
+2015,Chinese,Total,Ang Mo Kio- Total,Ang Mo Kio Town Centre,4260,2899110,0.1469416476090938
+2015,Chinese,Total,Ang Mo Kio- Total,Cheng San,24660,2899110,0.8506058755963037
+2015,Chinese,Total,Ang Mo Kio- Total,Chong Boon,22910,2899110,0.7902425227052441
+2015,Chinese,Total,Ang Mo Kio- Total,Kebun Bahru,19210,2899110,0.6626171480212893
+2015,Chinese,Total,Ang Mo Kio- Total,Sembawang Hills,6080,2899110,0.20971953461579587
+2015,Chinese,Total,Ang Mo Kio- Total,Shangri-La,13900,2899110,0.47945748867755966
+2015,Chinese,Total,Ang Mo Kio- Total,Tagore,7440,2899110,0.2566304831482766
+2015,Chinese,Total,Ang Mo Kio- Total,Townsville,19630,2899110,0.6771043527151436
+2015,Chinese,Total,Ang Mo Kio- Total,Yio Chu Kang East,3620,2899110,0.12486590712322057
+2015,Chinese,Total,Ang Mo Kio- Total,Yio Chu Kang West,21540,2899110,0.7429866407276716
+2015,Chinese,Total,Bedok- Total,Bayshore,5240,2899110,0.18074512522808725
+2015,Chinese,Total,Bedok- Total,Bedok North,59870,2899110,2.065116535764424
+2015,Chinese,Total,Bedok- Total,Bedok Reservoir,18900,2899110,0.6519242112234445
+2015,Chinese,Total,Bedok- Total,Bedok South,39110,2899110,1.3490347037539108
+2015,Chinese,Total,Bedok- Total,Frankel,27430,2899110,0.9461524398867238
+2015,Chinese,Total,Bedok- Total,Kaki Bukit,26180,2899110,0.9030357592502527
+2015,Chinese,Total,Bedok- Total,Kembangan,27170,2899110,0.9371841703143379
+2015,Chinese,Total,Bedok- Total,Siglap,4980,2899110,0.17177685565570122
+2015,Chinese,Total,Bishan- Total,Bishan East,24020,2899110,0.8285301351104304
+2015,Chinese,Total,Bishan- Total,Marymount,27090,2899110,0.9344247027536038
+2015,Chinese,Total,Bishan- Total,Upper Thomson,26100,2899110,0.9002762916895186
+2015,Chinese,Total,Bukit Batok- Total,Bukit Batok Central,19820,2899110,0.6836580881718872
+2015,Chinese,Total,Bukit Batok- Total,Bukit Batok East,9330,2899110,0.321822904270621
+2015,Chinese,Total,Bukit Batok- Total,Bukit Batok South,10460,2899110,0.360800383565991
+2015,Chinese,Total,Bukit Batok- Total,Bukit Batok West,10750,2899110,0.3708034534736523
+2015,Chinese,Total,Bukit Batok- Total,Gombak,8350,2899110,0.28801942665162755
+2015,Chinese,Total,Bukit Batok- Total,Guilin,9310,2899110,0.3211330373804374
+2015,Chinese,Total,Bukit Batok- Total,Hillview,15750,2899110,0.543270176019537
+2015,Chinese,Total,Bukit Batok- Total,Hong Kah North,18320,2899110,0.6319180714081218
+2015,Chinese,Total,Bukit Merah- Total,Alexandra Hill,11330,2899110,0.3908095932889749
+2015,Chinese,Total,Bukit Merah- Total,Alexandra North,750,2899110,0.025870008381882716
+2015,Chinese,Total,Bukit Merah- Total,Bukit Ho Swee,13050,2899110,0.4501381458447593
+2015,Chinese,Total,Bukit Merah- Total,Bukit Merah,1010,2899110,0.03483827795426872
+2015,Chinese,Total,Bukit Merah- Total,Depot Road,4310,2899110,0.14866631483455267
+2015,Chinese,Total,Bukit Merah- Total,Everton Park,6910,2899110,0.23834901055841276
+2015,Chinese,Total,Bukit Merah- Total,Henderson Hill,9160,2899110,0.3159590357040609
+2015,Chinese,Total,Bukit Merah- Total,Kampong Tiong Bahru,8060,2899110,0.27801635674396624
+2015,Chinese,Total,Bukit Merah- Total,Maritime Square,1800,2899110,0.06208802011651852
+2015,Chinese,Total,Bukit Merah- Total,Redhill,9870,2899110,0.34044931030557657
+2015,Chinese,Total,Bukit Merah- Total,Telok Blangah Drive,12540,2899110,0.432546540145079
+2015,Chinese,Total,Bukit Merah- Total,Telok Blangah Rise,11180,2899110,0.38563559161259836
+2015,Chinese,Total,Bukit Merah- Total,Telok Blangah Way,8050,2899110,0.27767142329887445
+2015,Chinese,Total,Bukit Merah- Total,Tiong Bahru,10800,2899110,0.37252812069911106
+2015,Chinese,Total,Bukit Merah- Total,Tiong Bahru Station,13780,2899110,0.4753182873364585
+2015,Chinese,Total,Bukit Panjang- Total,Bangkit,17760,2899110,0.6126017984829827
+2015,Chinese,Total,Bukit Panjang- Total,Dairy Farm,4660,2899110,0.1607389854127646
+2015,Chinese,Total,Bukit Panjang- Total,Fajar,18690,2899110,0.6446806088765172
+2015,Chinese,Total,Bukit Panjang- Total,Jelebu,25900,2899110,0.8933776227876831
+2015,Chinese,Total,Bukit Panjang- Total,Nature Reserve,3190,2899110,0.11003376898427449
+2015,Chinese,Total,Bukit Panjang- Total,Saujana,18280,2899110,0.6305383376277548
+2015,Chinese,Total,Bukit Panjang- Total,Senja,14800,2899110,0.5105014987358188
+2015,Chinese,Total,Bukit Timah- Total,Anak Bukit,20090,2899110,0.6929712911893651
+2015,Chinese,Total,Bukit Timah- Total,Coronation Road,5380,2899110,0.185574193459372
+2015,Chinese,Total,Bukit Timah- Total,Farrer Court,3980,2899110,0.1372835111465243
+2015,Chinese,Total,Bukit Timah- Total,Hillcrest,7330,2899110,0.25283621525226707
+2015,Chinese,Total,Bukit Timah- Total,Holland Road,8780,2899110,0.3028515647905737
+2015,Chinese,Total,Bukit Timah- Total,Leedon Park,4850,2899110,0.16729272086950822
+2015,Chinese,Total,Bukit Timah- Total,Swiss Club,4650,2899110,0.16039405196767284
+2015,Chinese,Total,Bukit Timah- Total,Ulu Pandan,9100,2899110,0.31388943503351024
+2015,Chinese,Total,Changi- Total,Changi Point,430,2899110,0.014832138138946089
+2015,Chinese,Total,Changi- Total,Changi West,770,2899110,0.02655987527206626
+2015,Chinese,Total,Choa Chu Kang- Total,Choa Chu Kang Central,16070,2899110,0.5543080462624737
+2015,Chinese,Total,Choa Chu Kang- Total,Choa Chu Kang North,24610,2899110,0.8488812083708448
+2015,Chinese,Total,Choa Chu Kang- Total,Keat Hong,11090,2899110,0.38253119060677243
+2015,Chinese,Total,Choa Chu Kang- Total,Peng Siang,21850,2899110,0.7536795775255165
+2015,Chinese,Total,Choa Chu Kang- Total,Teck Whye,17420,2899110,0.6008740613498625
+2015,Chinese,Total,Choa Chu Kang- Total,Yew Tee,32400,2899110,1.1175843620973334
+2015,Chinese,Total,Clementi- Total,Clementi Central,10480,2899110,0.3614902504561745
+2015,Chinese,Total,Clementi- Total,Clementi North,22400,2899110,0.7726509170055638
+2015,Chinese,Total,Clementi- Total,Clementi West,11310,2899110,0.39011972639879133
+2015,Chinese,Total,Clementi- Total,Clementi Woods,12220,2899110,0.4215086699021424
+2015,Chinese,Total,Clementi- Total,Faber,3750,2899110,0.1293500419094136
+2015,Chinese,Total,Clementi- Total,Sunset Way,5220,2899110,0.1800552583379037
+2015,Chinese,Total,Clementi- Total,West Coast,5290,2899110,0.18246979245354608
+2015,Chinese,Total,Downtown Core- Total,Bugis,2100,2899110,0.07243602346927161
+2015,Chinese,Total,Downtown Core- Total,Cecil,90,2899110,0.0031044010058259262
+2015,Chinese,Total,Downtown Core- Total,Central Subzone,300,2899110,0.010348003352753087
+2015,Chinese,Total,Downtown Core- Total,Tanjong Pagar,320,2899110,0.011037870242936626
+2015,Chinese,Total,Geylang- Total,Aljunied,34510,2899110,1.1903653190116967
+2015,Chinese,Total,Geylang- Total,Geylang East,23950,2899110,0.826115600994788
+2015,Chinese,Total,Geylang- Total,Kampong Ubi,8800,2899110,0.3035414316807572
+2015,Chinese,Total,Geylang- Total,Macpherson,20770,2899110,0.7164267654556054
+2015,Chinese,Total,Hougang- Total,Hougang Central,4180,2899110,0.14418218004835967
+2015,Chinese,Total,Hougang- Total,Hougang East,17910,2899110,0.6177758001593593
+2015,Chinese,Total,Hougang- Total,Hougang West,40270,2899110,1.389046983384556
+2015,Chinese,Total,Hougang- Total,Kangkar,21600,2899110,0.7450562413982221
+2015,Chinese,Total,Hougang- Total,Kovan,22950,2899110,0.791622256485611
+2015,Chinese,Total,Hougang- Total,Lorong Ah Soo,28370,2899110,0.9785761837253502
+2015,Chinese,Total,Hougang- Total,Tai Seng,11980,2899110,0.41323026721993994
+2015,Chinese,Total,Hougang- Total,Trafalgar,34420,2899110,1.1872609180058709
+2015,Chinese,Total,Jurong East- Total,Lakeside,860,2899110,0.029664276277892178
+2015,Chinese,Total,Jurong East- Total,Teban Gardens,11810,2899110,0.4073663986533798
+2015,Chinese,Total,Jurong East- Total,Toh Guan,12480,2899110,0.4304769394745284
+2015,Chinese,Total,Jurong East- Total,Yuhua East,20160,2899110,0.6953858253050074
+2015,Chinese,Total,Jurong East- Total,Yuhua West,14770,2899110,0.5094666984005436
+2015,Chinese,Total,Jurong West- Total,Boon Lay Place,19900,2899110,0.6864175557326214
+2015,Chinese,Total,Jurong West- Total,Hong Kah,38920,2899110,1.342480968297167
+2015,Chinese,Total,Jurong West- Total,Jurong West Central,51820,2899110,1.7874451124655497
+2015,Chinese,Total,Jurong West- Total,Taman Jurong,25860,2899110,0.8919978890073159
+2015,Chinese,Total,Jurong West- Total,Wenya,5820,2899110,0.2007512650434099
+2015,Chinese,Total,Jurong West- Total,Yunnan,47880,2899110,1.6515413350993924
+2015,Chinese,Total,Kallang- Total,Bendemeer,27280,2899110,0.9409784382103473
+2015,Chinese,Total,Kallang- Total,Boon Keng,8680,2899110,0.29940223033965596
+2015,Chinese,Total,Kallang- Total,Crawford,6590,2899110,0.22731114031547614
+2015,Chinese,Total,Kallang- Total,Geylang Bahru,9560,2899110,0.3297563735077317
+2015,Chinese,Total,Kallang- Total,Kampong Bugis,730,2899110,0.025180141491699178
+2015,Chinese,Total,Kallang- Total,Kampong Java,8770,2899110,0.3025066313454819
+2015,Chinese,Total,Kallang- Total,Lavender,7240,2899110,0.24973181424644114
+2015,Chinese,Total,Kallang- Total,Tanjong Rhu,6930,2899110,0.2390388774485963
+2015,Chinese,Total,Mandai- Total,Mandai Estate,1710,2899110,0.05898361911069259
+2015,Chinese,Total,Marine Parade- Total,Katong,8270,2899110,0.2852599590908934
+2015,Chinese,Total,Marine Parade- Total,Marine Parade,21270,2899110,0.7336734377101939
+2015,Chinese,Total,Marine Parade- Total,Mountbatten,7090,2899110,0.2445578125700646
+2015,Chinese,Total,Museum- Total,Dhoby Ghaut,150,2899110,0.0051740016763765434
+2015,Chinese,Total,Museum- Total,Fort Canning,70,2899110,0.0024145341156423866
+2015,Chinese,Total,Newton- Total,Cairnhill,2390,2899110,0.08243909337693292
+2015,Chinese,Total,Newton- Total,Goodwood Park,680,2899110,0.02345547426624033
+2015,Chinese,Total,Newton- Total,Monk's Hill,710,2899110,0.024490274601515635
+2015,Chinese,Total,Newton- Total,Newton Circus,130,2899110,0.004484134786193005
+2015,Chinese,Total,Newton- Total,Orange Grove,950,2899110,0.03276867728371811
+2015,Chinese,Total,Novena- Total,Balestier,25930,2899110,0.8944124231229583
+2015,Chinese,Total,Novena- Total,Dunearn,3250,2899110,0.11210336965482509
+2015,Chinese,Total,Novena- Total,Malcolm,2130,2899110,0.0734708238045469
+2015,Chinese,Total,Novena- Total,Moulmein,7040,2899110,0.2428331453446058
+2015,Chinese,Total,Novena- Total,Mount Pleasant,500,2899110,0.017246672254588476
+2015,Chinese,Total,Orchard- Total,Boulevard,290,2899110,0.010003069907661317
+2015,Chinese,Total,Orchard- Total,Somerset,90,2899110,0.0031044010058259262
+2015,Chinese,Total,Orchard- Total,Tanglin,240,2899110,0.008278402682202469
+2015,Chinese,Total,Outram- Total,China Square,1540,2899110,0.05311975054413252
+2015,Chinese,Total,Outram- Total,Chinatown,10060,2899110,0.34700304576232016
+2015,Chinese,Total,Outram- Total,Pearl's Hill,6060,2899110,0.20902966772561232
+2015,Chinese,Total,Outram- Total,People's Park,360,2899110,0.012417604023303705
+2015,Chinese,Total,Pasir Ris- Total,Flora Drive,10160,2899110,0.3504523802132379
+2015,Chinese,Total,Pasir Ris- Total,Loyang East,1640,2899110,0.0565690849950502
+2015,Chinese,Total,Pasir Ris- Total,Loyang West,150,2899110,0.0051740016763765434
+2015,Chinese,Total,Pasir Ris- Total,Pasir Ris Central,18900,2899110,0.6519242112234445
+2015,Chinese,Total,Pasir Ris- Total,Pasir Ris Drive,36120,2899110,1.2458996036714716
+2015,Chinese,Total,Pasir Ris- Total,Pasir Ris Park,2240,2899110,0.07726509170055637
+2015,Chinese,Total,Pasir Ris- Total,Pasir Ris West,24690,2899110,0.851640675931579
+2015,Chinese,Total,Punggol- Total,Matilda,23290,2899110,0.8033499936187313
+2015,Chinese,Total,Punggol- Total,Northshore,240,2899110,0.008278402682202469
+2015,Chinese,Total,Punggol- Total,Punggol Field,33980,2899110,1.172083846421833
+2015,Chinese,Total,Punggol- Total,Punggol Town Centre,6030,2899110,0.20799486739033704
+2015,Chinese,Total,Punggol- Total,Waterway East,21360,2899110,0.7367778387160198
+2015,Chinese,Total,Queenstown- Total,Commonwealth,6030,2899110,0.20799486739033704
+2015,Chinese,Total,Queenstown- Total,Dover,10460,2899110,0.360800383565991
+2015,Chinese,Total,Queenstown- Total,Ghim Moh,9240,2899110,0.31871850326479506
+2015,Chinese,Total,Queenstown- Total,Holland Drive,11790,2899110,0.40667653176319635
+2015,Chinese,Total,Queenstown- Total,Kent Ridge,670,2899110,0.023110540821148558
+2015,Chinese,Total,Queenstown- Total,Margaret Drive,9010,2899110,0.31078503402768437
+2015,Chinese,Total,Queenstown- Total,Mei Chin,13050,2899110,0.4501381458447593
+2015,Chinese,Total,Queenstown- Total,National University of S'pore,320,2899110,0.011037870242936626
+2015,Chinese,Total,Queenstown- Total,One North,410,2899110,0.01414227124876255
+2015,Chinese,Total,Queenstown- Total,Pasir Panjang 1,3410,2899110,0.11762230477629342
+2015,Chinese,Total,Queenstown- Total,Pasir Panjang 2,2820,2899110,0.09727123151587902
+2015,Chinese,Total,Queenstown- Total,Port,120,2899110,0.004139201341101234
+2015,Chinese,Total,Queenstown- Total,Queensway,200,2899110,0.00689866890183539
+2015,Chinese,Total,Queenstown- Total,Singapore Polytechnic,120,2899110,0.004139201341101234
+2015,Chinese,Total,Queenstown- Total,Tanglin Halt,9750,2899110,0.3363101089644753
+2015,Chinese,Total,River Valley- Total,Institution Hill,2440,2899110,0.08416376060239177
+2015,Chinese,Total,River Valley- Total,Leonie Hill,1510,2899110,0.0520849502088572
+2015,Chinese,Total,River Valley- Total,One Tree Hill,1280,2899110,0.0441514809717465
+2015,Chinese,Total,River Valley- Total,Oxley,1100,2899110,0.03794267896009465
+2015,Chinese,Total,River Valley- Total,Paterson,120,2899110,0.004139201341101234
+2015,Chinese,Total,Rochor- Total,Bencoolen,1040,2899110,0.03587307828954404
+2015,Chinese,Total,Rochor- Total,Farrer Park,2090,2899110,0.07209109002417984
+2015,Chinese,Total,Rochor- Total,Kampong Glam,60,2899110,0.002069600670550617
+2015,Chinese,Total,Rochor- Total,Little India,2810,2899110,0.09692629807078723
+2015,Chinese,Total,Rochor- Total,Mackenzie,80,2899110,0.0027594675607341564
+2015,Chinese,Total,Rochor- Total,Mount Emily,830,2899110,0.028629475942616875
+2015,Chinese,Total,Rochor- Total,Selegie,180,2899110,0.0062088020116518525
+2015,Chinese,Total,Rochor- Total,Sungei Road,1610,2899110,0.0555342846597749
+2015,Chinese,Total,Rochor- Total,Victoria,1780,2899110,0.06139815322633498
+2015,Chinese,Total,Seletar- Total,Seletar,160,2899110,0.005518935121468313
+2015,Chinese,Total,Sembawang- Total,Admiralty,10240,2899110,0.353211847773972
+2015,Chinese,Total,Sembawang- Total,Sembawang Central,21390,2899110,0.737812639051295
+2015,Chinese,Total,Sembawang- Total,Sembawang North,19130,2899110,0.6598576804605552
+2015,Chinese,Total,Sembawang- Total,Sembawang Springs,3550,2899110,0.12245137300757819
+2015,Chinese,Total,Sembawang- Total,Sembawang Straits,1270,2899110,0.043806547526654735
+2015,Chinese,Total,Sengkang- Total,Anchorvale,29590,2899110,1.0206580640265461
+2015,Chinese,Total,Sengkang- Total,Compassvale,15750,2899110,0.543270176019537
+2015,Chinese,Total,Sengkang- Total,Fernvale,27000,2899110,0.9313203017477777
+2015,Chinese,Total,Sengkang- Total,Rivervale,45460,2899110,1.5680674413871845
+2015,Chinese,Total,Sengkang- Total,Sengkang Town Centre,42780,2899110,1.47562527810259
+2015,Chinese,Total,Serangoon- Total,Lorong Chuan,7570,2899110,0.26111461793446955
+2015,Chinese,Total,Serangoon- Total,Seletar Hills,12040,2899110,0.4152998678904905
+2015,Chinese,Total,Serangoon- Total,Serangoon Central,22110,2899110,0.7626478470979025
+2015,Chinese,Total,Serangoon- Total,Serangoon Garden,32530,2899110,1.1220684968835264
+2015,Chinese,Total,Serangoon- Total,Serangoon North,13810,2899110,0.4763530876717338
+2015,Chinese,Total,Serangoon- Total,Upper Paya Lebar,13380,2899110,0.4615209495327876
+2015,Chinese,Total,Singapore River- Total,Boat Quay,110,2899110,0.0037942678960094654
+2015,Chinese,Total,Singapore River- Total,Clarke Quay,70,2899110,0.0024145341156423866
+2015,Chinese,Total,Singapore River- Total,Robertson Quay,1690,2899110,0.05829375222050905
+2015,Chinese,Total,Southern Islands- Total,Sentosa,810,2899110,0.027939609052433333
+2015,Chinese,Total,Sungei Kadut- Total,Gali Batu,110,2899110,0.0037942678960094654
+2015,Chinese,Total,Sungei Kadut- Total,Turf Club,550,2899110,0.018971339480047325
+2015,Chinese,Total,Tampines- Total,Simei,30950,2899110,1.0675690125590267
+2015,Chinese,Total,Tampines- Total,Tampines East,89310,2899110,3.0806005981145934
+2015,Chinese,Total,Tampines- Total,Tampines West,53600,2899110,1.8488432656918847
+2015,Chinese,Total,Tampines- Total,Xilin,1610,2899110,0.0555342846597749
+2015,Chinese,Total,Tanglin- Total,Chatsworth,3960,2899110,0.13659364425634074
+2015,Chinese,Total,Tanglin- Total,Nassim,6530,2899110,0.22524153964492552
+2015,Chinese,Total,Tanglin- Total,Ridout,1040,2899110,0.03587307828954404
+2015,Chinese,Total,Tanglin- Total,Tyersall,2630,2899110,0.09071749605913539
+2015,Chinese,Total,Toa Payoh- Total,Boon Teck,11350,2899110,0.39149946017915843
+2015,Chinese,Total,Toa Payoh- Total,Braddell,8360,2899110,0.28836436009671934
+2015,Chinese,Total,Toa Payoh- Total,Joo Seng,5780,2899110,0.1993715312630428
+2015,Chinese,Total,Toa Payoh- Total,Kim Keat,7050,2899110,0.24317807878969752
+2015,Chinese,Total,Toa Payoh- Total,Lorong 8 Toa Payoh,6730,2899110,0.23214020854676087
+2015,Chinese,Total,Toa Payoh- Total,Pei Chun,9700,2899110,0.33458544173901644
+2015,Chinese,Total,Toa Payoh- Total,Potong Pasir,10330,2899110,0.35631624877979795
+2015,Chinese,Total,Toa Payoh- Total,Sennett,4100,2899110,0.1414227124876255
+2015,Chinese,Total,Toa Payoh- Total,Toa Payoh Central,25390,2899110,0.8757860170880029
+2015,Chinese,Total,Toa Payoh- Total,Toa Payoh West,11230,2899110,0.3873602588380572
+2015,Chinese,Total,Toa Payoh- Total,Woodleigh,2200,2899110,0.0758853579201893
+2015,Chinese,Total,Western Water Catchment- Total,Western Water Catchment,730,2899110,0.025180141491699178
+2015,Chinese,Total,Woodlands- Total,Midview,21130,2899110,0.7288443694789091
+2015,Chinese,Total,Woodlands- Total,North Coast,8140,2899110,0.2807758243047004
+2015,Chinese,Total,Woodlands- Total,Woodgrove,22880,2899110,0.7892077223699686
+2015,Chinese,Total,Woodlands- Total,Woodlands East,60560,2899110,2.0889169434757564
+2015,Chinese,Total,Woodlands- Total,Woodlands South,21710,2899110,0.7488505092942317
+2015,Chinese,Total,Woodlands- Total,Woodlands West,19310,2899110,0.6660664824722069
+2015,Chinese,Total,Yishun- Total,Khatib,8100,2899110,0.27939609052433334
+2015,Chinese,Total,Yishun- Total,Lower Seletar,2220,2899110,0.07657522481037284
+2015,Chinese,Total,Yishun- Total,Nee Soon,790,2899110,0.027249742162249794
+2015,Chinese,Total,Yishun- Total,Northland,20070,2899110,0.6922814242991815
+2015,Chinese,Total,Yishun- Total,Springleaf,3560,2899110,0.12279630645266996
+2015,Chinese,Total,Yishun- Total,Yishun Central,1200,2899110,0.04139201341101235
+2015,Chinese,Total,Yishun- Total,Yishun East,37680,2899110,1.2997092211057877
+2015,Chinese,Total,Yishun- Total,Yishun South,28880,2899110,0.9961677894250305
+2015,Chinese,Total,Yishun- Total,Yishun West,39800,2899110,1.3728351114652428
+2015,Malays,Total,Ang Mo Kio- Total,Ang Mo Kio Town Centre,210,520960,0.040310196560196555
+2015,Malays,Total,Ang Mo Kio- Total,Cheng San,2140,520960,0.4107800982800983
+2015,Malays,Total,Ang Mo Kio- Total,Chong Boon,1950,520960,0.3743089680589681
+2015,Malays,Total,Ang Mo Kio- Total,Kebun Bahru,2200,520960,0.4222972972972973
+2015,Malays,Total,Ang Mo Kio- Total,Sembawang Hills,100,520960,0.019195331695331695
+2015,Malays,Total,Ang Mo Kio- Total,Shangri-La,2410,520960,0.46260749385749383
+2015,Malays,Total,Ang Mo Kio- Total,Tagore,70,520960,0.013436732186732187
+2015,Malays,Total,Ang Mo Kio- Total,Townsville,1660,520960,0.3186425061425061
+2015,Malays,Total,Ang Mo Kio- Total,Yio Chu Kang East,50,520960,0.009597665847665847
+2015,Malays,Total,Ang Mo Kio- Total,Yio Chu Kang West,2270,520960,0.4357340294840295
+2015,Malays,Total,Bedok- Total,Bayshore,130,520960,0.024953931203931204
+2015,Malays,Total,Bedok- Total,Bedok North,17030,520960,3.2689649877149876
+2015,Malays,Total,Bedok- Total,Bedok Reservoir,3700,520960,0.7102272727272727
+2015,Malays,Total,Bedok- Total,Bedok South,5890,520960,1.1306050368550369
+2015,Malays,Total,Bedok- Total,Frankel,1160,520960,0.22266584766584768
+2015,Malays,Total,Bedok- Total,Kaki Bukit,9740,520960,1.8696253071253073
+2015,Malays,Total,Bedok- Total,Kembangan,6220,520960,1.1939496314496316
+2015,Malays,Total,Bedok- Total,Siglap,110,520960,0.021114864864864864
+2015,Malays,Total,Bishan- Total,Bishan East,1460,520960,0.2802518427518428
+2015,Malays,Total,Bishan- Total,Marymount,1270,520960,0.24378071253071254
+2015,Malays,Total,Bishan- Total,Upper Thomson,1040,520960,0.19963144963144963
+2015,Malays,Total,Bukit Batok- Total,Bukit Batok Central,3240,520960,0.621928746928747
+2015,Malays,Total,Bukit Batok- Total,Bukit Batok East,3120,520960,0.5988943488943489
+2015,Malays,Total,Bukit Batok- Total,Bukit Batok South,1570,520960,0.30136670761670764
+2015,Malays,Total,Bukit Batok- Total,Bukit Batok West,2430,520960,0.46644656019656017
+2015,Malays,Total,Bukit Batok- Total,Gombak,630,520960,0.12093058968058969
+2015,Malays,Total,Bukit Batok- Total,Guilin,1920,520960,0.36855036855036855
+2015,Malays,Total,Bukit Batok- Total,Hillview,340,520960,0.06526412776412777
+2015,Malays,Total,Bukit Batok- Total,Hong Kah North,6330,520960,1.2150644963144963
+2015,Malays,Total,Bukit Merah- Total,Alexandra Hill,2300,520960,0.441492628992629
+2015,Malays,Total,Bukit Merah- Total,Alexandra North,10,520960,0.0019195331695331696
+2015,Malays,Total,Bukit Merah- Total,Bukit Ho Swee,1500,520960,0.28792997542997545
+2015,Malays,Total,Bukit Merah- Total,Bukit Merah,20,520960,0.003839066339066339
+2015,Malays,Total,Bukit Merah- Total,Depot Road,160,520960,0.030712530712530713
+2015,Malays,Total,Bukit Merah- Total,Everton Park,670,520960,0.12860872235872237
+2015,Malays,Total,Bukit Merah- Total,Henderson Hill,2010,520960,0.38582616707616707
+2015,Malays,Total,Bukit Merah- Total,Kampong Tiong Bahru,1050,520960,0.20155098280098283
+2015,Malays,Total,Bukit Merah- Total,Maritime Square,40,520960,0.007678132678132678
+2015,Malays,Total,Bukit Merah- Total,Redhill,1010,520960,0.19387285012285013
+2015,Malays,Total,Bukit Merah- Total,Telok Blangah Drive,1350,520960,0.2591369778869779
+2015,Malays,Total,Bukit Merah- Total,Telok Blangah Rise,760,520960,0.14588452088452086
+2015,Malays,Total,Bukit Merah- Total,Telok Blangah Way,1350,520960,0.2591369778869779
+2015,Malays,Total,Bukit Merah- Total,Tiong Bahru,230,520960,0.0441492628992629
+2015,Malays,Total,Bukit Merah- Total,Tiong Bahru Station,960,520960,0.18427518427518427
+2015,Malays,Total,Bukit Panjang- Total,Bangkit,4150,520960,0.7966062653562653
+2015,Malays,Total,Bukit Panjang- Total,Dairy Farm,80,520960,0.015356265356265357
+2015,Malays,Total,Bukit Panjang- Total,Fajar,5450,520960,1.0461455773955775
+2015,Malays,Total,Bukit Panjang- Total,Jelebu,4480,520960,0.85995085995086
+2015,Malays,Total,Bukit Panjang- Total,Nature Reserve,80,520960,0.015356265356265357
+2015,Malays,Total,Bukit Panjang- Total,Saujana,4550,520960,0.8733875921375922
+2015,Malays,Total,Bukit Panjang- Total,Senja,3430,520960,0.6583998771498771
+2015,Malays,Total,Bukit Timah- Total,Anak Bukit,220,520960,0.04222972972972973
+2015,Malays,Total,Bukit Timah- Total,Coronation Road,30,520960,0.0057585995085995085
+2015,Malays,Total,Bukit Timah- Total,Farrer Court,150,520960,0.028792997542997543
+2015,Malays,Total,Bukit Timah- Total,Hillcrest,60,520960,0.011517199017199017
+2015,Malays,Total,Bukit Timah- Total,Holland Road,80,520960,0.015356265356265357
+2015,Malays,Total,Bukit Timah- Total,Leedon Park,80,520960,0.015356265356265357
+2015,Malays,Total,Bukit Timah- Total,Swiss Club,70,520960,0.013436732186732187
+2015,Malays,Total,Bukit Timah- Total,Ulu Pandan,70,520960,0.013436732186732187
+2015,Malays,Total,Changi- Total,Changi Point,210,520960,0.040310196560196555
+2015,Malays,Total,Changi- Total,Changi West,510,520960,0.09789619164619165
+2015,Malays,Total,Choa Chu Kang- Total,Choa Chu Kang Central,2970,520960,0.5701013513513513
+2015,Malays,Total,Choa Chu Kang- Total,Choa Chu Kang North,5510,520960,1.0576627764127764
+2015,Malays,Total,Choa Chu Kang- Total,Keat Hong,2470,520960,0.47412469287469283
+2015,Malays,Total,Choa Chu Kang- Total,Peng Siang,6000,520960,1.1517199017199018
+2015,Malays,Total,Choa Chu Kang- Total,Teck Whye,6350,520960,1.2189035626535627
+2015,Malays,Total,Choa Chu Kang- Total,Yew Tee,6330,520960,1.2150644963144963
+2015,Malays,Total,Clementi- Total,Clementi Central,1580,520960,0.3032862407862408
+2015,Malays,Total,Clementi- Total,Clementi North,3330,520960,0.6392045454545455
+2015,Malays,Total,Clementi- Total,Clementi West,2690,520960,0.5163544226044225
+2015,Malays,Total,Clementi- Total,Clementi Woods,2040,520960,0.3915847665847666
+2015,Malays,Total,Clementi- Total,Faber,40,520960,0.007678132678132678
+2015,Malays,Total,Clementi- Total,Sunset Way,220,520960,0.04222972972972973
+2015,Malays,Total,Clementi- Total,West Coast,40,520960,0.007678132678132678
+2015,Malays,Total,Downtown Core- Total,Bugis,20,520960,0.003839066339066339
+2015,Malays,Total,Downtown Core- Total,Cecil,10,520960,0.0019195331695331696
+2015,Malays,Total,Downtown Core- Total,Central Subzone,10,520960,0.0019195331695331696
+2015,Malays,Total,Geylang- Total,Aljunied,3030,520960,0.5816185503685504
+2015,Malays,Total,Geylang- Total,Geylang East,5140,520960,0.9866400491400491
+2015,Malays,Total,Geylang- Total,Kampong Ubi,2860,520960,0.5489864864864865
+2015,Malays,Total,Geylang- Total,Macpherson,4250,520960,0.815801597051597
+2015,Malays,Total,Hougang- Total,Hougang Central,250,520960,0.04798832923832924
+2015,Malays,Total,Hougang- Total,Hougang East,1850,520960,0.35511363636363635
+2015,Malays,Total,Hougang- Total,Hougang West,4790,520960,0.9194563882063881
+2015,Malays,Total,Hougang- Total,Kangkar,1830,520960,0.35127457002457
+2015,Malays,Total,Hougang- Total,Kovan,590,520960,0.11325245700245701
+2015,Malays,Total,Hougang- Total,Lorong Ah Soo,2600,520960,0.499078624078624
+2015,Malays,Total,Hougang- Total,Tai Seng,1260,520960,0.24186117936117937
+2015,Malays,Total,Hougang- Total,Trafalgar,4480,520960,0.85995085995086
+2015,Malays,Total,Jurong East- Total,Lakeside,20,520960,0.003839066339066339
+2015,Malays,Total,Jurong East- Total,Teban Gardens,4800,520960,0.9213759213759214
+2015,Malays,Total,Jurong East- Total,Toh Guan,1930,520960,0.3704699017199017
+2015,Malays,Total,Jurong East- Total,Yuhua East,3740,520960,0.7179054054054055
+2015,Malays,Total,Jurong East- Total,Yuhua West,3260,520960,0.6257678132678133
+2015,Malays,Total,Jurong West- Total,Boon Lay Place,7420,520960,1.4242936117936118
+2015,Malays,Total,Jurong West- Total,Hong Kah,10610,520960,2.036624692874693
+2015,Malays,Total,Jurong West- Total,Jurong West Central,8530,520960,1.6373617936117937
+2015,Malays,Total,Jurong West- Total,Taman Jurong,6320,520960,1.2131449631449631
+2015,Malays,Total,Jurong West- Total,Wenya,1440,520960,0.2764127764127764
+2015,Malays,Total,Jurong West- Total,Yunnan,14310,520960,2.7468519656019654
+2015,Malays,Total,Kallang- Total,Bendemeer,1560,520960,0.29944717444717445
+2015,Malays,Total,Kallang- Total,Boon Keng,1250,520960,0.23994164619164618
+2015,Malays,Total,Kallang- Total,Crawford,1720,520960,0.33015970515970516
+2015,Malays,Total,Kallang- Total,Geylang Bahru,1590,520960,0.305205773955774
+2015,Malays,Total,Kallang- Total,Kampong Bugis,40,520960,0.007678132678132678
+2015,Malays,Total,Kallang- Total,Kampong Java,380,520960,0.07294226044226043
+2015,Malays,Total,Kallang- Total,Lavender,960,520960,0.18427518427518427
+2015,Malays,Total,Kallang- Total,Tanjong Rhu,490,520960,0.0940571253071253
+2015,Malays,Total,Mandai- Total,Mandai Estate,110,520960,0.021114864864864864
+2015,Malays,Total,Marine Parade- Total,Katong,100,520960,0.019195331695331695
+2015,Malays,Total,Marine Parade- Total,Marine Parade,3320,520960,0.6372850122850122
+2015,Malays,Total,Marine Parade- Total,Mountbatten,80,520960,0.015356265356265357
+2015,Malays,Total,Newton- Total,Cairnhill,20,520960,0.003839066339066339
+2015,Malays,Total,Newton- Total,Goodwood Park,10,520960,0.0019195331695331696
+2015,Malays,Total,Newton- Total,Monk's Hill,10,520960,0.0019195331695331696
+2015,Malays,Total,Newton- Total,Orange Grove,20,520960,0.003839066339066339
+2015,Malays,Total,Novena- Total,Balestier,1990,520960,0.38198710073710074
+2015,Malays,Total,Novena- Total,Dunearn,20,520960,0.003839066339066339
+2015,Malays,Total,Novena- Total,Malcolm,20,520960,0.003839066339066339
+2015,Malays,Total,Novena- Total,Moulmein,80,520960,0.015356265356265357
+2015,Malays,Total,Novena- Total,Mount Pleasant,10,520960,0.0019195331695331696
+2015,Malays,Total,Orchard- Total,Boulevard,10,520960,0.0019195331695331696
+2015,Malays,Total,Outram- Total,China Square,10,520960,0.0019195331695331696
+2015,Malays,Total,Outram- Total,Chinatown,620,520960,0.11901105651105652
+2015,Malays,Total,Outram- Total,Pearl's Hill,1310,520960,0.2514588452088452
+2015,Malays,Total,Pasir Ris- Total,Flora Drive,1070,520960,0.20539004914004916
+2015,Malays,Total,Pasir Ris- Total,Loyang East,90,520960,0.017275798525798525
+2015,Malays,Total,Pasir Ris- Total,Loyang West,30,520960,0.0057585995085995085
+2015,Malays,Total,Pasir Ris- Total,Pasir Ris Central,3790,520960,0.7275030712530712
+2015,Malays,Total,Pasir Ris- Total,Pasir Ris Drive,16020,520960,3.0750921375921374
+2015,Malays,Total,Pasir Ris- Total,Pasir Ris Park,330,520960,0.0633445945945946
+2015,Malays,Total,Pasir Ris- Total,Pasir Ris West,7090,520960,1.3609490171990173
+2015,Malays,Total,Punggol- Total,Matilda,4450,520960,0.8541922604422605
+2015,Malays,Total,Punggol- Total,Punggol Field,4670,520960,0.8964219901719903
+2015,Malays,Total,Punggol- Total,Punggol Town Centre,860,520960,0.16507985257985258
+2015,Malays,Total,Punggol- Total,Waterway East,4490,520960,0.8618703931203932
+2015,Malays,Total,Queenstown- Total,Commonwealth,1170,520960,0.22458538083538082
+2015,Malays,Total,Queenstown- Total,Dover,1050,520960,0.20155098280098283
+2015,Malays,Total,Queenstown- Total,Ghim Moh,1530,520960,0.2936885749385749
+2015,Malays,Total,Queenstown- Total,Holland Drive,1190,520960,0.22842444717444715
+2015,Malays,Total,Queenstown- Total,Kent Ridge,20,520960,0.003839066339066339
+2015,Malays,Total,Queenstown- Total,Margaret Drive,330,520960,0.0633445945945946
+2015,Malays,Total,Queenstown- Total,Mei Chin,1520,520960,0.2917690417690417
+2015,Malays,Total,Queenstown- Total,National University of S'pore,10,520960,0.0019195331695331696
+2015,Malays,Total,Queenstown- Total,Pasir Panjang 1,40,520960,0.007678132678132678
+2015,Malays,Total,Queenstown- Total,Pasir Panjang 2,80,520960,0.015356265356265357
+2015,Malays,Total,Queenstown- Total,Queensway,10,520960,0.0019195331695331696
+2015,Malays,Total,Queenstown- Total,Tanglin Halt,1770,520960,0.339757371007371
+2015,Malays,Total,River Valley- Total,Institution Hill,30,520960,0.0057585995085995085
+2015,Malays,Total,River Valley- Total,Leonie Hill,30,520960,0.0057585995085995085
+2015,Malays,Total,River Valley- Total,One Tree Hill,20,520960,0.003839066339066339
+2015,Malays,Total,River Valley- Total,Oxley,20,520960,0.003839066339066339
+2015,Malays,Total,Rochor- Total,Bencoolen,40,520960,0.007678132678132678
+2015,Malays,Total,Rochor- Total,Farrer Park,70,520960,0.013436732186732187
+2015,Malays,Total,Rochor- Total,Kampong Glam,30,520960,0.0057585995085995085
+2015,Malays,Total,Rochor- Total,Little India,30,520960,0.0057585995085995085
+2015,Malays,Total,Rochor- Total,Mount Emily,20,520960,0.003839066339066339
+2015,Malays,Total,Rochor- Total,Sungei Road,420,520960,0.08062039312039311
+2015,Malays,Total,Rochor- Total,Victoria,20,520960,0.003839066339066339
+2015,Malays,Total,Sembawang- Total,Admiralty,2290,520960,0.43957309582309584
+2015,Malays,Total,Sembawang- Total,Sembawang Central,3720,520960,0.7140663390663391
+2015,Malays,Total,Sembawang- Total,Sembawang North,4040,520960,0.7754914004914005
+2015,Malays,Total,Sembawang- Total,Sembawang Springs,150,520960,0.028792997542997543
+2015,Malays,Total,Sembawang- Total,Sembawang Straits,100,520960,0.019195331695331695
+2015,Malays,Total,Sengkang- Total,Anchorvale,3960,520960,0.7601351351351352
+2015,Malays,Total,Sengkang- Total,Compassvale,1430,520960,0.27449324324324326
+2015,Malays,Total,Sengkang- Total,Fernvale,5170,520960,0.9923986486486486
+2015,Malays,Total,Sengkang- Total,Rivervale,6820,520960,1.3091216216216217
+2015,Malays,Total,Sengkang- Total,Sengkang Town Centre,5210,520960,1.0000767813267812
+2015,Malays,Total,Serangoon- Total,Lorong Chuan,50,520960,0.009597665847665847
+2015,Malays,Total,Serangoon- Total,Seletar Hills,150,520960,0.028792997542997543
+2015,Malays,Total,Serangoon- Total,Serangoon Central,1180,520960,0.22650491400491402
+2015,Malays,Total,Serangoon- Total,Serangoon Garden,1980,520960,0.3800675675675676
+2015,Malays,Total,Serangoon- Total,Serangoon North,1310,520960,0.2514588452088452
+2015,Malays,Total,Serangoon- Total,Upper Paya Lebar,500,520960,0.09597665847665848
+2015,Malays,Total,Singapore River- Total,Robertson Quay,10,520960,0.0019195331695331696
+2015,Malays,Total,Southern Islands- Total,Sentosa,20,520960,0.003839066339066339
+2015,Malays,Total,Tampines- Total,Simei,5130,520960,0.984720515970516
+2015,Malays,Total,Tampines- Total,Tampines East,34020,520960,6.530251842751842
+2015,Malays,Total,Tampines- Total,Tampines West,16790,520960,3.2228961916461913
+2015,Malays,Total,Tampines- Total,Xilin,70,520960,0.013436732186732187
+2015,Malays,Total,Tanglin- Total,Chatsworth,50,520960,0.009597665847665847
+2015,Malays,Total,Tanglin- Total,Nassim,90,520960,0.017275798525798525
+2015,Malays,Total,Tanglin- Total,Tyersall,50,520960,0.009597665847665847
+2015,Malays,Total,Toa Payoh- Total,Boon Teck,2280,520960,0.43765356265356264
+2015,Malays,Total,Toa Payoh- Total,Braddell,1330,520960,0.25529791154791154
+2015,Malays,Total,Toa Payoh- Total,Joo Seng,240,520960,0.04606879606879607
+2015,Malays,Total,Toa Payoh- Total,Kim Keat,530,520960,0.10173525798525798
+2015,Malays,Total,Toa Payoh- Total,Lorong 8 Toa Payoh,760,520960,0.14588452088452086
+2015,Malays,Total,Toa Payoh- Total,Pei Chun,1010,520960,0.19387285012285013
+2015,Malays,Total,Toa Payoh- Total,Potong Pasir,680,520960,0.13052825552825553
+2015,Malays,Total,Toa Payoh- Total,Sennett,70,520960,0.013436732186732187
+2015,Malays,Total,Toa Payoh- Total,Toa Payoh Central,2380,520960,0.4568488943488943
+2015,Malays,Total,Toa Payoh- Total,Toa Payoh West,620,520960,0.11901105651105652
+2015,Malays,Total,Toa Payoh- Total,Woodleigh,20,520960,0.003839066339066339
+2015,Malays,Total,Woodlands- Total,Midview,9680,520960,1.8581081081081081
+2015,Malays,Total,Woodlands- Total,North Coast,4240,520960,0.8138820638820639
+2015,Malays,Total,Woodlands- Total,Woodgrove,8340,520960,1.6008906633906634
+2015,Malays,Total,Woodlands- Total,Woodlands East,21560,520960,4.138513513513513
+2015,Malays,Total,Woodlands- Total,Woodlands South,9130,520960,1.752533783783784
+2015,Malays,Total,Woodlands- Total,Woodlands West,9360,520960,1.7966830466830466
+2015,Malays,Total,Yishun- Total,Khatib,1390,520960,0.26681511056511054
+2015,Malays,Total,Yishun- Total,Lower Seletar,340,520960,0.06526412776412777
+2015,Malays,Total,Yishun- Total,Nee Soon,30,520960,0.0057585995085995085
+2015,Malays,Total,Yishun- Total,Northland,6030,520960,1.1574785012285012
+2015,Malays,Total,Yishun- Total,Springleaf,30,520960,0.0057585995085995085
+2015,Malays,Total,Yishun- Total,Yishun Central,140,520960,0.026873464373464374
+2015,Malays,Total,Yishun- Total,Yishun East,10500,520960,2.015509828009828
+2015,Malays,Total,Yishun- Total,Yishun South,4960,520960,0.9520884520884522
+2015,Malays,Total,Yishun- Total,Yishun West,10520,520960,2.0193488943488944
+2015,Indians,Total,Ang Mo Kio- Total,Ang Mo Kio Town Centre,360,354860,0.10144845854703263
+2015,Indians,Total,Ang Mo Kio- Total,Cheng San,2380,354860,0.6706870315053824
+2015,Indians,Total,Ang Mo Kio- Total,Chong Boon,2400,354860,0.6763230569802176
+2015,Indians,Total,Ang Mo Kio- Total,Kebun Bahru,1910,354860,0.5382404328467564
+2015,Indians,Total,Ang Mo Kio- Total,Sembawang Hills,500,354860,0.14090063687087867
+2015,Indians,Total,Ang Mo Kio- Total,Shangri-La,1790,354860,0.5044242799977455
+2015,Indians,Total,Ang Mo Kio- Total,Tagore,560,354860,0.1578087132953841
+2015,Indians,Total,Ang Mo Kio- Total,Townsville,1900,354860,0.5354224201093388
+2015,Indians,Total,Ang Mo Kio- Total,Yio Chu Kang East,300,354860,0.0845403821225272
+2015,Indians,Total,Ang Mo Kio- Total,Yio Chu Kang West,2060,354860,0.5805106239080201
+2015,Indians,Total,Bedok- Total,Bayshore,1360,354860,0.38324973228878995
+2015,Indians,Total,Bedok- Total,Bedok North,6430,354860,1.8119821901594995
+2015,Indians,Total,Bedok- Total,Bedok Reservoir,2020,354860,0.5692385729583498
+2015,Indians,Total,Bedok- Total,Bedok South,3780,354860,1.0652088147438428
+2015,Indians,Total,Bedok- Total,Frankel,2670,354860,0.752409400890492
+2015,Indians,Total,Bedok- Total,Kaki Bukit,3780,354860,1.0652088147438428
+2015,Indians,Total,Bedok- Total,Kembangan,3650,354860,1.0285746491574144
+2015,Indians,Total,Bedok- Total,Siglap,1420,354860,0.4001578087132954
+2015,Indians,Total,Bishan- Total,Bishan East,2560,354860,0.7214112607788987
+2015,Indians,Total,Bishan- Total,Marymount,2300,354860,0.6481429296060418
+2015,Indians,Total,Bishan- Total,Upper Thomson,2140,354860,0.6030547258073606
+2015,Indians,Total,Bukit Batok- Total,Bukit Batok Central,2410,354860,0.6791410697176351
+2015,Indians,Total,Bukit Batok- Total,Bukit Batok East,1810,354860,0.5100603054725807
+2015,Indians,Total,Bukit Batok- Total,Bukit Batok South,1550,354860,0.43679197429972383
+2015,Indians,Total,Bukit Batok- Total,Bukit Batok West,1710,354860,0.481880178098405
+2015,Indians,Total,Bukit Batok- Total,Gombak,630,354860,0.17753480245730713
+2015,Indians,Total,Bukit Batok- Total,Guilin,1470,354860,0.41424787240038324
+2015,Indians,Total,Bukit Batok- Total,Hillview,1150,354860,0.3240714648030209
+2015,Indians,Total,Bukit Batok- Total,Hong Kah North,2990,354860,0.8425858084878544
+2015,Indians,Total,Bukit Merah- Total,Alexandra Hill,1700,354860,0.47906216536098745
+2015,Indians,Total,Bukit Merah- Total,Alexandra North,140,354860,0.039452178323846024
+2015,Indians,Total,Bukit Merah- Total,Bukit Ho Swee,1340,354860,0.3776137068139548
+2015,Indians,Total,Bukit Merah- Total,Bukit Merah,130,354860,0.03663416558642845
+2015,Indians,Total,Bukit Merah- Total,Depot Road,490,354860,0.1380826241334611
+2015,Indians,Total,Bukit Merah- Total,Everton Park,1020,354860,0.28743729921659245
+2015,Indians,Total,Bukit Merah- Total,Henderson Hill,1370,354860,0.38606774502620755
+2015,Indians,Total,Bukit Merah- Total,Kampong Tiong Bahru,1150,354860,0.3240714648030209
+2015,Indians,Total,Bukit Merah- Total,Maritime Square,260,354860,0.0732683311728569
+2015,Indians,Total,Bukit Merah- Total,Redhill,1010,354860,0.2846192864791749
+2015,Indians,Total,Bukit Merah- Total,Telok Blangah Drive,1730,354860,0.4875162035732401
+2015,Indians,Total,Bukit Merah- Total,Telok Blangah Rise,1590,354860,0.44806402524939415
+2015,Indians,Total,Bukit Merah- Total,Telok Blangah Way,1070,354860,0.3015273629036803
+2015,Indians,Total,Bukit Merah- Total,Tiong Bahru,770,354860,0.21698698078115314
+2015,Indians,Total,Bukit Merah- Total,Tiong Bahru Station,1360,354860,0.38324973228878995
+2015,Indians,Total,Bukit Panjang- Total,Bangkit,1500,354860,0.42270191061263596
+2015,Indians,Total,Bukit Panjang- Total,Dairy Farm,350,354860,0.09863044580961505
+2015,Indians,Total,Bukit Panjang- Total,Fajar,2080,354860,0.5861466493828552
+2015,Indians,Total,Bukit Panjang- Total,Jelebu,2370,354860,0.6678690187679648
+2015,Indians,Total,Bukit Panjang- Total,Nature Reserve,270,354860,0.07608634391027447
+2015,Indians,Total,Bukit Panjang- Total,Saujana,2200,354860,0.6199628022318662
+2015,Indians,Total,Bukit Panjang- Total,Senja,1530,354860,0.4311559488248887
+2015,Indians,Total,Bukit Timah- Total,Anak Bukit,840,354860,0.23671306994307614
+2015,Indians,Total,Bukit Timah- Total,Coronation Road,290,354860,0.08172236938510963
+2015,Indians,Total,Bukit Timah- Total,Farrer Court,230,354860,0.06481429296060419
+2015,Indians,Total,Bukit Timah- Total,Hillcrest,550,354860,0.15499070055796654
+2015,Indians,Total,Bukit Timah- Total,Holland Road,440,354860,0.12399256044637322
+2015,Indians,Total,Bukit Timah- Total,Leedon Park,400,354860,0.11272050949670293
+2015,Indians,Total,Bukit Timah- Total,Swiss Club,300,354860,0.0845403821225272
+2015,Indians,Total,Bukit Timah- Total,Ulu Pandan,600,354860,0.1690807642450544
+2015,Indians,Total,Changi- Total,Changi Point,80,354860,0.022544101899340585
+2015,Indians,Total,Changi- Total,Changi West,400,354860,0.11272050949670293
+2015,Indians,Total,Choa Chu Kang- Total,Choa Chu Kang Central,1770,354860,0.4987882545229105
+2015,Indians,Total,Choa Chu Kang- Total,Choa Chu Kang North,3270,354860,0.9214901651355464
+2015,Indians,Total,Choa Chu Kang- Total,Keat Hong,1730,354860,0.4875162035732401
+2015,Indians,Total,Choa Chu Kang- Total,Peng Siang,3410,354860,0.9609423434593924
+2015,Indians,Total,Choa Chu Kang- Total,Teck Whye,2750,354860,0.7749535027898327
+2015,Indians,Total,Choa Chu Kang- Total,Yew Tee,3540,354860,0.997576509045821
+2015,Indians,Total,Clementi- Total,Clementi Central,970,354860,0.2733472355295046
+2015,Indians,Total,Clementi- Total,Clementi North,2110,354860,0.594600687595108
+2015,Indians,Total,Clementi- Total,Clementi West,1980,354860,0.5579665220086795
+2015,Indians,Total,Clementi- Total,Clementi Woods,1550,354860,0.43679197429972383
+2015,Indians,Total,Clementi- Total,Faber,310,354860,0.08735839485994476
+2015,Indians,Total,Clementi- Total,Sunset Way,390,354860,0.10990249675928536
+2015,Indians,Total,Clementi- Total,West Coast,300,354860,0.0845403821225272
+2015,Indians,Total,Downtown Core- Total,Bugis,160,354860,0.04508820379868117
+2015,Indians,Total,Downtown Core- Total,Cecil,20,354860,0.005636025474835146
+2015,Indians,Total,Downtown Core- Total,Central Subzone,40,354860,0.011272050949670293
+2015,Indians,Total,Downtown Core- Total,Tanjong Pagar,70,354860,0.019726089161923012
+2015,Indians,Total,Geylang- Total,Aljunied,2680,354860,0.7552274136279096
+2015,Indians,Total,Geylang- Total,Geylang East,3070,354860,0.8651299103871949
+2015,Indians,Total,Geylang- Total,Kampong Ubi,1180,354860,0.3325255030152736
+2015,Indians,Total,Geylang- Total,Macpherson,2960,354860,0.8341317702756016
+2015,Indians,Total,Hougang- Total,Hougang Central,330,354860,0.09299442033477992
+2015,Indians,Total,Hougang- Total,Hougang East,1780,354860,0.5016062672603281
+2015,Indians,Total,Hougang- Total,Hougang West,4120,354860,1.1610212478160402
+2015,Indians,Total,Hougang- Total,Kangkar,2100,354860,0.5917826748576904
+2015,Indians,Total,Hougang- Total,Kovan,1490,354860,0.4198838978752184
+2015,Indians,Total,Hougang- Total,Lorong Ah Soo,2590,354860,0.7298652989911515
+2015,Indians,Total,Hougang- Total,Tai Seng,1190,354860,0.3353435157526912
+2015,Indians,Total,Hougang- Total,Trafalgar,4450,354860,1.25401566815082
+2015,Indians,Total,Jurong East- Total,Lakeside,80,354860,0.022544101899340585
+2015,Indians,Total,Jurong East- Total,Teban Gardens,2130,354860,0.6002367130699431
+2015,Indians,Total,Jurong East- Total,Toh Guan,1640,354860,0.462154088936482
+2015,Indians,Total,Jurong East- Total,Yuhua East,3000,354860,0.8454038212252719
+2015,Indians,Total,Jurong East- Total,Yuhua West,2300,354860,0.6481429296060418
+2015,Indians,Total,Jurong West- Total,Boon Lay Place,2990,354860,0.8425858084878544
+2015,Indians,Total,Jurong West- Total,Hong Kah,6000,354860,1.6908076424505438
+2015,Indians,Total,Jurong West- Total,Jurong West Central,5590,354860,1.5752691202164233
+2015,Indians,Total,Jurong West- Total,Taman Jurong,3860,354860,1.0877529166431832
+2015,Indians,Total,Jurong West- Total,Wenya,1100,354860,0.3099814011159331
+2015,Indians,Total,Jurong West- Total,Yunnan,7540,354860,2.12478160401285
+2015,Indians,Total,Kallang- Total,Bendemeer,4390,354860,1.2371075917263146
+2015,Indians,Total,Kallang- Total,Boon Keng,810,354860,0.2282590317308234
+2015,Indians,Total,Kallang- Total,Crawford,1140,354860,0.32125345206560335
+2015,Indians,Total,Kallang- Total,Geylang Bahru,1500,354860,0.42270191061263596
+2015,Indians,Total,Kallang- Total,Kampong Bugis,90,354860,0.025362114636758158
+2015,Indians,Total,Kallang- Total,Kampong Java,1680,354860,0.4734261398861523
+2015,Indians,Total,Kallang- Total,Lavender,1780,354860,0.5016062672603281
+2015,Indians,Total,Kallang- Total,Tanjong Rhu,3080,354860,0.8679479231246126
+2015,Indians,Total,Mandai- Total,Mandai Estate,240,354860,0.06763230569802176
+2015,Indians,Total,Marine Parade- Total,Katong,720,354860,0.20289691709406527
+2015,Indians,Total,Marine Parade- Total,Marine Parade,2880,354860,0.8115876683762611
+2015,Indians,Total,Marine Parade- Total,Mountbatten,2420,354860,0.6819590824550528
+2015,Indians,Total,Museum- Total,Dhoby Ghaut,10,354860,0.002818012737417573
+2015,Indians,Total,Museum- Total,Fort Canning,30,354860,0.00845403821225272
+2015,Indians,Total,Newton- Total,Cairnhill,390,354860,0.10990249675928536
+2015,Indians,Total,Newton- Total,Goodwood Park,90,354860,0.025362114636758158
+2015,Indians,Total,Newton- Total,Monk's Hill,120,354860,0.03381615284901088
+2015,Indians,Total,Newton- Total,Newton Circus,30,354860,0.00845403821225272
+2015,Indians,Total,Newton- Total,Orange Grove,130,354860,0.03663416558642845
+2015,Indians,Total,Novena- Total,Balestier,3130,354860,0.8820379868117003
+2015,Indians,Total,Novena- Total,Dunearn,300,354860,0.0845403821225272
+2015,Indians,Total,Novena- Total,Malcolm,140,354860,0.039452178323846024
+2015,Indians,Total,Novena- Total,Moulmein,590,354860,0.1662627515076368
+2015,Indians,Total,Novena- Total,Mount Pleasant,50,354860,0.014090063687087866
+2015,Indians,Total,Orchard- Total,Boulevard,20,354860,0.005636025474835146
+2015,Indians,Total,Orchard- Total,Somerset,10,354860,0.002818012737417573
+2015,Indians,Total,Orchard- Total,Tanglin,40,354860,0.011272050949670293
+2015,Indians,Total,Outram- Total,China Square,20,354860,0.005636025474835146
+2015,Indians,Total,Outram- Total,Chinatown,870,354860,0.24516710815532888
+2015,Indians,Total,Outram- Total,Pearl's Hill,680,354860,0.19162486614439497
+2015,Indians,Total,Outram- Total,People's Park,10,354860,0.002818012737417573
+2015,Indians,Total,Pasir Ris- Total,Flora Drive,1160,354860,0.3268894775404385
+2015,Indians,Total,Pasir Ris- Total,Loyang East,260,354860,0.0732683311728569
+2015,Indians,Total,Pasir Ris- Total,Loyang West,10,354860,0.002818012737417573
+2015,Indians,Total,Pasir Ris- Total,Pasir Ris Central,2080,354860,0.5861466493828552
+2015,Indians,Total,Pasir Ris- Total,Pasir Ris Drive,5000,354860,1.4090063687087866
+2015,Indians,Total,Pasir Ris- Total,Pasir Ris Park,220,354860,0.06199628022318661
+2015,Indians,Total,Pasir Ris- Total,Pasir Ris West,3180,354860,0.8961280504987883
+2015,Indians,Total,Punggol- Total,Matilda,1990,354860,0.5607845347460971
+2015,Indians,Total,Punggol- Total,Northshore,30,354860,0.00845403821225272
+2015,Indians,Total,Punggol- Total,Punggol Field,3400,354860,0.9581243307219749
+2015,Indians,Total,Punggol- Total,Punggol Town Centre,350,354860,0.09863044580961505
+2015,Indians,Total,Punggol- Total,Waterway East,1950,354860,0.5495124837964268
+2015,Indians,Total,Queenstown- Total,Commonwealth,590,354860,0.1662627515076368
+2015,Indians,Total,Queenstown- Total,Dover,1220,354860,0.34379755396494394
+2015,Indians,Total,Queenstown- Total,Ghim Moh,820,354860,0.231077044468241
+2015,Indians,Total,Queenstown- Total,Holland Drive,760,354860,0.21416896804373559
+2015,Indians,Total,Queenstown- Total,Kent Ridge,200,354860,0.05636025474835146
+2015,Indians,Total,Queenstown- Total,Margaret Drive,850,354860,0.23953108268049372
+2015,Indians,Total,Queenstown- Total,Mei Chin,1740,354860,0.49033421631065777
+2015,Indians,Total,Queenstown- Total,National University of S'pore,10,354860,0.002818012737417573
+2015,Indians,Total,Queenstown- Total,One North,40,354860,0.011272050949670293
+2015,Indians,Total,Queenstown- Total,Pasir Panjang 1,240,354860,0.06763230569802176
+2015,Indians,Total,Queenstown- Total,Pasir Panjang 2,240,354860,0.06763230569802176
+2015,Indians,Total,Queenstown- Total,Port,10,354860,0.002818012737417573
+2015,Indians,Total,Queenstown- Total,Queensway,30,354860,0.00845403821225272
+2015,Indians,Total,Queenstown- Total,Singapore Polytechnic,30,354860,0.00845403821225272
+2015,Indians,Total,Queenstown- Total,Tanglin Halt,1220,354860,0.34379755396494394
+2015,Indians,Total,River Valley- Total,Institution Hill,480,354860,0.1352646113960435
+2015,Indians,Total,River Valley- Total,Leonie Hill,500,354860,0.14090063687087867
+2015,Indians,Total,River Valley- Total,One Tree Hill,210,354860,0.059178267485769036
+2015,Indians,Total,River Valley- Total,Oxley,70,354860,0.019726089161923012
+2015,Indians,Total,River Valley- Total,Paterson,10,354860,0.002818012737417573
+2015,Indians,Total,Rochor- Total,Bencoolen,300,354860,0.0845403821225272
+2015,Indians,Total,Rochor- Total,Farrer Park,910,354860,0.25643915910499915
+2015,Indians,Total,Rochor- Total,Kampong Glam,70,354860,0.019726089161923012
+2015,Indians,Total,Rochor- Total,Little India,970,354860,0.2733472355295046
+2015,Indians,Total,Rochor- Total,Mackenzie,20,354860,0.005636025474835146
+2015,Indians,Total,Rochor- Total,Mount Emily,70,354860,0.019726089161923012
+2015,Indians,Total,Rochor- Total,Selegie,70,354860,0.019726089161923012
+2015,Indians,Total,Rochor- Total,Sungei Road,350,354860,0.09863044580961505
+2015,Indians,Total,Rochor- Total,Victoria,200,354860,0.05636025474835146
+2015,Indians,Total,Seletar- Total,Seletar,30,354860,0.00845403821225272
+2015,Indians,Total,Sembawang- Total,Admiralty,1330,354860,0.37479569407653723
+2015,Indians,Total,Sembawang- Total,Sembawang Central,2690,354860,0.7580454263653271
+2015,Indians,Total,Sembawang- Total,Sembawang North,2450,354860,0.6904131206673054
+2015,Indians,Total,Sembawang- Total,Sembawang Springs,460,354860,0.12962858592120838
+2015,Indians,Total,Sembawang- Total,Sembawang Straits,240,354860,0.06763230569802176
+2015,Indians,Total,Sengkang- Total,Anchorvale,3440,354860,0.9693963816716451
+2015,Indians,Total,Sengkang- Total,Compassvale,1030,354860,0.29025531195401005
+2015,Indians,Total,Sengkang- Total,Fernvale,2490,354860,0.7016851716169757
+2015,Indians,Total,Sengkang- Total,Rivervale,6060,354860,1.7077157188750494
+2015,Indians,Total,Sengkang- Total,Sengkang Town Centre,5190,354860,1.4625486107197205
+2015,Indians,Total,Serangoon- Total,Lorong Chuan,420,354860,0.11835653497153807
+2015,Indians,Total,Serangoon- Total,Seletar Hills,930,354860,0.2620751845798343
+2015,Indians,Total,Serangoon- Total,Serangoon Central,2600,354860,0.732683311728569
+2015,Indians,Total,Serangoon- Total,Serangoon Garden,3480,354860,0.9806684326213155
+2015,Indians,Total,Serangoon- Total,Serangoon North,1980,354860,0.5579665220086795
+2015,Indians,Total,Serangoon- Total,Upper Paya Lebar,1330,354860,0.37479569407653723
+2015,Indians,Total,Singapore River- Total,Boat Quay,20,354860,0.005636025474835146
+2015,Indians,Total,Singapore River- Total,Clarke Quay,20,354860,0.005636025474835146
+2015,Indians,Total,Singapore River- Total,Robertson Quay,180,354860,0.050724229273516316
+2015,Indians,Total,Southern Islands- Total,Sentosa,150,354860,0.0422701910612636
+2015,Indians,Total,Sungei Kadut- Total,Gali Batu,10,354860,0.002818012737417573
+2015,Indians,Total,Sungei Kadut- Total,Turf Club,90,354860,0.025362114636758158
+2015,Indians,Total,Tampines- Total,Simei,4810,354860,1.3554641266978527
+2015,Indians,Total,Tampines- Total,Tampines East,10800,354860,3.043453756410979
+2015,Indians,Total,Tampines- Total,Tampines West,5800,354860,1.6344473877021926
+2015,Indians,Total,Tampines- Total,Xilin,140,354860,0.039452178323846024
+2015,Indians,Total,Tanglin- Total,Chatsworth,860,354860,0.24234909541791128
+2015,Indians,Total,Tanglin- Total,Nassim,640,354860,0.18035281519472468
+2015,Indians,Total,Tanglin- Total,Ridout,140,354860,0.039452178323846024
+2015,Indians,Total,Tanglin- Total,Tyersall,290,354860,0.08172236938510963
+2015,Indians,Total,Toa Payoh- Total,Boon Teck,1200,354860,0.3381615284901088
+2015,Indians,Total,Toa Payoh- Total,Braddell,760,354860,0.21416896804373559
+2015,Indians,Total,Toa Payoh- Total,Joo Seng,550,354860,0.15499070055796654
+2015,Indians,Total,Toa Payoh- Total,Kim Keat,810,354860,0.2282590317308234
+2015,Indians,Total,Toa Payoh- Total,Lorong 8 Toa Payoh,540,354860,0.15217268782054894
+2015,Indians,Total,Toa Payoh- Total,Pei Chun,730,354860,0.20571492983148285
+2015,Indians,Total,Toa Payoh- Total,Potong Pasir,1410,354860,0.39733979597587776
+2015,Indians,Total,Toa Payoh- Total,Sennett,280,354860,0.07890435664769205
+2015,Indians,Total,Toa Payoh- Total,Toa Payoh Central,1990,354860,0.5607845347460971
+2015,Indians,Total,Toa Payoh- Total,Toa Payoh West,900,354860,0.25362114636758154
+2015,Indians,Total,Toa Payoh- Total,Woodleigh,120,354860,0.03381615284901088
+2015,Indians,Total,Western Water Catchment- Total,Western Water Catchment,90,354860,0.025362114636758158
+2015,Indians,Total,Woodlands- Total,Midview,3920,354860,1.1046609930676887
+2015,Indians,Total,Woodlands- Total,North Coast,1950,354860,0.5495124837964268
+2015,Indians,Total,Woodlands- Total,Woodgrove,3730,354860,1.0511187510567548
+2015,Indians,Total,Woodlands- Total,Woodlands East,10730,354860,3.023727667249056
+2015,Indians,Total,Woodlands- Total,Woodlands South,3910,354860,1.101842980330271
+2015,Indians,Total,Woodlands- Total,Woodlands West,3560,354860,1.0032125345206562
+2015,Indians,Total,Yishun- Total,Khatib,1050,354860,0.2958913374288452
+2015,Indians,Total,Yishun- Total,Lower Seletar,230,354860,0.06481429296060419
+2015,Indians,Total,Yishun- Total,Nee Soon,50,354860,0.014090063687087866
+2015,Indians,Total,Yishun- Total,Northland,3190,354860,0.8989460632362059
+2015,Indians,Total,Yishun- Total,Springleaf,190,354860,0.053542242010933896
+2015,Indians,Total,Yishun- Total,Yishun Central,130,354860,0.03663416558642845
+2015,Indians,Total,Yishun- Total,Yishun East,5350,354860,1.5076368145184016
+2015,Indians,Total,Yishun- Total,Yishun South,4010,354860,1.130023107704447
+2015,Indians,Total,Yishun- Total,Yishun West,6040,354860,1.702079693400214
+2015,Others,Total,Ang Mo Kio- Total,Ang Mo Kio Town Centre,190,126820,0.1498186405929664
+2015,Others,Total,Ang Mo Kio- Total,Cheng San,600,126820,0.47311149660936763
+2015,Others,Total,Ang Mo Kio- Total,Chong Boon,630,126820,0.49676707143983595
+2015,Others,Total,Ang Mo Kio- Total,Kebun Bahru,590,126820,0.46522630499921147
+2015,Others,Total,Ang Mo Kio- Total,Sembawang Hills,220,126820,0.17347421542343477
+2015,Others,Total,Ang Mo Kio- Total,Shangri-La,410,126820,0.3232928560164012
+2015,Others,Total,Ang Mo Kio- Total,Tagore,270,126820,0.21290017347421544
+2015,Others,Total,Ang Mo Kio- Total,Townsville,580,126820,0.45734111338905536
+2015,Others,Total,Ang Mo Kio- Total,Yio Chu Kang East,120,126820,0.09462229932187352
+2015,Others,Total,Ang Mo Kio- Total,Yio Chu Kang West,670,126820,0.5283078378804605
+2015,Others,Total,Bedok- Total,Bayshore,750,126820,0.5913893707617095
+2015,Others,Total,Bedok- Total,Bedok North,2600,126820,2.050149818640593
+2015,Others,Total,Bedok- Total,Bedok Reservoir,770,126820,0.6071597539820218
+2015,Others,Total,Bedok- Total,Bedok South,2410,126820,1.9003311780476266
+2015,Others,Total,Bedok- Total,Frankel,2310,126820,1.8214792619460654
+2015,Others,Total,Bedok- Total,Kaki Bukit,1120,126820,0.8831414603374862
+2015,Others,Total,Bedok- Total,Kembangan,1400,126820,1.1039268254218577
+2015,Others,Total,Bedok- Total,Siglap,430,126820,0.33906323923671344
+2015,Others,Total,Bishan- Total,Bishan East,790,126820,0.622930137202334
+2015,Others,Total,Bishan- Total,Marymount,880,126820,0.6938968616937391
+2015,Others,Total,Bishan- Total,Upper Thomson,1060,126820,0.8358303106765494
+2015,Others,Total,Bukit Batok- Total,Bukit Batok Central,590,126820,0.46522630499921147
+2015,Others,Total,Bukit Batok- Total,Bukit Batok East,320,126820,0.25232613152499606
+2015,Others,Total,Bukit Batok- Total,Bukit Batok South,370,126820,0.2917520895757767
+2015,Others,Total,Bukit Batok- Total,Bukit Batok West,300,126820,0.23655574830468382
+2015,Others,Total,Bukit Batok- Total,Gombak,220,126820,0.17347421542343477
+2015,Others,Total,Bukit Batok- Total,Guilin,430,126820,0.33906323923671344
+2015,Others,Total,Bukit Batok- Total,Hillview,980,126820,0.7727487777953004
+2015,Others,Total,Bukit Batok- Total,Hong Kah North,690,126820,0.5440782211007728
+2015,Others,Total,Bukit Merah- Total,Alexandra Hill,320,126820,0.25232613152499606
+2015,Others,Total,Bukit Merah- Total,Alexandra North,110,126820,0.08673710771171739
+2015,Others,Total,Bukit Merah- Total,Bukit Ho Swee,400,126820,0.31540766440624507
+2015,Others,Total,Bukit Merah- Total,Bukit Merah,20,126820,0.015770383220312253
+2015,Others,Total,Bukit Merah- Total,Depot Road,240,126820,0.18924459864374704
+2015,Others,Total,Bukit Merah- Total,Everton Park,420,126820,0.33117804762655734
+2015,Others,Total,Bukit Merah- Total,Henderson Hill,330,126820,0.26021132313515216
+2015,Others,Total,Bukit Merah- Total,Kampong Tiong Bahru,210,126820,0.16558902381327867
+2015,Others,Total,Bukit Merah- Total,Maritime Square,460,126820,0.3627188140671818
+2015,Others,Total,Bukit Merah- Total,Redhill,330,126820,0.26021132313515216
+2015,Others,Total,Bukit Merah- Total,Telok Blangah Drive,380,126820,0.2996372811859328
+2015,Others,Total,Bukit Merah- Total,Telok Blangah Rise,290,126820,0.22867055669452768
+2015,Others,Total,Bukit Merah- Total,Telok Blangah Way,220,126820,0.17347421542343477
+2015,Others,Total,Bukit Merah- Total,Tiong Bahru,400,126820,0.31540766440624507
+2015,Others,Total,Bukit Merah- Total,Tiong Bahru Station,570,126820,0.4494559217788992
+2015,Others,Total,Bukit Panjang- Total,Bangkit,380,126820,0.2996372811859328
+2015,Others,Total,Bukit Panjang- Total,Dairy Farm,290,126820,0.22867055669452768
+2015,Others,Total,Bukit Panjang- Total,Fajar,550,126820,0.43368553855858694
+2015,Others,Total,Bukit Panjang- Total,Jelebu,720,126820,0.5677337959312411
+2015,Others,Total,Bukit Panjang- Total,Nature Reserve,330,126820,0.26021132313515216
+2015,Others,Total,Bukit Panjang- Total,Saujana,500,126820,0.39425958050780635
+2015,Others,Total,Bukit Panjang- Total,Senja,430,126820,0.33906323923671344
+2015,Others,Total,Bukit Timah- Total,Anak Bukit,830,126820,0.6544709036429586
+2015,Others,Total,Bukit Timah- Total,Coronation Road,480,126820,0.3784891972874941
+2015,Others,Total,Bukit Timah- Total,Farrer Court,320,126820,0.25232613152499606
+2015,Others,Total,Bukit Timah- Total,Hillcrest,880,126820,0.6938968616937391
+2015,Others,Total,Bukit Timah- Total,Holland Road,980,126820,0.7727487777953004
+2015,Others,Total,Bukit Timah- Total,Leedon Park,940,126820,0.741208011354676
+2015,Others,Total,Bukit Timah- Total,Swiss Club,530,126820,0.4179151553382747
+2015,Others,Total,Bukit Timah- Total,Ulu Pandan,960,126820,0.7569783945749882
+2015,Others,Total,Changi- Total,Changi Point,80,126820,0.06308153288124901
+2015,Others,Total,Changi- Total,Changi West,60,126820,0.04731114966093676
+2015,Others,Total,Choa Chu Kang- Total,Choa Chu Kang Central,600,126820,0.47311149660936763
+2015,Others,Total,Choa Chu Kang- Total,Choa Chu Kang North,990,126820,0.7806339694054565
+2015,Others,Total,Choa Chu Kang- Total,Keat Hong,370,126820,0.2917520895757767
+2015,Others,Total,Choa Chu Kang- Total,Peng Siang,870,126820,0.6860116700835831
+2015,Others,Total,Choa Chu Kang- Total,Teck Whye,520,126820,0.4100299637281186
+2015,Others,Total,Choa Chu Kang- Total,Yew Tee,1440,126820,1.1354675918624821
+2015,Others,Total,Clementi- Total,Clementi Central,450,126820,0.3548336224570257
+2015,Others,Total,Clementi- Total,Clementi North,890,126820,0.7017820533038952
+2015,Others,Total,Clementi- Total,Clementi West,480,126820,0.3784891972874941
+2015,Others,Total,Clementi- Total,Clementi Woods,600,126820,0.47311149660936763
+2015,Others,Total,Clementi- Total,Faber,230,126820,0.1813594070335909
+2015,Others,Total,Clementi- Total,Sunset Way,460,126820,0.3627188140671818
+2015,Others,Total,Clementi- Total,West Coast,260,126820,0.2050149818640593
+2015,Others,Total,Downtown Core- Total,Bugis,40,126820,0.03154076644062451
+2015,Others,Total,Downtown Core- Total,Cecil,40,126820,0.03154076644062451
+2015,Others,Total,Downtown Core- Total,Central Subzone,120,126820,0.09462229932187352
+2015,Others,Total,Downtown Core- Total,Tanjong Pagar,130,126820,0.10250749093202965
+2015,Others,Total,Geylang- Total,Aljunied,1490,126820,1.174893549913263
+2015,Others,Total,Geylang- Total,Geylang East,1220,126820,0.9619933764390475
+2015,Others,Total,Geylang- Total,Kampong Ubi,370,126820,0.2917520895757767
+2015,Others,Total,Geylang- Total,Macpherson,650,126820,0.5125374546601482
+2015,Others,Total,Hougang- Total,Hougang Central,70,126820,0.05519634127109289
+2015,Others,Total,Hougang- Total,Hougang East,390,126820,0.30752247279608896
+2015,Others,Total,Hougang- Total,Hougang West,940,126820,0.741208011354676
+2015,Others,Total,Hougang- Total,Kangkar,570,126820,0.4494559217788992
+2015,Others,Total,Hougang- Total,Kovan,610,126820,0.48099668821952374
+2015,Others,Total,Hougang- Total,Lorong Ah Soo,630,126820,0.49676707143983595
+2015,Others,Total,Hougang- Total,Tai Seng,280,126820,0.22078536508437155
+2015,Others,Total,Hougang- Total,Trafalgar,1450,126820,1.1433527834726385
+2015,Others,Total,Jurong East- Total,Lakeside,40,126820,0.03154076644062451
+2015,Others,Total,Jurong East- Total,Teban Gardens,350,126820,0.27598170635546443
+2015,Others,Total,Jurong East- Total,Toh Guan,460,126820,0.3627188140671818
+2015,Others,Total,Jurong East- Total,Yuhua East,570,126820,0.4494559217788992
+2015,Others,Total,Jurong East- Total,Yuhua West,540,126820,0.4258003469484309
+2015,Others,Total,Jurong West- Total,Boon Lay Place,800,126820,0.6308153288124901
+2015,Others,Total,Jurong West- Total,Hong Kah,1330,126820,1.048730484150765
+2015,Others,Total,Jurong West- Total,Jurong West Central,2260,126820,1.7820533038952848
+2015,Others,Total,Jurong West- Total,Taman Jurong,900,126820,0.7096672449140514
+2015,Others,Total,Jurong West- Total,Wenya,260,126820,0.2050149818640593
+2015,Others,Total,Jurong West- Total,Yunnan,1160,126820,0.9146822267781107
+2015,Others,Total,Kallang- Total,Bendemeer,600,126820,0.47311149660936763
+2015,Others,Total,Kallang- Total,Boon Keng,240,126820,0.18924459864374704
+2015,Others,Total,Kallang- Total,Crawford,290,126820,0.22867055669452768
+2015,Others,Total,Kallang- Total,Geylang Bahru,210,126820,0.16558902381327867
+2015,Others,Total,Kallang- Total,Kampong Bugis,40,126820,0.03154076644062451
+2015,Others,Total,Kallang- Total,Kampong Java,430,126820,0.33906323923671344
+2015,Others,Total,Kallang- Total,Lavender,350,126820,0.27598170635546443
+2015,Others,Total,Kallang- Total,Tanjong Rhu,810,126820,0.6387005204226462
+2015,Others,Total,Mandai- Total,Mandai Estate,70,126820,0.05519634127109289
+2015,Others,Total,Marine Parade- Total,Katong,530,126820,0.4179151553382747
+2015,Others,Total,Marine Parade- Total,Marine Parade,1450,126820,1.1433527834726385
+2015,Others,Total,Marine Parade- Total,Mountbatten,620,126820,0.4888818798296799
+2015,Others,Total,Museum- Total,Dhoby Ghaut,50,126820,0.039425958050780634
+2015,Others,Total,Museum- Total,Fort Canning,60,126820,0.04731114966093676
+2015,Others,Total,Newton- Total,Cairnhill,530,126820,0.4179151553382747
+2015,Others,Total,Newton- Total,Goodwood Park,130,126820,0.10250749093202965
+2015,Others,Total,Newton- Total,Monk's Hill,150,126820,0.11827787415234191
+2015,Others,Total,Newton- Total,Newton Circus,70,126820,0.05519634127109289
+2015,Others,Total,Newton- Total,Orange Grove,340,126820,0.2680965147453083
+2015,Others,Total,Novena- Total,Balestier,1290,126820,1.0171897177101403
+2015,Others,Total,Novena- Total,Dunearn,340,126820,0.2680965147453083
+2015,Others,Total,Novena- Total,Malcolm,340,126820,0.2680965147453083
+2015,Others,Total,Novena- Total,Moulmein,770,126820,0.6071597539820218
+2015,Others,Total,Novena- Total,Mount Pleasant,90,126820,0.07096672449140513
+2015,Others,Total,Orchard- Total,Boulevard,90,126820,0.07096672449140513
+2015,Others,Total,Orchard- Total,Somerset,30,126820,0.02365557483046838
+2015,Others,Total,Orchard- Total,Tanglin,110,126820,0.08673710771171739
+2015,Others,Total,Outram- Total,China Square,30,126820,0.02365557483046838
+2015,Others,Total,Outram- Total,Chinatown,330,126820,0.26021132313515216
+2015,Others,Total,Outram- Total,Pearl's Hill,180,126820,0.14193344898281027
+2015,Others,Total,Outram- Total,People's Park,10,126820,0.007885191610156127
+2015,Others,Total,Pasir Ris- Total,Flora Drive,560,126820,0.4415707301687431
+2015,Others,Total,Pasir Ris- Total,Loyang East,200,126820,0.15770383220312253
+2015,Others,Total,Pasir Ris- Total,Loyang West,10,126820,0.007885191610156127
+2015,Others,Total,Pasir Ris- Total,Pasir Ris Central,960,126820,0.7569783945749882
+2015,Others,Total,Pasir Ris- Total,Pasir Ris Drive,2340,126820,1.845134836776534
+2015,Others,Total,Pasir Ris- Total,Pasir Ris Park,190,126820,0.1498186405929664
+2015,Others,Total,Pasir Ris- Total,Pasir Ris West,1370,126820,1.0802712505913894
+2015,Others,Total,Punggol- Total,Matilda,700,126820,0.5519634127109289
+2015,Others,Total,Punggol- Total,Northshore,20,126820,0.015770383220312253
+2015,Others,Total,Punggol- Total,Punggol Field,1250,126820,0.9856489512695158
+2015,Others,Total,Punggol- Total,Punggol Town Centre,160,126820,0.12616306576249803
+2015,Others,Total,Punggol- Total,Waterway East,540,126820,0.4258003469484309
+2015,Others,Total,Queenstown- Total,Commonwealth,350,126820,0.27598170635546443
+2015,Others,Total,Queenstown- Total,Dover,470,126820,0.370604005677338
+2015,Others,Total,Queenstown- Total,Ghim Moh,310,126820,0.24444093991483995
+2015,Others,Total,Queenstown- Total,Holland Drive,480,126820,0.3784891972874941
+2015,Others,Total,Queenstown- Total,Kent Ridge,190,126820,0.1498186405929664
+2015,Others,Total,Queenstown- Total,Margaret Drive,330,126820,0.26021132313515216
+2015,Others,Total,Queenstown- Total,Mei Chin,450,126820,0.3548336224570257
+2015,Others,Total,Queenstown- Total,National University of S'pore,20,126820,0.015770383220312253
+2015,Others,Total,Queenstown- Total,One North,170,126820,0.13404825737265416
+2015,Others,Total,Queenstown- Total,Pasir Panjang 1,320,126820,0.25232613152499606
+2015,Others,Total,Queenstown- Total,Pasir Panjang 2,370,126820,0.2917520895757767
+2015,Others,Total,Queenstown- Total,Port,10,126820,0.007885191610156127
+2015,Others,Total,Queenstown- Total,Queensway,40,126820,0.03154076644062451
+2015,Others,Total,Queenstown- Total,Singapore Polytechnic,10,126820,0.007885191610156127
+2015,Others,Total,Queenstown- Total,Tanglin Halt,440,126820,0.34694843084686955
+2015,Others,Total,River Valley- Total,Institution Hill,430,126820,0.33906323923671344
+2015,Others,Total,River Valley- Total,Leonie Hill,410,126820,0.3232928560164012
+2015,Others,Total,River Valley- Total,One Tree Hill,340,126820,0.2680965147453083
+2015,Others,Total,River Valley- Total,Oxley,190,126820,0.1498186405929664
+2015,Others,Total,River Valley- Total,Paterson,30,126820,0.02365557483046838
+2015,Others,Total,Rochor- Total,Bencoolen,80,126820,0.06308153288124901
+2015,Others,Total,Rochor- Total,Farrer Park,60,126820,0.04731114966093676
+2015,Others,Total,Rochor- Total,Kampong Glam,20,126820,0.015770383220312253
+2015,Others,Total,Rochor- Total,Little India,40,126820,0.03154076644062451
+2015,Others,Total,Rochor- Total,Mackenzie,10,126820,0.007885191610156127
+2015,Others,Total,Rochor- Total,Mount Emily,190,126820,0.1498186405929664
+2015,Others,Total,Rochor- Total,Selegie,30,126820,0.02365557483046838
+2015,Others,Total,Rochor- Total,Sungei Road,40,126820,0.03154076644062451
+2015,Others,Total,Rochor- Total,Victoria,60,126820,0.04731114966093676
+2015,Others,Total,Seletar- Total,Seletar,60,126820,0.04731114966093676
+2015,Others,Total,Sembawang- Total,Admiralty,540,126820,0.4258003469484309
+2015,Others,Total,Sembawang- Total,Sembawang Central,1350,126820,1.064500867371077
+2015,Others,Total,Sembawang- Total,Sembawang North,1230,126820,0.9698785680492036
+2015,Others,Total,Sembawang- Total,Sembawang Springs,120,126820,0.09462229932187352
+2015,Others,Total,Sembawang- Total,Sembawang Straits,90,126820,0.07096672449140513
+2015,Others,Total,Sengkang- Total,Anchorvale,1050,126820,0.8279451190663932
+2015,Others,Total,Sengkang- Total,Compassvale,310,126820,0.24444093991483995
+2015,Others,Total,Sengkang- Total,Fernvale,940,126820,0.741208011354676
+2015,Others,Total,Sengkang- Total,Rivervale,1510,126820,1.190663933133575
+2015,Others,Total,Sengkang- Total,Sengkang Town Centre,1510,126820,1.190663933133575
+2015,Others,Total,Serangoon- Total,Lorong Chuan,350,126820,0.27598170635546443
+2015,Others,Total,Serangoon- Total,Seletar Hills,460,126820,0.3627188140671818
+2015,Others,Total,Serangoon- Total,Serangoon Central,590,126820,0.46522630499921147
+2015,Others,Total,Serangoon- Total,Serangoon Garden,1190,126820,0.938337801608579
+2015,Others,Total,Serangoon- Total,Serangoon North,380,126820,0.2996372811859328
+2015,Others,Total,Serangoon- Total,Upper Paya Lebar,330,126820,0.26021132313515216
+2015,Others,Total,Singapore River- Total,Boat Quay,50,126820,0.039425958050780634
+2015,Others,Total,Singapore River- Total,Clarke Quay,30,126820,0.02365557483046838
+2015,Others,Total,Singapore River- Total,Robertson Quay,530,126820,0.4179151553382747
+2015,Others,Total,Southern Islands- Total,Sentosa,500,126820,0.39425958050780635
+2015,Others,Total,Sungei Kadut- Total,Gali Batu,10,126820,0.007885191610156127
+2015,Others,Total,Sungei Kadut- Total,Turf Club,20,126820,0.015770383220312253
+2015,Others,Total,Tampines- Total,Simei,1820,126820,1.435104873048415
+2015,Others,Total,Tampines- Total,Tampines East,4360,126820,3.437943542028071
+2015,Others,Total,Tampines- Total,Tampines West,1920,126820,1.5139567891499763
+2015,Others,Total,Tampines- Total,Xilin,100,126820,0.07885191610156127
+2015,Others,Total,Tanglin- Total,Chatsworth,870,126820,0.6860116700835831
+2015,Others,Total,Tanglin- Total,Nassim,1080,126820,0.8516006938968618
+2015,Others,Total,Tanglin- Total,Ridout,220,126820,0.17347421542343477
+2015,Others,Total,Tanglin- Total,Tyersall,550,126820,0.43368553855858694
+2015,Others,Total,Toa Payoh- Total,Boon Teck,290,126820,0.22867055669452768
+2015,Others,Total,Toa Payoh- Total,Braddell,310,126820,0.24444093991483995
+2015,Others,Total,Toa Payoh- Total,Joo Seng,150,126820,0.11827787415234191
+2015,Others,Total,Toa Payoh- Total,Kim Keat,220,126820,0.17347421542343477
+2015,Others,Total,Toa Payoh- Total,Lorong 8 Toa Payoh,190,126820,0.1498186405929664
+2015,Others,Total,Toa Payoh- Total,Pei Chun,340,126820,0.2680965147453083
+2015,Others,Total,Toa Payoh- Total,Potong Pasir,240,126820,0.18924459864374704
+2015,Others,Total,Toa Payoh- Total,Sennett,90,126820,0.07096672449140513
+2015,Others,Total,Toa Payoh- Total,Toa Payoh Central,990,126820,0.7806339694054565
+2015,Others,Total,Toa Payoh- Total,Toa Payoh West,600,126820,0.47311149660936763
+2015,Others,Total,Toa Payoh- Total,Woodleigh,100,126820,0.07885191610156127
+2015,Others,Total,Western Water Catchment- Total,Western Water Catchment,70,126820,0.05519634127109289
+2015,Others,Total,Woodlands- Total,Midview,790,126820,0.622930137202334
+2015,Others,Total,Woodlands- Total,North Coast,280,126820,0.22078536508437155
+2015,Others,Total,Woodlands- Total,Woodgrove,910,126820,0.7175524365242075
+2015,Others,Total,Woodlands- Total,Woodlands East,2660,126820,2.09746096830153
+2015,Others,Total,Woodlands- Total,Woodlands South,1080,126820,0.8516006938968618
+2015,Others,Total,Woodlands- Total,Woodlands West,670,126820,0.5283078378804605
+2015,Others,Total,Yishun- Total,Khatib,310,126820,0.24444093991483995
+2015,Others,Total,Yishun- Total,Lower Seletar,80,126820,0.06308153288124901
+2015,Others,Total,Yishun- Total,Nee Soon,30,126820,0.02365557483046838
+2015,Others,Total,Yishun- Total,Northland,1100,126820,0.8673710771171739
+2015,Others,Total,Yishun- Total,Springleaf,100,126820,0.07885191610156127
+2015,Others,Total,Yishun- Total,Yishun Central,30,126820,0.02365557483046838
+2015,Others,Total,Yishun- Total,Yishun East,1340,126820,1.056615675760921
+2015,Others,Total,Yishun- Total,Yishun South,990,126820,0.7806339694054565
+2015,Others,Total,Yishun- Total,Yishun West,1530,126820,1.2064343163538873

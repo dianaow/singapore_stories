@@ -18,12 +18,13 @@
       box-sizing: border-box;
       font-family: 'Open Sans', sans-serif;
     }
-    html, body {
+    body {
       margin: 0;
       padding: 0;
       position: relative;
       background-color: #121212;
       font-family: 'Open Sans', sans-serif;
+      overflow-x: hidden;
     }
     .header {
       font-family: 'Playfair Display', serif;
@@ -217,7 +218,7 @@
     var article = scrolly.select('article');
     var step = article.selectAll('.step');
 
-    var circles, geojson, data, projection, points
+    var circles, geojson, data, projection, points, makeAnnotations
     const margin = {top: 10, right: 10, bottom: 10, left: 10},
           width = window.innerWidth - margin.left - margin.right,
           height = window.innerHeight - margin.top - margin.bottom +30
@@ -285,120 +286,6 @@
 
     g = svg.append("g")
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-
-    ///////////////////// Add annotations to the chart ///////////////////////
-    // modify opacity on scroll
-    // const annotations = [
-    //   {
-    //     note: {
-    //       label: "96 homeless",
-    //       title: "City"
-    //     },
-    //     type: d3.annotationCalloutCircle,
-    //     subject: {
-    //       radius: 100,         // circle radius
-    //       radiusPadding: 15   // white space around circle befor connector
-    //     },
-    //     color: ["red"],
-    //     x: 740,
-    //     y: window.innerHeight <= 800 ? 440 : 460,
-    //     dy: 100,
-    //     dx: 70
-    //   },
-    //   {
-    //     note: {
-    //       label: "96 homeless",
-    //       title: "Bedok"
-    //     },
-    //     color: ["red"],
-    //     x: 930,
-    //     y: 400,
-    //     dy: 70,
-    //     dx: 70
-    //   },
-    //   {
-    //     note: {
-    //       label: "96 homeless",
-    //       title: "Jurong East"
-    //     },
-    //     color: ["red"],
-    //     x: 430,
-    //     y: 400,
-    //     dy: 100,
-    //     dx: -70
-    //   },
-    //   {
-    //     note: {
-    //       label: "96 homeless",
-    //       title: "Queenstown"
-    //     },
-    //     color: ["lightsalmon"],
-    //     x: 550,
-    //     y: 480,
-    //     dy: 80,
-    //     dx: -70
-    //   },
-    //   {
-    //     note: {
-    //       label: "96 homeless",
-    //       title: "Sembawang"
-    //     },
-    //     color: ["lightsalmon"],
-    //     x: 630,
-    //     y: 70,
-    //     dy: 0,
-    //     dx: 120
-    //   },
-    //   {
-    //     note: {
-    //       label: "96 homeless",
-    //       title: "Punggol"
-    //     },
-    //     color: ["lightsalmon"],
-    //     x: 880,
-    //     y: 180,
-    //     dy: -20,
-    //     dx: 50
-    //   }
-    // ]
-
-    const annotations = [
-      {
-        note: {
-          label: "251 homeless",
-          title: "CITY",
-          align: "left",  // try right or left
-          wrap: 200,  // try something smaller to see text split in several lines
-          padding: 10   // More = text lower
-        },
-        type: d3.annotationCalloutRect,
-        subject: {
-          width: window.innerHeight > 900 ? 150 : 120,
-          height: window.innerHeight > 900 ? 130 : 100
-        },
-        color: ["red"],
-        x: window.innerWidth > 1800 ? 900 : window.innerWidth > 1500 ? 800 : 675,
-        y: window.innerHeight > 900 ? 550 : window.innerHeight <= 800 ? 420 : 460,
-        dy: 130,
-        dx: 100
-      },
-      {
-        note: {
-          title: "KALLANG",
-          align: "left",  // try right or left
-          wrap: 200,  // try something smaller to see text split in several lines
-          padding: 10   // More = text lower
-        },
-        color: ["red"],
-        x: window.innerWidth > 1800 ? 1000: window.innerWidth > 1500 ? 900 : 760,
-        y: window.innerHeight > 900 ? 530 : window.innerHeight <= 800 ? 400 : 440,
-        dy: 40,
-        dx: 80
-      }  
-    ]
-
-    const makeAnnotations = d3.annotation()
-      .annotations(annotations)
 
     d3.select('#chart svg')
       .append("g")
@@ -528,7 +415,7 @@
         mapLoaded = false
         svg.transition().duration(750).call(
           zoom.transform,
-          d3.zoomIdentity.translate(width / 2, height/2-250).scale(1.5).translate(-width/2, -height/2+250)
+          d3.zoomIdentity.translate(width / 2, height/2).scale(1.5).translate(-width/2, -height/2+100)
         )
 
         let locationData = data.find(d=>(d.metric == "Location") & (d.type == "Single night count")).data
@@ -728,11 +615,10 @@
             .remove()
 
         } else if(response.progress > 0.2 & response.progress <= 0.4) {
-          console.log(window.innerHeight)
-          var buffer = window.innerHeight <=900 ? 40 : 100
+          var buffer = window.innerHeight > 950 ? 100 : (window.innerHeight < 800 ? 40 : 60)
           svg.transition().duration(750).call(
             zoom.transform,
-            d3.zoomIdentity.translate (width/2, height/2).scale(8).translate(-width/2, -height/2+buffer)
+            d3.zoomIdentity.translate (width/2, height/2).scale(7).translate(-width/2, -height/2+buffer)
           )
 
         }
@@ -862,6 +748,45 @@
          .attr('y', d=>d.y)
          .attr('opacity', 0)
          .text(function(d) { return d.name })
+
+      kallang_centroid = centroids.find(d=>d.name == 'KALLANG')
+      outram_centroid = centroids.find(d=>d.name == 'ORCHARD')
+      mp_centroid = centroids.find(d=>d.name == 'MARINEPARADE')
+      const annotations = [
+        {
+          note: {
+            label: "251 homeless",
+            title: "CITY",
+            align: "left",  // try right or left
+            wrap: 120,  // try something smaller to see text split in several lines
+            padding: 10   // More = text lower
+          },
+          type: d3.annotationCalloutRect,
+          subject: {
+            width: mp_centroid.x - outram_centroid.x,
+            height: window.innerHeight >= 900 ? 120 : 90
+          },
+          color: ["red"],
+          x: outram_centroid.x,
+          y: outram_centroid.y,
+          dy: window.innerHeight >= 900 ? 60 : 45,
+          dx: (mp_centroid.x - outram_centroid.x)+10
+        },
+        {
+          note: {
+            title: "KALLANG",
+            align: "left",  // try right or left
+          },
+          color: ["red"],
+          x: kallang_centroid.x,
+          y: kallang_centroid.y,
+          dy: 35,
+          dx: (mp_centroid.x - outram_centroid.x)
+        }  
+      ]
+
+      makeAnnotations = d3.annotation()
+        .annotations(annotations)
 
     }
 
