@@ -1,0 +1,31 @@
+{
+  "name": "singapore_stories",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "buildmap": "sh ./ethnicity/buildmap.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dianaow/singapore_stories.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dianaow/singapore_stories/issues"
+  },
+  "homepage": "https://github.com/dianaow/singapore_stories#readme",
+  "dependencies": {
+    "@turf/turf": "^5.1.6",
+    "csv-parse": "^4.8.3",
+    "d3": "^5.15.0",
+    "d3-geo-projection": "^2.7.1",
+    "d3-node": "^2.2.1",
+    "d3-svg-annotation": "^2.5.1",
+    "minimist": "^1.2.0",
+    "ndjson-cli": "^0.3.1",
+    "topojson-server": "^3.0.1"
+  }
+}

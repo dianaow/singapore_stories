@@ -185,6 +185,7 @@ function interactiveLogic(data, bySubzone_list) {
   })
 
   $(".dropdown-2 .dropdown-item").click(function(){
+
     var value = $(this).text().trim()
     $('.dd-2 .dropdown-toggle').text(value)
     view_type = value
@@ -300,8 +301,8 @@ function createForm(data) {
 function init() {
 
   d3.queue()   
-    .defer(d3.csv, './resident-population-by-subzone-ethnic-group-and-sex.csv') 
-    .defer(d3.json, "../homeless/sgp_subzone.geojson")
+    .defer(d3.csv, './data/resident-population-by-subzone-ethnic-group-and-sex.csv') 
+    .defer(d3.json, "./data/sgp_subzone.geojson")
     .await(initializeData);  
 
 }
@@ -467,11 +468,11 @@ function update(data, sort_list, type) {
     d3.selectAll("#tooltip")
       .style('display', 'block')
 
-    d3.select('.sgp-path-' + d.SUBZONE)
+    fixedMap.select('.sgp-path-' + d.SUBZONE)
       .style('stroke-width', 1.5)
     d3.select('.plot-subzone-text')
       .text(d.subzone)
-    d3.selectAll('#district-path-' + d.PLANNING_AREA)
+    fixedMap.selectAll('#district-path-' + d.PLANNING_AREA)
       .style('fill', '#D3D3D3')
     d3.select('.plot-pa-text')
       .text(d.planning_area)
@@ -488,11 +489,11 @@ function update(data, sort_list, type) {
     d3.selectAll("#tooltip")
       .style('display', 'none')
 
-    d3.select('.sgp-path-' + d.SUBZONE)
+    fixedMap.select('.sgp-path-' + d.SUBZONE)
       .style('stroke-width', 0.3)
     d3.select('.plot-subzone-text')
       .text("")
-    d3.selectAll('#district-path-' + d.PLANNING_AREA)
+    fixedMap.selectAll('#district-path-' + d.PLANNING_AREA)
       .style('fill', 'transparent')
     d3.select('.plot-pa-text')
       .text("")
@@ -584,7 +585,8 @@ function mergeArrays(...arrays) {
 var plotWidth = 620
 var plotHeight = 300
 
-var viz = d3.select(".fixed-map-container").append("svg")
+var fixedMap = d3.select(".fixed-map-container")
+var viz = fixedMap.append("svg")
             .classed("svg-content",true)
             .attr('viewbox', `0 0 ${plotWidth} ${plotHeight}`)
             //.attr("preserveAspectRatio", "xMinYMin meet")
