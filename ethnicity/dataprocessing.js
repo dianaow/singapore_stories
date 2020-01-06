@@ -169,7 +169,8 @@ function generateAnnotation(el, annotations, mapType){
       align: dLoc ? dLoc.direction : 'left'  
     },
     connector: {
-      end: "dot"
+      end: "dot",
+      endScale: 2 
     },
     color: ['black'],
     x: centroid.x,

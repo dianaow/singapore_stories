@@ -19,7 +19,7 @@ var svg = d3.select("#chart").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .style('overflow', 'auto')
 
-var tooltip = d3.select("#chart").append("div")
+var tooltip = d3.select("body").append("div")
   .attr("id", "tooltip")
   .style('position', 'absolute')
   .style("background-color", "#D3D3D3")
@@ -550,8 +550,10 @@ function updateTooltipContent(d) {
 
   tooltip
     .attr('class', 'text-' + d.id)
+    //.style("left", (d3.event.pageX) + "px")
+    //.style("top", (d3.event.pageY - 70) + "px")
     .style("left", (d3.event.pageX) + "px")
-    .style("top", (d3.event.pageY - 70) + "px")
+    .style("top", (d3.event.pageY - 50) + "px")
     .style('color', 'black')
     .style('font-size', '10px')
     .style('padding', '9px')
