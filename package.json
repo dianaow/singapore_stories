@@ -24,7 +24,7 @@
     "d3-geo-projection": "^2.7.1",
     "d3-node": "^2.2.1",
     "d3-svg-annotation": "^2.5.1",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "ndjson-cli": "^0.3.1",
     "topojson-server": "^3.0.1"
   }
