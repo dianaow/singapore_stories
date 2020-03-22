@@ -699,7 +699,7 @@
             .text(function(d,i){ return d.values[2].name})
 
       //var attributes = ['value', 'perc_wn_race', 'perc_wn_subzone']
-      var attributes = ['perc_wn_race']
+      var attributes = ['perc_wn_subzone']
       attributes.map((d,i)=>{
         //let plotWidth =  Math.min(window.innerWidth, screen.width) * 0.7
         let plotWidth = document.querySelector(".map-container-large").getBoundingClientRect().width 
@@ -773,12 +773,12 @@
             .attr("transform", "translate(" + 0 + "," + 40 + ")");
    
         var opacity = d3.scaleLinear()
-          .domain([0, attribute=='perc_wn_race' ? 3.5 : 50])
+          .domain([0, attribute=='perc_wn_race' ? 4 : 35])
           .range([0,1])
 
-        race_by_subzone.sort(function(a,b) { return +b[attribute] - +a[attribute] })
+        subzone_perc.sort(function(a,b) { return +b[attribute] - +a[attribute] })
 
-        var race_by_subzone_uniq = race_by_subzone.filter((thing, index, self) =>
+        var race_by_subzone_uniq = subzone_perc.filter((thing, index, self) =>
           index === self.findIndex((t) => (
             t.subzone === thing.subzone
           ))
@@ -798,7 +798,7 @@
             if(dataState == jsonState){
               //Copy the data value into the JSON
               // basically creating a new value column in JSON data
-              topojson.features[n].properties.value = d['perc_wn_race'];
+              topojson.features[n].properties.value = d['perc_wn_subzone'];
               topojson.features[n].properties.race = d.race;
               break;
             } 
@@ -833,24 +833,24 @@
           })
         })
 
-        var annotations = []
-        groups.map(race=>{
-          var race_by_subzone_top = race_by_subzone_uniq.filter(d=>d.race == race)
-          for(var n = 0; n < 3; n++){
-            A = generateAnnotations(race_by_subzone_top[n], centroids, mobile ? annotationsLocMobile : annotationsLoc, 'large')
-            annotations.push(A)
-          }
-        })
+        // var annotations = []
+        // groups.map(race=>{
+        //   var race_by_subzone_top = race_by_subzone_uniq.filter(d=>d.race == race)
+        //   for(var n = 0; n < 3; n++){
+        //     A = generateAnnotations(race_by_subzone_top[n], centroids, mobile ? annotationsLocMobile : annotationsLoc, 'large')
+        //     annotations.push(A)
+        //   }
+        // })
 
-        d3.select('.map-container-0 svg')
-          .append("g")
-          .attr('class', 'annotations-group-large')
-          .attr("transform", "translate(" + 0 + "," + 40 + ")");
+        // d3.select('.map-container-0 svg')
+        //   .append("g")
+        //   .attr('class', 'annotations-group-large')
+        //   .attr("transform", "translate(" + 0 + "," + 40 + ")");
 
-        makeAnnotations = d3.annotation()
-        .annotations(annotations)
+        // makeAnnotations = d3.annotation()
+        // .annotations(annotations)
 
-        d3.select('.annotations-group-large').call(makeAnnotations)
+        // d3.select('.annotations-group-large').call(makeAnnotations)
 
       }
 
@@ -1094,7 +1094,7 @@
       // Compute kernel density estimation
       var kde = kernelDensityEstimator(kernelEpanechnikov(7), xScale.ticks(10))
       var density =  kde(data_arr)
-
+      console.log(density)
       // Plot the area
       legendsvg.append("path")
         .attr("class", "mypath")

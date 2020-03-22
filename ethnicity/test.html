@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather|Karla" rel="stylesheet">
+  <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div id='chart'></div>
+  <script>
+  const width = 500
+  const height = 500
+  const m = 6
+
+  var color = ["#E47D06", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174"]
+  var category = [1, 2, 3, 4, 5, 6]
+  var colorScale = d3.scaleOrdinal()
+    .domain(category)
+    .range(color)
+
+  var rScale = d3.scaleLinear()
+      .range([0, 2 * Math.PI])
+      .domain([0, 1])
+
+  var fociRadius = d3.scaleLinear()
+      .range([100, 300])
+      .domain([0, 1])
+
+  var data = []
+  d3.range(1,6).forEach((D,I) => {
+    d3.range(1,100).forEach((d,i) => {
+      data.push({
+        risk_score : randBetween(0.2, 1),
+        score : randBetween(0.2, 1),
+        cluster : D
+      })
+    })
+  })
+
+  const nodes = data.map(d => {
+    let r = fociRadius(d.score)
+    let focusX = 110 * Math.cos(d.cluster / m * Math.PI * 2)
+    let focusY = 110 * Math.sin(d.cluster / m * Math.PI * 2)
+    let dataPoint = {cluster: d.cluster, r: r, x: focusX, y: focusY, focusX: focusX, focusY: focusY}
+   
+    return dataPoint
+  })
+  console.log(nodes)
+
+  const svg = d3.select('#chart')
+  
+  const g = svg.append("g").attr("transform", `translate(${width/2},${height/2})`)
+  
+  ////////////////////////////////////////////////////////////
+  //////////////////////// Draw nodes ////////////////////////
+  ////////////////////////////////////////////////////////////
+  
+  const node = g.selectAll("circle")
+      .data(nodes)
+      .enter().append("circle")
+      .attr("r", d => d.r)
+      .style("fill", function(d) { return colorScale(d.cluster) })
+
+  ////////////////////////////////////////////////////////////
+  ////////////////////// Run simulation //////////////////////
+  ////////////////////////////////////////////////////////////
+  
+  const simulation = d3.forceSimulation()
+        // .force("collide", d3.forceCollide().radius(d => d.r + 1) .strength(0.8)) //Original collide function
+        //Instead use the custom collide function
+        .force("collide", forceClusterCollision()
+               .radius(d => d.r + 1)
+               .strength(0.8)
+               .clusterPadding(10) //new setting - important, the cluster id of the data has to be named "cluster"
+         )
+        .force("x", d3.forceX().x(d => d.focusX).strength(0.2))
+        .force("y", d3.forceY().y(d => d.focusY).strength(0.2))
+   
+  simulation
+        .nodes(nodes)
+        .on("tick", ticked)
+  
+  function ticked() {
+    node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y)
+  }//function ticked
+  
+
+  function forceClusterCollision() {
+    let nodes
+    let radii
+    let strength = 1
+    let iterations = 1
+    let clusterPadding = 0 //addition
+
+    function radius(d) { return d.r }
+    function x(d) { return d.x + d.vx }
+    function y(d) { return d.y + d.vy }
+    function constant(x) { return function() { return x } }
+    function jiggle() { return 1e-6 } //change - PLEASE no Math.random() in there ಥ﹏ಥ
+    // function jiggle() { return (Math.random() - 0.5) * 1e-6 }
+
+    function force() {
+      let i
+      let n = nodes.length
+      let tree
+      let node
+      let xi
+      let yi
+      let ri
+      let ri2
+
+      for (let k = 0; k < iterations; ++k) {
+        tree = d3.quadtree(nodes, x, y).visitAfter(prepare)
+        for (i = 0; i < n; ++i) {
+          node = nodes[i]
+          ri = radii[node.index]
+          ri2 = ri * ri
+          xi = node.x + node.vx
+          yi = node.y + node.vy
+          tree.visit(apply)
+        }//for i
+      }//for k
+
+      function apply(quad, x0, y0, x1, y1) {
+        let data = quad.data
+        let rj = quad.r
+        let r = ri + rj + clusterPadding //change
+        if (data) {
+          if (data.index > node.index) {
+            let x = xi - data.x - data.vx
+            let y = yi - data.y - data.vy
+            let l = x * x + y * y
+            r = ri + rj + (node.cluster !== quad.data.cluster ? clusterPadding : 0) //addition
+
+            if (l < r * r) {
+              if (x === 0) x = jiggle(), l += x * x
+              if (y === 0) y = jiggle(), l += y * y
+              l = (r - (l = Math.sqrt(l))) / l * strength
+              node.vx += (x *= l) * (r = (rj *= rj) / (ri2 + rj))
+              node.vy += (y *= l) * r
+              data.vx -= x * (r = 1 - r)
+              data.vy -= y * r
+            }//if
+          }//if
+          return
+        }//if
+          return x0 > xi + r || x1 < xi - r || y0 > yi + r || y1 < yi - r
+        }//apply
+      }//force
+
+      function prepare(quad) {
+        if (quad.data) return quad.r = radii[quad.data.index];
+        for (let i = quad.r = 0; i < 4; ++i) {
+          if (quad[i] && quad[i].r > quad.r) {
+            quad.r = quad[i].r
+          }//if
+        }//for i
+      }
+
+      function initialize() {
+        if (!nodes) return;
+        let i, n = nodes.length, node
+        radii = new Array(n)
+        for (i = 0; i < n; ++i) node = nodes[i], radii[node.index] = +radius(node, i, nodes)
+      }
+
+      force.initialize = function (_) {
+        nodes = _
+        initialize()
+        return force
+      }
+
+      force.iterations = function (_) {
+        return arguments.length ? (iterations = +_, force) : iterations
+      }
+
+      //I wish strength could be a function of the node as well...
+      force.strength = function (_) {
+        return arguments.length ? (strength = +_, force) : strength
+      }
+
+      force.radius = function (_) {
+        return arguments.length ? (radius = typeof _ === "function" ? _ : constant(+_), force) : radius
+      }
+      
+      //addition - the actual pixels of padding
+      force.clusterPadding = function (_) {
+        return arguments.length ? (clusterPadding = +_, force) : clusterPadding
+      }
+
+      return force
+    }//function forceCollision
+
+    function randBetween(min, max) {
+      return min + (max - min) * Math.random();
+    } 
+  </script>
+</body>
+
+</html>
