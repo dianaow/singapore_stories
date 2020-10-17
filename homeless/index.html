@@ -43,6 +43,10 @@
       font-size: 16px;
       color: white;
     }
+    a, a:hover, a:visited {
+      color: white;
+      text-decoration: underline;
+    }
     .introWrapper {
       position: absolute;
       width: 100vw;
@@ -140,7 +144,7 @@
     <div class='introWrapper'>
       <div class='intro'>
         <div class='header'>Homelessness in Singapore</div>
-        <div class='caption'><p>Homelessness exists in Singapore. It is difficult for this issue to gain momentum and for policies to be formulated without knowing the size of the homeless population. To find out, a first of its kind nationwide street count of homeless people was conducted in July 2019 as part of a study done by Assistant Professor Ng Kok Hoe of the Lee Kuan Yew School of Public Policy. This visualization presents the findings of this study based on data found in its published report.</p></div>
+        <div class='caption'><p>Homelessness exists in Singapore. It is difficult for this issue to gain momentum and for policies to be formulated without knowing the size of the homeless population. To find out, a first of its kind nationwide street count of homeless people was conducted in July 2019 as part of a study done by Assistant Professor Ng Kok Hoe of the Lee Kuan Yew School of Public Policy. This visualization presents the findings of this study based on data found in its <a href="https://lkyspp.nus.edu.sg/docs/default-source/faculty-publications/homeless-in-singapore.pdf" target="_blank">published report</a>.</p></div>
         <img src="homeless.jpg" alt="Homeless" width='500px'>
         <svg class='blurryRect'>
           <defs>
@@ -258,42 +262,43 @@
     const radius_new = 15
 
     const numPoints = [
-       {district: "DOWNTOWN CORE", value: 50},
-       {district: "MARINA EAST", value: 50},
-       {district: "MARINA SOUTH", value: 50},
-       {district: "STRAITS VIEW", value: 41},
-       {district: "OUTRAM", value: 50},
-       {district: "BEDOK", value: 74},
-       {district: "KALLANG", value: 55},
-       {district: "TIONG BAHRU", value: 47}, 
-       {district: "ANG MO KIO", value: 46},
-       {district: "JURONG WEST", value: 45}, 
-       {district: "TOA PAYOH", value: 41},
-       {district: "YISHUN", value: 40},
-       {district: "HOUGANG", value: 39},
+       {district: "DOWNTOWN CORE", value: 53},
+       {district: "MARINA EAST", value: 53},
+       {district: "MARINA SOUTH", value: 53},
+       {district: "STRAITS VIEW", value: 39},
+       {district: "OUTRAM", value: 53},
+       {district: "BEDOK", value: 60},
+       {district: "JURONG WEST", value: 53}, 
+       {district: "KALLANG", value: 51},
+       {district: "ANG MO KIO", value: 45},
        {district: "CLEMENTI", value: 38},
-       {district: "WOODLANDS", value: 36},
+       {district: "TIONG BAHRU", value: 36}, 
+       {district: "HOUGANG", value: 35},
        {district: "TAMPINES", value: 33},
-       {district: "BUKIT BATOK", value: 30},
-       {district: "BUKIT MERAH", value: 26},
-       {district: "JURONG EAST", value: 26},
-       {district: "SERANGOON", value: 16},
-       {district: "BISHAN", value: 15},
-       {district: "PASIR RIS", value: 13},
-       {district: "CHOA CHU KANG", value: 12},
-       {district: "QUEENSTOWN", value: 9},
-       {district: "PUNGGOL", value: 7}, 
-       {district: "BUKIT PANJANG", value: 6},
-       {district: "SEMBAWANG", value: 4},
-       {district: "SENGKANG", value: 3},
-       {district: "BUKIT TIMAH", value: 2},
-       {district: "GEYLANG", value: 70},
-       {district: "NEWTON", value: 13},
-       {district: "ORCHARD", value: 13},
-       {district: "OUTRAM", value: 13},
-       {district: "MUSEUM", value: 1},
-       {district: "SINGAPORE RIVER", value: 13},
-       {district: "ROCHOR", value: 23}
+       {district: "TOA PAYOH", value: 33},
+       {district: "BUKIT MERAH", value: 30},
+       {district: "BUKIT BATOK", value: 23},
+       {district: "WOODLANDS", value: 22},
+       {district: "YISHUN", value: 22},
+       {district: "SERANGOON", value: 13},
+       {district: "BUKIT PANJANG", value: 9},
+       {district: "JURONG EAST", value: 9},
+       {district: "PASIR RIS", value: 7},
+       {district: "BISHAN", value: 7},
+       {district: "CHOA CHU KANG", value: 6},
+       {district: "SEMBAWANG", value: 6},
+       {district: "QUEENSTOWN", value: 5},
+       {district: "PUNGGOL", value: 1}, 
+       {district: "SENGKANG", value: 0}
+
+       // {district: "BUKIT TIMAH", value: 2},
+       // {district: "GEYLANG", value: 70},
+       // {district: "NEWTON", value: 13},
+       // {district: "ORCHARD", value: 13},
+       // {district: "OUTRAM", value: 13},
+       // {district: "MUSEUM", value: 1},
+       // {district: "SINGAPORE RIVER", value: 13},
+       // {district: "ROCHOR", value: 23}
     ]
 
     const topic = [{
@@ -536,7 +541,7 @@
           .transition().duration(500)
           .attr('opacity', 0)
 
-        
+
       } else if (response.index === 4) { // square representing the number of homeless found
 
         let grid_points = getTiles(total, radius, 31)
@@ -545,7 +550,7 @@
         })  
         update(grid_points, false)
         d3.selectAll('text.axisLabel').remove()
-        
+
       } else if (response.index === 5) { // and then zooming in to only the number of homeless interviewed
 
         scroller.offsetTrigger([0.3])

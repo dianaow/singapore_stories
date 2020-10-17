@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a geocoder</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src='//unpkg.com/d3@5.0.0/dist/d3.min.js'></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://unpkg.com/flubber@0.3.0"></script>
+<style>
+  body { margin: 0; padding: 0; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+    type="text/css"
+/>
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<div id="map"></div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZGlhbmFtZW93IiwiYSI6ImNqcmh4aWJnOTIxemI0NXA0MHYydGwzdm0ifQ.9HakB25m0HLT-uDY2yat7A';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [103.851784, 1.287953],
+        zoom: 10
+    });
+
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl
+        })
+    );
+
+    //
+    //Mapbox + D3 connection
+
+    //Get mapbox map canvas container
+    var canvas = map.getCanvasContainer();
+
+    //Overlay D3 on the map
+    var svg = d3.select(canvas).append("svg");
+
+    //Projection function
+    var transform = d3.geoTransform({point:projectPoint});
+    var path = d3.geoPath().projection(transform);
+
+    //Project geojson coordinate to the map's current state
+    function project(d) {
+      return map.project(new mapboxgl.LngLat(+d[0], +d[1]));
+    }
+
+    //Project any point to map's current state
+    function projectPoint(lon, lat) {
+      var point = map.project(new mapboxgl.LngLat(lon, lat));
+      this.stream.point(point.x, point.y);
+    }
+
+    //Load data
+    Promise.all([
+      d3.json("./data/electoral-boundary-2015.geojson"),
+      d3.json("./data/electoral-boundary-2020.geojson")
+    ]).then(function(data) {
+
+      //
+      // D3 stuff
+
+      //Draw geojson data with d3
+      var lines;
+
+      let data0 = data[0]
+      let data1 = data[1]
+
+      //Function for drawing the data
+      function drawData(data) {
+
+        const t = svg.transition()
+            .duration(750);
+
+        geojsonData = data
+
+        function findID(d){
+          return d.properties.description.split('<td>')[1].split('</td>')[0]
+        }
+
+        lines = svg.selectAll("path").data(geojsonData.features, d=>findID(d))
+
+        lines.exit().select("path")
+          .transition(t)
+          .remove()
+
+        linesEntered = lines.enter().append("path")
+          //.attr("d", path)
+          .attr("stroke", "blue")
+          .attr("fill", "blue")
+          .attr("fill-opacity", 0)
+          .attr("class", function(d) { return findID(d) })
+
+        lines = linesEntered.merge(lines)
+        
+        lines.transition().duration(4000)
+          // .attrTween('d', function(d) {
+          //   let x = d3.select(this)
+          //   return function(t) { return pathTween(x, path(d), 4, t) };
+          // })
+          .attrTween('d', function(d) { 
+            let string1 = path(d)
+            let string2 = path(data1.features.find(el=> findID(el) === findID(d))) || path(d)
+            return flubber.interpolate(string1, string2) 
+          })
+
+        //update();
+
+        //map.on("viewreset", update);
+        //map.on("move", update);
+        //map.on("moveend", update);
+
+        function pathTween(x, d1, precision, t) {
+
+          var path0 = x.node(),
+              path1 = path0.cloneNode(),
+              n0 = path0.getTotalLength(),
+              n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
+
+          // Uniform sampling of distance based on specified precision.
+          var distances = [0], i = 0, dt = precision / Math.max(n0, n1);
+          while ((i += dt) < 1) distances.push(i);
+          distances.push(1);
+
+          // Compute point-interpolators at each distance.
+          var points = distances.map(function(t) {
+            var p0 = path0.getPointAtLength(t * n0),
+                p1 = path1.getPointAtLength(t * n1);
+            return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
+          });
+
+          return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") + "Z" : d1;
+
+        }
+
+      }
+
+      //update D3 shapes' positions to the map's current state
+      function update() {
+        lines.attr("d", path)
+      }    
+
+      drawData(data0)
+
+      //setTimeout(function(){
+        //drawData(data1)
+      //}, 5000)
+
+    })
+
+</script>
+
+</body>
+</html>

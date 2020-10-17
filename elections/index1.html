@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a geocoder</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src='//unpkg.com/d3@5.0.0/dist/d3.min.js'></script>
+<style>
+  body { margin: 0; padding: 0; }
+</style>
+</head>
+<body>
+<div id="chart"></div>
+
+<script>
+  var canvasDim = { width: window.innerWidth, height: window.innerHeight}
+  var margin = {top: 0, right: 0, bottom: 0, left: 0}
+  var width = canvasDim.width - margin.left - margin.right 
+  var height = canvasDim.height - margin.top - margin.bottom 
+
+  var chart = d3.select("#chart")
+
+  var svg = chart.append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+
+  var g = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+  var map = g.append("g").attr("id", "map")
+  var bubbles_explore = g.append("g").attr("id", "bubbles_explore")
+
+  var centroids = []
+
+  var force = d3.forceSimulation()
+
+  function drawMap(data, projection) {
+
+    var path = d3.geoPath()
+       .projection(projection)
+
+    // draw a path for each feature/country
+    countriesPaths = map
+       .selectAll("path")
+       .data(data.features)
+       .enter().append("path")
+       .attr("d", path)
+       .attr("class", "constituencies")
+       .attr('fill', 'transparent')
+       .attr('stroke', 'black')
+       .attr('stroke-width', '0.4px')
+
+    // store an array of each country's centroid
+    data.features.map(d=> {
+      centroids.push({
+        name: d.properties["name"],
+        x: path.centroid(d)[0],
+        y: path.centroid(d)[1]
+      })
+    })
+
+  }
+
+  function drawClusters(data, projection) {
+
+    data.forEach(d=>{
+      let point = projection([+d['lat'], +d['long']])
+      d.x = point[0]
+      d.y = point[1]
+    })
+
+    let radius = 15
+
+    let forceCollide = d3.forceCollide()
+        .radius(function(d) { return radius * 1.1; })
+
+    force.nodes(data)
+      .force("collide", forceCollide)
+      .force('charge', d3.forceManyBody().strength(-10))
+      .force("x", d3.forceX(function (d) { return d.x }))
+      .force("y", d3.forceY(function (d) { return d.y }))
+      .alphaTarget(1)
+      .on("tick", tick);
+
+    //force.velocityDecay(0.5).alpha(0.1).restart()
+
+    updateCircles(data)
+
+  }
+
+  function updateCircles(data){
+
+    let radius = 15
+
+    circles = bubbles_explore.selectAll("g.nodegroup").data(data, d=>d['Name'])
+
+    let entered_circles = circles.enter().append("g")
+      .attr('class', 'nodegroup')
+      .attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
+
+    entered_circles.append("circle").attr('class', 'bubble')
+
+    circles.merge(entered_circles).select('.bubble')         
+      .transition().duration(500)
+      //.attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
+      .attr('r', radius)
+      .attr('stroke', 'black')
+      .attr('stroke-width', '1px')
+      .attr('stroke-opacity', 1)
+      .attr('fill', 'black')
+      .attr('fill-opacity', 0.2)
+
+    circles.exit().remove()
+
+  }
+
+  function drawArc(data) {
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Create scales ///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    var color = ["#E47D06", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", "#E47D06", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", "#E47D06", "#DB0131"]
+    var category = ["Finance", "PMO", "Law", "Defence", "Culture, Community and Youth", "Education", "Foreign Affairs", "Communications and Information", "Health", "Home Affairs", "Manpower", "National Development", "Sustainability and Environment", "Trade and Industry", "Transport", "Social and Family Development"]
+    var colorScale = d3.scaleOrdinal()
+      .domain(category)
+      .range(color)
+
+    var Foci = onFociCountChange(category)
+
+    var Foci_new = []
+    Object.keys(Foci).map(function(key, index) {
+       Foci_new.push({
+        x: Foci[index].x,
+        y: Foci[index].y,
+        key: Foci[index].key,
+        color: Foci[index].color
+      })     
+    })
+
+    let nodes = createNodes(Foci_new, data) 
+
+    updateCircles(nodes)
+
+    force.nodes(nodes)
+      .on("tick", tick)
+
+    force.velocityDecay(0.5).alphaDecay(.0005).restart()
+
+    ////////////////////// Assign focus point of each category //////////////////
+    function onFociCountChange(focis) {
+        fociCount = focis.length
+        foci = {};
+        for (let i = 0; i < fociCount; i++) {
+            let focus = createFocus(i, focis[i], fociCount);
+            foci[i] = focus;
+        }
+        return foci
+    }
+
+    /////////////////////// Calculate focus point of each category ///////////////
+    function createFocus(index, key, fociCount) {
+        let angle = 2 * Math.PI / fociCount * index;
+        return {
+            key: key,
+            index: index,
+            angle: angle,
+            color: colorScale(key),
+            x: width/4 * Math.cos(angle) + width/2,
+            y: height/4 * Math.sin(angle) + height/2
+        };
+    }
+
+    ////////////////////////////////// Create nodes //////////////////////////////
+    function createNodes(focis, data) {
+
+      var n = []
+      data.map((d,i)=> {
+        let F = focis.find(f=>f.key == d.Ministry_1) || [{x: width/2, y: height/2, color: "#E47D06"}]
+        n.push({
+          index: i, // unique index for each node
+          r: 3,
+          color: F.color,
+          strokeFill: F.color,
+          x: F.x,
+          y: F.y
+        })
+      })
+      return n
+
+    }
+
+ 
+  }
+
+  function tick() {
+    svg.selectAll('.nodegroup')
+        .attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
+  }
+
+  //Load data
+  Promise.all([
+    d3.csv("./data/mps_constituencies.csv"),
+    d3.json("./data/electoral-boundary-2015.geojson")
+  ]).then(function(data) {
+
+    let data0 = data[0]
+    let data1 = data[1]
+   
+    let projection = d3.geoMercator()
+        .center([103.851784, 1.287953]) 
+        .scale(1)
+        .fitSize([width*1.4, height*1.4], data1)
+        .translate([width*(3/5), height*(5/6)]) 
+ 
+    drawMap(data1, projection)
+    drawClusters(data0, projection)
+
+    setTimeout(function(){
+      drawArc(data0)
+    }, 3000)
+   
+  })
+
+</script>
+
+</body>
+</html>
