@@ -69,12 +69,14 @@
       .attr("d",geoPath)
       .classed("area",true)
       .on('mouseover', function(d) {
-        console.log(d.properties)
+        //console.log(d.properties)
         d3.select(this).classed("highlight",true);
       })
       .on('mouseout',mouseout);
 
   }
+
+
   // on window resize
   window.addEventListener("resize", draw);
   function draw() {

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Singapore Members of Parliament</title>
+  <meta name="author" content="Diana Ow">
+  <meta name="description" content="Singapore Members of Parliament">
+
+  <!-- JavaScript files -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <style>
+    #chart {
+      position: relative;
+    }
+    #dotplot-canvas {
+      position: absolute;
+      top: 0;
+      left:0;
+      z-index: -1;
+      /* to check if overlay is aligned */
+      /*border: 2px solid black; */
+    }
+    #dotplot-svg {
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='chart'>
+      <div id="dotplot-canvas"></div>
+      <div id="dotplot-svg"></div>
+  </div>
+
+  <script src="./js/dotplot.js"></script>
+  <script src="./js/main.js"></script>
+  <script>
+
+    chart.run()
+
+  </script>
+</body>
+</html>

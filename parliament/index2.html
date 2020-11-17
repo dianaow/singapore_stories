@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a geocoder</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
+<script src='//unpkg.com/d3@5.0.0/dist/d3.min.js'></script>
+<script src="https://unpkg.com/flubber@0.3.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.min.js"></script>
+<style>
+  body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .panel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 400px;
+    left: 80px;
+    z-index: 1;
+    color: blue;
+  }
+  .btn {
+    color: black;
+    background: transparent; 
+    border: 2px solid black; 
+    border-radius: 6px; 
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 0.8em;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .btn:hover {
+      background-color: black;
+      color: white;
+  }
+  .btn:focus {
+      background-color: black;
+      color: white;
+  }
+  .tooltip {
+    position: absolute;
+    top: 67vh;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    padding: 8px;
+  }
+  .tooltip p {
+    font-size: 12px;
+    margin: 3px 0px;
+  }
+  .tooltip h3 {
+    margin: 0px 0px 10px 0px;
+  }
+  .tooltip a {
+    font-size: 12px;
+    color: navy;
+  }
+  .tooltip span {
+    font-weight: bold;
+  }
+  .tooltip ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class='panel'>
+   <h1>Singapore's Constituencies</h1>
+     <input name="type" 
+      type="button" 
+      class="btn view-2015"
+      value="2015"/>
+      <input name="type" 
+      type="button" 
+      class="btn view-2019"
+      value="2019"/>
+  </div>
+
+<script>
+    var svg = d3.select("#map").append("svg");
+
+    Promise.all([
+      d3.json("./data/GE2015.json"),
+      d3.json("./data/GE2020.json")
+    ]).then(function(data) {
+
+      var lines;
+
+      let data0 = data[0]
+      let data1 = data[1]
+
+      const t = svg.transition()
+          .duration(750);
+
+      let fixed = data0.features.map(function(f) {
+        return turf.rewind(f,{reverse:true});
+      })
+      
+      var projection = d3.geoMercator()
+        .fitSize([window.innerWidth, window.innerHeight],{"type": "FeatureCollection","features":fixed})
+
+      var path = d3.geoPath()
+         .projection(projection)
+
+      function morphData(geojson, type) {
+
+        lines = svg.selectAll("path." + type).data(geojson.features, d=>findID(d))
+
+        linesEntered = lines.enter().append("path")
+          .attr("id", d=> findID(d))
+          .attr("stroke", "blue")
+          .attr("fill", "blue")
+          .attr("fill-opacity", 0)
+          .attr("class", type)
+          .attr("d", path)
+
+        lines.merge(linesEntered)
+          .attr("d", path)
+
+        lines.exit().remove()
+      }
+
+      morphData(data0, 'existing')
+
+      let to_remove = []
+      data0.features.map(d=>{
+        let tmp = data1.features.find(el=> findID(el) === findID(d)) ? 'found' : findID(d)
+        if(tmp !== 'found'){
+          to_remove.push(tmp)
+        }
+      })
+
+      let to_add = []
+      data1.features.map(d=>{
+        let tmp = data0.features.find(el=> findID(el) === findID(d)) ? 'found' : findID(d)
+        if(tmp !== 'found'){
+          to_add.push(tmp)
+        }
+      })
+
+      let newPolygons = data1.features.filter(d=>to_add.indexOf(findID(d)) !== -1)
+      let dataFiltered = 
+      {
+        "type": "FeatureCollection",
+        "name": "GE2020 Constituencies",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": newPolygons
+      }
+
+      d3.select(".view-2015")
+        .on("click", function() {
+
+        d3.selectAll("path")
+          .transition().duration(5000)
+          .attrTween('d', function(d,i) { 
+            let string1 = path(d)
+            let string2 = path(data1.features.find(el=> findID(el) === findID(d))) || path(d)
+            return flubber.interpolate(string2, string1) 
+          })
+
+          d3.selectAll("path")
+            .filter(d=>to_add.indexOf(findID(d)) !== -1)
+            //.transition().duration(350).delay(2000)
+            .remove()
+
+          setTimeout(function(){
+            morphData(data0, 'existing')
+          }, 5000)
+
+        })
+
+      d3.select(".view-2019")
+        .on("click", function() {
+
+          d3.selectAll("path")
+            .transition().duration(5000)
+            .attrTween('d', function(d,i) { 
+              let string1 = path(d)
+              let string2 = path(data1.features.find(el=> findID(el) === findID(d))) || path(d)
+              return flubber.interpolate(string1, string2) 
+            })
+
+          d3.selectAll("path")
+            .filter(d=>to_remove.indexOf(findID(d)) !== -1)
+            //.transition().duration(350).delay(2000)
+            .remove()
+
+          setTimeout(function(){
+            morphData(dataFiltered, 'new')
+          }, 5000)
+           
+        })
+
+    })
+
+    function findID(d){
+      if(d.properties.Description){
+        let grc = d.properties.Description.split(':')[1].split('<br>')[0].replace(/\s/g, '')
+        let index = d.properties.Name.split('_')[1] || d.properties.Name.replace(/\s/g, '')
+        return grc + '-' + index
+      } else {
+        return d.properties.Name
+      }
+    }
+
+</script>
+
+</body>
+</html>
