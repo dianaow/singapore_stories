@@ -2,23 +2,314 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Add a geocoder</title>
+<title>Singapore's 14th Parliament</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
 <script src='//unpkg.com/d3@5.0.0/dist/d3.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.min.js"></script>
+<script src='https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.1.2/scrollama.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js'></script>
 <style>
-  body { margin: 0; padding: 0; }
+  body { 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Open Sans', sans-serif; 
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+/*    background-image:
+      radial-gradient(
+        circle closest-side,
+        white,
+        gainsboro
+      );*/
+  }
+  .panel {
+    position: -webkit-sticky;
+    position: sticky;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    top: 20px;
+    left: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    display: none;
+  }
+  .div-legend {
+    position: -webkit-sticky;
+    position: sticky;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    top: 20px;
+    left: 97vw;
+    width: 200px;
+    z-index: 2;
+    display: none;
+  }
+
+  .btn {
+    color: black;
+    background: transparent; 
+    border: 2px solid black; 
+    border-radius: 6px; 
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 0.8em;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .btn:hover {
+      background-color: black;
+      color: white;
+  }
+  .btn:focus {
+      background-color: black;
+      color: white;
+  }
+  .tooltip {
+    position: sticky;
+    top: 67vh;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 400px;
+    height: auto;
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    padding: 8px;
+    z-index: 99;
+  }
+  .tooltip p {
+    font-size: 12px;
+    margin: 3px 0px;
+  }
+  .tooltip h3 {
+    margin: 0px 0px 10px 0px;
+  }
+  .tooltip a {
+    font-size: 12px;
+    color: navy;
+  }
+  .tooltip span {
+    font-weight: bold;
+  }
+  .tooltip ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mini-button {
+    width: auto;
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 2px;    
+  }
+
+  .introWrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  #scrolly {
+    position: absolute;
+  }
+  article {
+    position: relative;
+    padding: 0;
+    max-width: 40rem;
+    margin: 0 auto;
+    pointer-events: none;
+  }
+  #chart {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    width: 100vw;
+    height: 100vh;
+  }
+  .step {
+    margin: 0 auto 2rem auto;
+    color: #000;
+    background-color: transparent;
+  }
+  .step:last-child {
+    margin-bottom: 0;
+  }
+  .step.is-active {
+  }
+  .step-transparent {
+    background-color: transparent !important;
+  }
+  .step-text {
+    font-size: 16px;
+    margin: 3px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    opacity: 0.8;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    padding: 8px;
+  }
 </style>
 </head>
 <body>
-<div id="chart"></div>
+  <main>
+    <div class='introWrapper'>
+      <div class='intro'>
+        <div class='header'><h1>Singapore's Members of the 14th Parliament</h1></div>
+      </div>
+    </div>
+    <section id='scrolly'>
+      <div id='chart'></div>
+      <div class='panel'>
+       <h2>Singapore's 14th Parliament</h2>
+         <input name="type" 
+          type="button" 
+          class="btn map-view"
+          value="Constituencies"/>
+          <input name="type" 
+          type="button" 
+          class="btn foci-view"
+          value="Ministries"/>
+          <input name="type" 
+          type="button" 
+          class="btn party-view"
+          value="Party"/>
+         <input name="type" 
+          type="button" 
+          class="btn gender-view"
+          value="Gender"/>
+          <input name="type" 
+          type="button" 
+          class="btn ethnicity-view"
+          value="Ethnicity"/>
+          <input name="type" 
+          type="button" 
+          class="btn age-view"
+          value="Age"/>
+          <input name="type" 
+          type="button" 
+          class="btn scatter-view"
+          value="Age vs Terms"/>
+          <input name="type" 
+          type="button" 
+          class="btn tsne-view"
+          value="Similarity"/>
+      </div>
+      <div class='tooltip'></div>
+      <div class='div-legend'>
+        <input name="type" 
+          type="button" 
+          class="btn legend-view"
+          value="Show Legend"/>
+      </div>
+      <article>
+        <div class='step' data-step='0'>
+            <p>The Prime Minister of Singapore chooses the other members of the Cabinet by advising the President. Even as PM, he has his own constituency to take care and stands for election representing his constituency.</p>        
+        </div>
+        <div class='step' data-step='1'>
+          <div class='step-text'>
+            <p>Based on the single night count that took place in July 2019, there were a total of <span class='text-highlight'>921 homeless people</span> in Singapore. Homelessness was geographically widespread on count night, with observations recorded in 23 of the 24 districts covered. There was significant variation aross districts.</p>
+          </div>
+        </div>
+        <div class='step' data-step='2'>
+          <div class='step-text'>
+            <p>A large homeless population resides in the <span class='text-highlight'>City district (comprising Downtown Core, Marina East, Marina South, Straits View and Outram), Bedok and Jurong West</span>. These are locations in Singapore with a traditionally older resident population.</p>
+          </div>
+        </div>
+        <div class='step' data-step='3'>
+          <div class='step-text'>
+            <p>The most common location where the homeless sleep at was <span class='text-highlight'>void decks (31.9%)</span>, followed by <span class='text-highlight'>commercial buildings (28.6%))</span>. This could be because the physical environment of these locations are more likely exposed (i.e in full view of passers-by) and well-lit at night, which bodes well for the safety of these homeless</p>
+          </div>
+        </div>
+        <div class='step' data-step='4'>
+          <div class='step-text'>
+            <p>Amongst the 921 homeless people found in the single night count, only 191 were awake and <span class='text-highlight'>88 of them were interviewed</span>.</p>
+          </div>
+        </div>
+        <div class='step' data-step='5'>
+          <div class='step-text'>
+            <p>The statistics shown from now on are only reflective of these <span class='text-highlight'>88 people</span>. They are mostly Singaporean citizens (88%), male (92%), older and in work. Persistent street homelessness combined with constant instability characterises their housing insecurity. What are reasons for homelessness?</p>
+          </div>
+        </div>
+        <div class='step' data-step='6'>
+          <div class='step-text'>
+            <p>The first is <span class='text-highlight'>insecure work and poverty</span>. While <span class='text-highlight'>60%</span> of the homeless people interviewed work (with some holding full-time jobs), they have irregular work and low wages, resulting in inability to afford accommodation. Common occupations cited included cleaning, odd jobs, security and retail, which are among the lowest-paying occupations in Singapore. Low-wage work can also mean working during odd hours, when public transport is not available and commuting by other means is too expensive, so some opt to sleep near their workplace instead.</p>
+          </div>
+        </div>
+        <div class='step' data-step='7'>
+          <div class='step-text'>
+            <p>The second cause is the <span class='text-highlight'>loss of social resources or the breakdown of family support</span>. The study found that nearly <span class='text-highlight'>40%</span> of the interviewees had housing in their names, usually public rental housing or purchased flats. However, because of family conflicts, they no longer live in their homes.</p>
+          </div>
+        </div>
+        <div class='step' data-step='8'>
+          <div class='step-text'>
+            <p><span class='text-highlight'>Inadequate housing standards within the public rental sector</span> make up the third cause. Public rental flats are small and have no separate bedrooms, but must be shared by two single people (who are usually strangers). The flats are affordable, but the lack of privacy and difficulties in getting along with co-tenants are seen as deal breakers for <span class='text-highlight'>24%</span> of the people interviwed.</p>
+          </div>
+        </div>
+        <div class='step' data-step='9'>
+
+        </div>
+      </article>
+    </section>
+  </main>
 
 <script>
+  // Ensure that page is flushed to top everytime a user refreshes the page
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
+
+  var show_legend = false
+  // initialize scrollama
+  var scroller = scrollama();
+
+  var main = d3.select('main')
+  var scrolly = main.select('#scrolly');
+  var chart = scrolly.select('#chart');
+  var article = scrolly.select('article');
+  var step = article.selectAll('.step');
+
   var canvasDim = { width: window.innerWidth, height: window.innerHeight}
-  var margin = {top: 0, right: 0, bottom: 0, left: 0}
+  var margin = {top: 20, right: 0, bottom: 0, left: 0}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.height - margin.top - margin.bottom 
-
-  var chart = d3.select("#chart")
 
   var svg = chart.append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -28,147 +319,320 @@
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
   var map = g.append("g").attr("id", "map")
+              .attr("transform", "translate(" + (-width/5) + "," + 0 + ")")
+
   var bubbles_explore = g.append("g").attr("id", "bubbles_explore")
+    .attr("transform", "translate(" + (-width/5) + "," + 0 + ")")
+
+  var svgLegend = g.append("g").attr("id", "legend")
+              .attr("transform", "translate(" + (width-330).toString() + "," + 50 + ")")
 
   var centroids = []
 
-  var force = d3.forceSimulation()
+  let radius = 17.5
 
+  let forceCollide = d3.forceCollide()
+      .radius(function(d) { return radius + 5; })
+
+  var category = {
+   'Group 1': ["Defence", "Foreign Affairs"],
+   'Group 2': ["Health"], 
+   'Group 3': ["Transport"], 
+   'Group 4': ["Sustainability and the Environment", 
+               "Social & Family Development", 
+               "Communications & Information", 
+               "Culture, Community and Youth", 
+               "Education"],
+   'Group 5': ["Trade and Industry", "Manpower", "Finance"], 
+   'Group 6': ["PMO"],
+   'Group 7': ["Law", "National Development", "Home Affairs"] 
+  }
+
+  var categoryList = Object.values(category).flat()
+
+  var color = {
+    'Group 1' : "#f94144", 
+    "Group 2" : "#f20089", 
+    "Group 3": "#f8961e", 
+    "Group 4" : "#ffd500", 
+    "Group 5" : "#90be6d", 
+    "Group 6" : "#2d00f7", 
+    'Group 7' : "#7209b7"
+  }
+
+  var widths = {
+    'Prime Minister' : 6, 
+    "Deputy Prime Minister" : 5.5,
+    "Senior Minister" : 5.5,
+    "Minister" : 5,  
+    "Senior Minister Of State": 3.5, 
+    "Minister Of State" : 3, 
+    "Senior Parliamentary Secretary" : 1.5,
+    "Parliamentary Secretaries" : 1
+  }
+
+  var colorScale = d3.scaleOrdinal()
+    .domain(Object.keys(color))
+    .range(Object.values(color))
+
+  var widthScale = d3.scaleOrdinal()
+    .domain(Object.keys(widths))
+    .range(Object.values(widths))
+
+  drawLegend(svgLegend)
+
+  /////////////////////// Draw Legend //////////////////////////
+  function drawLegend(svgLegend){
+
+    svgLegend.attr("opacity", 0)
+
+    svgLegend.append('text')
+      .attr("transform", 'translate(0,-30)')
+      .attr('font-weight', 'bold')
+      .text('Ministries')
+
+    var legend = svgLegend.selectAll('.legend')
+      .data(Object.entries(color))
+      .enter().append('g')
+        .attr("class", "legend")
+        .attr("transform", function (d, i) {return "translate(0," + getY(i)+ ")"})
+        
+    legend.append("circle")
+        .attr("class", "legend-node")
+        .attr("cx", -20)
+        .attr("cy", -10/2)
+        .attr("r", 10)
+        .style("fill", d=>colorScale(d))
+
+    legend.append("text")
+        .attr("class", "legend-text")
+        .style("fill", "black")
+        .style("font-size", 12)
+        .text(d=> category[d[0]])
+        .call(wrap, 300);
+
+    function getY(i){
+      if(i<=3){
+        return i*25
+      } else if(i==3){
+        return i*50
+      } else {
+        return (i*25) + 30
+      }
+    }
+  }
+
+
+  /////////////////////// Draw Map (with labels) //////////////////////////
   function drawMap(data, projection) {
 
     var path = d3.geoPath()
        .projection(projection)
 
     // draw a path for each feature/country
-    countriesPaths = map
+    map
        .selectAll("path")
-       .data(data.features)
+       .data(data)
        .enter().append("path")
        .attr("d", path)
+       .attr('id', d=> 'map-' + findID(d))
        .attr("class", "constituencies")
        .attr('fill', 'transparent')
        .attr('stroke', 'black')
-       .attr('stroke-width', '0.4px')
+       .attr('stroke-width', 0.2)
+       .attr('stroke-opacity', 0.5)
+       .attr("transform", "translate(" + 200 + "," + 20 + ")")
 
-    // store an array of each country's centroid
-    data.features.map(d=> {
-      centroids.push({
-        name: d.properties["name"],
-        x: path.centroid(d)[0],
-        y: path.centroid(d)[1]
-      })
-    })
+    map
+       .selectAll("text")
+       .data(data)
+       .enter().append("text")
+       .attr('id', d=> 'map-label-' + findID(d))
+       .attr("class", "constituencies-labels")
+       .attr("transform", "translate(" + ((width/2)+(width/4)).toString() + "," + 20 + ")")
+       // .attr("transform", function(d) {
+       //    let centroid = path.centroid(d)
+       //    return (
+       //       "translate(" + centroid[0] + "," + centroid[1] + ")" // centroid of countries
+       //    );
+       // })
+       .attr('text-anchor', 'middle')
+       .attr('font-weight', 'bold')
+       .attr('fill', 'black')
+       .attr('opacity', 0)
+       .text(d=>d.properties['Name'])
 
-  }
+    d3.selectAll("path.constituencies")
+     .on('mouseover', function(d){
+        d3.select('#map-label-'+ findID(d)).attr('opacity', 1)
+        d3.select(this).attr('stroke-opacity', 0.5)
+     })
+     .on('mouseout', function(d){
+        d3.select('#map-label-'+ findID(d)).attr('opacity', 0)
+        d3.select(this).attr('stroke-opacity', 0.5)
+        d3.select(".tooltip").style("opacity", 0)
 
-  function drawClusters(data, projection) {
-
-    data.forEach(d=>{
-      let point = projection([+d['lat'], +d['long']])
-      d.x = point[0]
-      d.y = point[1]
-    })
-
-    let radius = 15
-
-    let forceCollide = d3.forceCollide()
-        .radius(function(d) { return radius * 1.1; })
-
-    force.nodes(data)
-      .force("collide", forceCollide)
-      .force('charge', d3.forceManyBody().strength(-10))
-      .force("x", d3.forceX(function (d) { return d.x }))
-      .force("y", d3.forceY(function (d) { return d.y }))
-      .alphaTarget(1)
-      .on("tick", tick);
-
-    //force.velocityDecay(0.5).alpha(0.1).restart()
-
-    updateCircles(data)
+     })
 
   }
 
-  function updateCircles(data){
+  function simulateStatic(nodes, simulation, opacity) {
 
-    let radius = 15
+    simulation.stop();
 
-    circles = bubbles_explore.selectAll("g.nodegroup").data(data, d=>d['Name'])
+    while (simulation.alpha() > simulation.alphaMin()) {
+      simulation.tick();
+    }
+
+    updateCircles(nodes, 400, opacity)
+
+  }
+
+  /////////////////////// Update circle (with image) location and attributes //////////////////////////
+  function updateCircles(data, DELAY, opacity){
+
+    circles = bubbles_explore.selectAll("g.nodegroup").data(data, (d,i)=>d['key'])
 
     let entered_circles = circles.enter().append("g")
       .attr('class', 'nodegroup')
+      .attr('id', d => 'node-' + d.Title_1.trim().replaceAll(' ', '_'))
       .attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
+      .style('opacity', opacity)
+      .attr('cursor', 'pointer')
+      .each(function (d) {
+        NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
+          radius: radius + widthScale(d.Title_1)
+        });
+      })
+      .on('mouseover', function(d){
 
+        let items = []
+        if(d.Ministry_1){ items.push(d.Ministry_1) }
+        if(d.Ministry_2){ items.push(d.Ministry_2) }
+        if(d.Ministry_3){ items.push(d.Ministry_3) }
+
+        let keywordList = "<span>";
+        for(var i = 0; i < items.length; i++){
+          keywordList += "<span class='mini-button'>" + items[i] + "</span>"
+        }
+        keywordList += "</span>";
+
+        let ID = d['Division'].replace(' ', '_').toUpperCase()
+        d3.select('#map-label-'+ ID).attr('opacity', 1)
+        d3.select('#map-'+ ID).attr('stroke-opacity', 1)
+        d3.select(".tooltip")
+          .html(
+            "<div style='padding: 10px'><img width='100px' src=" + `./images/${d.newName}.jpg` + "></div><div>" + 
+            "<h3>" + d.Name + "</h3><p>" + 
+            "Title: <span>" + d.Title_1 + "</span></p><p>" +
+            "Party: <span>" + d.Party + "</span></p><p>" + 
+            "Constituency: <span>" + d.Division + "</span></p><p>" + 
+            "Gender: <span>" + d.Gender + "</span></p><p>" + 
+            "Age: <span>" + d.Age + "</span></p><p>" + 
+            "Ethnicity: <span>" + d.Ethnicity + "</span></p><p>" +
+            "No. of terms: <span>" + d.sessions_group + "</span></p><p>" + 
+            "Portfolio: " + keywordList 
+          )
+          //.style("left", (d3.event.clientX + 25).toString() + "px")
+          //.style("top", (d3.event.clientY - 70).toString() + "px")
+          .style("opacity", 1)
+      })
+      .on('mouseout', function(d){
+        let ID = d['Division'].replace(' ', '_').toUpperCase()
+        d3.select('#map-label-'+ ID).attr('opacity', 0)
+        d3.select('#map-'+ ID).attr('stroke-opacity', 0)
+        d3.select(".tooltip").style("opacity", 0)
+      })
+
+    const imageAccessor = d => `./images/${d.newName}.jpg`
+    const fillAccessor = d => `url(#image-${d.newName})`
+
+    const defs = entered_circles.append("defs");
+
+    defs
+      .append('pattern')
+        .attr("id", d => "image-" + d['newName'])
+        .attr("width", 1)
+        .attr("height", 1)
+      .append("svg:image")
+        .attr("xlink:href", d => imageAccessor(d))
+        .attr("width", 35)
+        .attr("preserveAspectRatio", "xMidYMid slice")
+        
     entered_circles.append("circle").attr('class', 'bubble')
-
-    circles.merge(entered_circles).select('.bubble')         
-      .transition().duration(500)
-      //.attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
       .attr('r', radius)
       .attr('stroke', 'black')
-      .attr('stroke-width', '1px')
-      .attr('stroke-opacity', 1)
-      .attr('fill', 'black')
-      .attr('fill-opacity', 0.2)
+      .attr('stroke-width', d => d['Type.1'] == 'Cabinet' ? '0px' : '1px')
+      .attr('fill', d => fillAccessor(d))
+      .style('opacity', 0)
 
-    circles.exit().remove()
+    circles.merge(entered_circles)        
+      .transition().ease(d3.easeCubicOut).duration(750).delay(DELAY)
+      .attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
+      .style('opacity', opacity)
+
+    circles.merge(entered_circles).selectAll('.bubble')
+      .transition().duration(750)
+      .style('opacity', 1)
+
+    circles.exit()
+      .transition().duration(250)
+      .style('opacity', 0)
+      .remove()
+    
+  }
+
+  function drawClustersOnMap(data, projection, coords, opacity) {
+
+    data.forEach(d=>{
+      let point = projection([+d[coords[0]], +d[coords[1]]])
+      d.x = point[0] + 200
+      d.y = point[1]
+    })
+
+    var simulation = d3.forceSimulation()
+      .nodes(data)
+      .force("collide", forceCollide)
+      .force('charge', d3.forceManyBody().strength(-10))
+      .force("x", d3.forceX(function (d) { return d.x }).strength(1))
+      .force("y", d3.forceY(function (d) { return d.y }).strength(1))
+
+    simulateStatic(data, simulation, opacity)
 
   }
 
-  function drawArc(data) {
+  function drawFocisMinistry(data) {
 
-    ///////////////////////////////////////////////////////////////////////////
-    ///////////////////////////// Create scales ///////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-    var color = ["#E47D06", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", "#E47D06", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", "#E47D06", "#DB0131"]
-    var category = ["Finance", "PMO", "Law", "Defence", "Culture, Community and Youth", "Education", "Foreign Affairs", "Communications and Information", "Health", "Home Affairs", "Manpower", "National Development", "Sustainability and Environment", "Trade and Industry", "Transport", "Social and Family Development"]
-    var colorScale = d3.scaleOrdinal()
-      .domain(category)
-      .range(color)
+    var Foci_new = onFociCountChange(null, categoryList, 4.9)
+    var FociText = onFociCountChange(null, categoryList, 6.3)
 
-    var Foci = onFociCountChange(category)
+    let dataFiltered = data.filter(d=>d['Type.1'] == 'Cabinet')
+    let nodes = createNodes(Foci_new, dataFiltered) 
+    updateTexts(FociText) 
 
-    var Foci_new = []
-    Object.keys(Foci).map(function(key, index) {
-       Foci_new.push({
-        x: Foci[index].x,
-        y: Foci[index].y,
-        key: Foci[index].key,
-        color: Foci[index].color
-      })     
-    })
+    var simulation = d3.forceSimulation()
+      .nodes(nodes)
+      .force("collide", forceCollide)
+      .force('charge', d3.forceManyBody().strength(-10))
+      .force("x", d3.forceX(function (d) { return d.x+width/4 }))
+      .force("y", d3.forceY(function (d) { return d.y }))
 
-    let nodes = createNodes(Foci_new, data) 
+    simulateStatic(nodes, simulation, 1)
 
-    updateCircles(nodes)
+    // setTimeout(function(){
 
-    force.nodes(nodes)
-      .on("tick", tick)
+    //   let nodes = createNodes(Foci_new, data) 
 
-    force.velocityDecay(0.5).alphaDecay(.0005).restart()
+    //   simulation = d3.forceSimulation()
+    //     .nodes(nodes)
+    //     .force("collide", forceCollide)
+    //     .force('charge', d3.forceManyBody().strength(-10))
+    //     .force("x", d3.forceX(function (d) { return d.x }))
+    //     .force("y", d3.forceY(function (d) { return d.y }))
 
-    ////////////////////// Assign focus point of each category //////////////////
-    function onFociCountChange(focis) {
-        fociCount = focis.length
-        foci = {};
-        for (let i = 0; i < fociCount; i++) {
-            let focus = createFocus(i, focis[i], fociCount);
-            foci[i] = focus;
-        }
-        return foci
-    }
+    //   simulateStatic(nodes, simulation)
 
-    /////////////////////// Calculate focus point of each category ///////////////
-    function createFocus(index, key, fociCount) {
-        let angle = 2 * Math.PI / fociCount * index;
-        return {
-            key: key,
-            index: index,
-            angle: angle,
-            color: colorScale(key),
-            x: width/4 * Math.cos(angle) + width/2,
-            y: height/4 * Math.sin(angle) + height/2
-        };
-    }
+    // }, 3000)
 
     ////////////////////////////////// Create nodes //////////////////////////////
     function createNodes(focis, data) {
@@ -177,51 +641,596 @@
       data.map((d,i)=> {
         let F = focis.find(f=>f.key == d.Ministry_1) || [{x: width/2, y: height/2, color: "#E47D06"}]
         n.push({
-          index: i, // unique index for each node
-          r: 3,
-          color: F.color,
-          strokeFill: F.color,
+          ...d,
+          key: d['newName'] + '-' + d.Ministry_1, // unique index for each node
+          x: F.x,
+          y: F.y,
+        })
+      })
+      let data_2 = data.filter(d=>d.Ministry_2)
+      data_2.map((d,i)=> {
+        let F = focis.find(f=>f.key == d.Ministry_2) || [{x: width/2, y: height/2, color: "#E47D06"}]
+        n.push({
+          ...d,
+          key: d['newName'] + '-' + d.Ministry_2, // unique index for each node
           x: F.x,
           y: F.y
+        })
+      })
+      let data_3 = data.filter(d=>d.Ministry_3)
+      data_3.map((d,i)=> {
+        let F = focis.find(f=>f.key == d.Ministry_3) || [{x: width/2, y: height/2, color: "#E47D06"}]
+        n.push({
+          ...d,
+          key: d['newName'] + '-' + d.Ministry_3, // unique index for each node
+          x: F.x,
+          y: F.y
+        })
+      })
+
+      return n
+
+    }
+
+  }
+
+  function drawCategory(data, col, categoryList) {
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Create scales ///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    let dataGrp = d3.nest()
+      .key(d=>d[col])
+      .entries(data)
+
+    var Foci_new = onFociCountChange(dataGrp, categoryList, 6.8)
+    var FociText = onFociCountChange(dataGrp, categoryList, 6.8)
+
+    let nodes = createNodes(Foci_new, data, col) 
+
+    updateTexts1(FociText) 
+
+    var simulation = d3.forceSimulation()
+      .nodes(nodes)
+      .force("collide", forceCollide)
+      .force('charge', d3.forceManyBody().strength(-10))
+      .force("x", d3.forceX(function (d) { return d.x+width/4 }))
+      .force("y", d3.forceY(function (d) { return d.y }))
+
+    simulateStatic(nodes, simulation, 1)
+
+    ////////////////////////////////// Create nodes //////////////////////////////
+    function createNodes(focis, data, col) {
+
+      var n = []
+      data.map((d,i)=> {
+        let F = focis.find(f=>f.key == d[col]) || [{x: width/2, y: height/2, color: "#E47D06"}]
+        n.push({
+          ...d,
+          key: d['newName'] + '-' + d.Ministry_1, // unique index for each node
+          x: F.x,
+          y: F.y,
         })
       })
       return n
 
     }
-
- 
-  }
-
-  function tick() {
-    svg.selectAll('.nodegroup')
-        .attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
   }
 
   //Load data
   Promise.all([
     d3.csv("./data/mps_constituencies.csv"),
-    d3.json("./data/electoral-boundary-2015.json")
+    d3.json("./data/electoral-boundary-2020.json"),
+    d3.json("./data/GE2020.json")
   ]).then(function(data) {
-
+    
     let data0 = data[0]
     let data1 = data[1]
-   
-    let projection = d3.geoMercator()
-        .center([103.851784, 1.287953]) 
-        .scale(1)
-        .fitSize([width*1.4, height*1.4], data1)
-        .translate([width*(3/5), height*(5/6)]) 
- 
-    drawMap(data1, projection)
-    drawClusters(data0, projection)
+    let data2 = data[2]
 
-    setTimeout(function(){
-      drawArc(data0)
-    }, 3000)
+    data0.forEach(d=>{
+      d.key = d['newName'] + '-' + d.Ministry_1
+      d.age_group = getAgeGrp(+d.Age)
+      d.sessions_group = getSessionsGrp(+d.Years_In_Politics)
+      if(d.Ministry_1 && d.Ministry_2 && d.Ministry_3){
+        d.pieChart = [
+          {group: getKeyByValue(category, d.Ministry_1), percent: 100/3},
+          {group: getKeyByValue(category, d.Ministry_2), percent: 100/3},
+          {group: getKeyByValue(category, d.Ministry_3), percent: 100/3}
+        ]
+      } else if (d.Ministry_1 && d.Ministry_2){
+        d.pieChart = [
+          {group: getKeyByValue(category, d.Ministry_1), percent: 100/2},
+          {group: getKeyByValue(category, d.Ministry_2), percent: 100/2}
+        ]
+      } else if(d.Ministry_1){
+        d.pieChart = [
+          {group: getKeyByValue(category, d.Ministry_1), percent: 100}
+        ]
+      } else {
+        d.pieChart = []
+      }
+    })
+
+    let fixed = data1.features.map(function(f) {
+      return turf.rewind(f,{reverse:true});
+    })
+
+    let projection = d3.geoMercator()
+      .fitSize([width*1.2,height*1.2],{"type": "FeatureCollection","features":fixed})
+
+    let fixed2 = data2.features.map(function(f) {
+      return turf.rewind(f,{reverse:true});
+    })
+
+    let projection2 = d3.geoMercator()
+      .fitSize([width*1.2,height*1.2],{"type": "FeatureCollection","features":fixed2})
+    
+    // 1. force a resize on load to ensure proper dimensions are sent to scrollama
+    handleResize();
+
+    // 2. setup the scroller passing options
+    //    this will also initialize trigger observations
+    // 3. bind scrollama event handlers (this can be chained like below)
+    scroller.setup({
+      step: '#scrolly article .step',
+      offset: 0.25,
+      debug: true,
+      progress: true,
+      threshold: 1
+    })
+    .onStepEnter(handleStepEnter)
+
+    // setup resize event
+    window.addEventListener('resize', handleResize);
+
+    // render on initial page load
+    //drawMap(fixed, projection)
+    //drawClustersOnMap(data0, projection
+    drawClustersOnMap(data0, projection2, ['lat_ward', 'lon_ward'], 0.3)
+
+    d3.select(".foci-view")
+      .on("click", function() {
+        clear()
+        drawFocisMinistry(data0)
+      })
+
+    d3.select(".ethnicity-view")
+      .on("click", function() {
+        clear()
+        drawCategory(data0, 'Ethnicity', ['Malay', 'Eurasian', 'Chinese', 'Indian']) 
+      })
+
+    d3.select(".gender-view")
+      .on("click", function() {
+        clear()
+        drawCategory(data0, 'Gender', ['Female', 'Male']) 
+      })
+
+    d3.select(".party-view")
+      .on("click", function() {
+        clear()
+        drawCategory(data0, 'Party', ['PAP', 'WP']) 
+      })
+
+    d3.select(".age-view")
+      .on("click", function() {
+        clear()
+        let options = {
+          radius: radius*1.25,
+          tilesPerRow: 3,
+          width: width,
+          height: height-radius,
+          leftBuffer: 0,
+          bottomBuffer: 0,
+          category: {'color': undefined, 'sort_list': d3.range(d3.extent(data, d=>d.age)), 'sort_category': 'Age'}
+        }
+        let nodes = createDots(data0, 'bar', 'age_group', "", ['Less than 35', '35 - 40', '40 - 45', '45 - 50', '50 - 55', '55 - 60', '60 - 65', 'More than 65'], "", options)
+        nodes.dots.forEach(d=>{
+          d.x = d.x + width/4
+        })
+        updateCircles(nodes.dots, (d,i)=>50*i, 1)
+        updateTexts1(nodes.labels.filter(d=>d.type === 'xaxis_label')) 
+      })
+
+    d3.select(".scatter-view")
+      .on("click", function() {
+        clear()
+        let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+20, width-20+width/4], rangeY: [height-40, 20], show_axis: true})
+        var simulation = d3.forceSimulation()
+          .nodes(data)
+          .force("collide", forceCollide)
+          .force('charge', d3.forceManyBody().strength(-10))
+          .force("x", d3.forceX(function (d) { return d.x }).strength(1))
+          .force("y", d3.forceY(function (d) { return d.y }).strength(1))
+
+        simulateStatic(data, simulation, 1) 
+      })
+
+    d3.select(".map-view")
+      .on("click", function() { 
+        clear()
+        drawMap(fixed, projection)
+        drawClustersOnMap(data0, projection, ['lat', 'long'], 1)
+      })
    
+    d3.select(".tsne-view")
+      .on("click", function() {
+        clear()
+        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width], rangeY: [height-40, 40], show_axis: false})
+        updateCircles(data, 400, 1)
+      })
+
+    d3.select(".legend-view")
+      .on("click", function() {
+        show_legend = !show_legend
+        if(show_legend){
+          d3.selectAll("#legend").attr('opacity', 1)
+        } else {
+          d3.selectAll("#legend").attr('opacity', 0)
+        }
+      })
+
+    function clear() {
+      map.selectAll('path').remove()
+      map.selectAll(".constituencies-labels").remove()
+      bubbles_explore.selectAll("text.fociText").remove()
+      bubbles_explore.selectAll(".scatter_x_axis").remove()
+      bubbles_explore.selectAll(".scatter_y_axis").remove()
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////// Scrollama event handlers ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    function handleResize() {
+
+      // 1. update height of step elements
+      var stepH = Math.floor(window.innerHeight);
+      step.style('height', stepH + 'px');
+      var figureHeight = window.innerHeight
+      var figureMarginTop = (window.innerHeight - figureHeight) / 2  
+      chart
+        .style('height', figureHeight + 'px')
+        .style('top', figureMarginTop + 'px');
+      // 3. tell scrollama to update new element dimensions
+      scroller.resize();
+
+    }
+
+    function handleStepEnter(response) {
+
+      // response = { element, direction, index }
+      // fade in current step
+      step.classed('is-active', function (d, i) {
+          return i === response.index;
+      })
+
+      if (response.index === 0) { 
+
+        d3.selectAll(".div-legend").style('display', 'none')
+        clear()
+        drawMap(fixed2, projection2)
+
+        scroller.onStepProgress(handleStepProgress)
+
+      } else if (response.index === 1) { 
+
+        d3.selectAll(".div-legend").style('display', 'block')
+        d3.selectAll('#node-Member_of_Parliament').style('opacity', 1)
+        
+      } else if (response.index === 2) { 
+
+        clear()
+        drawMap(fixed, projection)
+        drawClustersOnMap(data0, projection, ['lat', 'long'], 1)
+
+      } else if (response.index === 3) { 
+
+        clear()
+        drawCategory(data0, 'Ethnicity', ['Malay', 'Eurasian', 'Chinese', 'Indian']) 
+
+      } else if (response.index === 4) { 
+
+        clear()
+        drawCategory(data0, 'Party', ['PAP', 'WP']) 
+
+      } else if (response.index === 5) {
+
+        clear()
+        drawCategory(data0, 'Gender', ['Female', 'Male']) 
+
+      } else if (response.index === 6) { 
+
+        clear()
+        let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+40, width], rangeY: [height-40, 20], show_axis: true})
+        var simulation = d3.forceSimulation()
+          .nodes(data)
+          .force("collide", forceCollide)
+          .force('charge', d3.forceManyBody().strength(-10))
+          .force("x", d3.forceX(function (d) { return d.x }).strength(1))
+          .force("y", d3.forceY(function (d) { return d.y }).strength(1))
+
+        simulateStatic(data, simulation, 1) 
+
+      } else if (response.index === 7) { 
+
+        clear()
+        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width], rangeY: [height-40, 40], show_axis: false})
+        updateCircles(data, 400, 1)
+
+      } else if (response.index === 8) { 
+
+        d3.selectAll('.panel').style('display', 'block')
+        d3.selectAll("#legend").attr('opacity', 1)
+
+      } 
+    }
+
+    function handleStepExit(response) {
+      response.element.classList.remove('is-active');
+    }
+
+    function handleStepProgress(response) {
+
+      if (response.index === 0) {
+        if(response.progress > 0.1 & response.progress <= 0.25) {
+          d3.selectAll('#node-Prime_Minister').style('opacity', 1)
+        } else if(response.progress > 0.25 & response.progress <= 0.5) {
+          d3.selectAll('#node-Prime_Minister').style('opacity', 1)
+          d3.selectAll('#node-Senior_Minister').style('opacity', 1)
+          d3.selectAll('#node-Minister').style('opacity', 1)
+        } else if(response.progress > 0.5 & response.progress <= 0.75) {
+          d3.selectAll('#node-Prime_Minister').style('opacity', 1)
+          d3.selectAll('#node-Senior_Minister').style('opacity', 1)
+          d3.selectAll('#node-Minister').style('opacity', 1)
+          d3.selectAll('#node-Senior_Minister_of_State').style('opacity', 1)
+          d3.selectAll('#node-Minister_of_State').style('opacity', 1)
+        } else if(response.progress > 0.75) {
+          d3.selectAll('#node-Prime_Minister').style('opacity', 1)
+          d3.selectAll('#node-Senior_Minister').style('opacity', 1)
+          d3.selectAll('#node-Minister').style('opacity', 1)
+          d3.selectAll('#node-Senior_Minister_of_State').style('opacity', 1)
+          d3.selectAll('#node-Minister_of_State').style('opacity', 1)
+          d3.selectAll('#node-Senior_Parliamentary_Secretary').style('opacity', 1)
+          d3.selectAll('#node-Parliamentary_Secretaries').style('opacity', 1)
+        } else if(response.progress <= 0.1){
+          d3.selectAll('g.nodegroup').style('opacity', 0.3)
+        }
+      }
+
+    }
+
   })
 
-</script>
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////// Helper functions ////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+function getAgeGrp(d){
+  if(d<=35){
+    return 'Less than 35'
+  } else if(d>35 && d<=40){
+    return '35 - 40'
+  } else if(d>40 && d<=45){
+    return '40 - 45'
+  } else if(d>45 && d<=50){
+    return '45 - 50'
+  } else if(d>50 && d<=55){
+    return '50 - 55'
+  } else if(d>55 && d<=60){
+    return '55 - 60'
+  } else if(d>60 && d<=65){
+    return '60 - 65'
+  } else if(d>65){
+    return 'More than 65'
+  }
+}
 
+function getSessionsGrp(d){
+  if(d==0){
+    return '1'
+  } else if(d>0 && d<=5){
+    return '2'
+  } else if(d>5 && d<=9){
+    return '3'
+  } else if(d>9 && d<=14){
+    return '4'
+  } else if(d>14 && d<=19){
+    return '5'
+  } else if(d>19){
+    return 'More than 5'
+  } 
+}
+
+function createScatter(data, attr) {
+
+  let xScale = d3.scaleLinear()
+      .range(attr['rangeX'])
+      .domain(d3.extent(data, function(d) { return +d[attr['x']]; }))
+
+  let yScale = d3.scaleLinear()
+      .range(attr['rangeY'])
+      .domain(d3.extent(data, function(d) { return +d[attr['y']]; }))
+
+  data.forEach(d=>{
+    d.x = xScale(+d[attr['x']])
+    d.y = yScale(+d[attr['y']])
+  })
+
+  if(attr['show_axis']){
+
+    let xAxis = d3.axisBottom(xScale);
+    let yAxis = d3.axisLeft(yScale);
+
+    bubbles_explore.append("g")
+        .attr("class", "scatter_x_axis")
+        .attr("transform", `translate(0,${height-30})`)
+        .call(xAxis)
+      .append("text")
+        .attr("class", "label")
+        .attr("x", ((width-20+width/4)-(width/3+20)))
+        .attr("y", 20)
+        .attr('fill', 'black')
+        .style("text-anchor", "middle")
+        .text("Number of terms");
+
+    bubbles_explore.append("g")
+        .attr("class", "scatter_y_axis")
+        .attr("transform", `translate(${40+width/4},0)`)
+        .call(yAxis)
+      .append("text")
+        .attr("class", "label")
+        .attr("transform", `translate(${-20},${height/2})rotate(-90)`)
+        .attr('fill', 'black')
+        .attr("dy", ".71em")
+        .style("text-anchor", "middle")
+        .text("Age")
+
+  }
+
+  return data
+}
+
+function updateTexts(focis) {
+
+  texts = bubbles_explore.selectAll("text.fociText").data(focis, (d,i)=>d['key'])
+
+  let entered_texts = texts.enter().append("text")
+    .attr('class', 'fociText')
+    .attr('transform', d=> { return 'translate(' + (d.x+width/4).toString() + "," + d.y + ")" })
+    .attr('text-anchor', (d,i) => alignTexts(i))
+    .attr('fill',  'black')
+    .attr('font-size', '12px')
+    .style('opacity', 0)
+    .text(d=>d['key'])
+    .call(wrap, 80);
+    
+  texts.merge(entered_texts)         
+    .transition().duration(750).delay(400)
+    .attr('transform', d=> { return 'translate(' + (d.x+width/4).toString() + "," + d.y + ")" })
+    .style('opacity', 1)
+
+  texts.exit()
+    .transition().duration(750)
+    .style('opacity', 0)
+    .remove()
+
+  function alignTexts(i){
+    if((i>=13 && i<=16) || (i>=0 && i<=3)){
+      return 'end'
+    } else if(i===4 || i===12){
+      return 'middle'
+    } else {
+      return 'start'
+    }
+  }
+
+}
+
+function updateTexts1(focis) {
+
+  function getRadius(count){
+    return count ? (count < 30 ? (count*radius)/2 : (count*radius/2.5)/2) : 0
+  }
+
+  texts = bubbles_explore.selectAll("text.fociText").data(focis, (d,i)=>d['key'])
+
+  let entered_texts = texts.enter().append("text")
+    .attr('class', 'fociText')
+    .attr('transform', d=> { return 'translate(' + (d.x+width/4).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
+    .attr('text-anchor', 'middle')
+    .attr('fill',  'black')
+    .attr('font-size', '14px')
+    .style('opacity', 0)
+    .text(d=>d['key'])
+    .call(wrap, 80);
+    
+  texts.merge(entered_texts)         
+    .transition().duration(750).delay(400)
+    .attr('transform', d=> { return 'translate(' + (d.x+width/4).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
+    .style('opacity', 1)
+
+  texts.exit()
+    .transition().duration(750)
+    .style('opacity', 0)
+    .remove()
+
+}
+
+////////////////////// Assign focus point of each category //////////////////
+function onFociCountChange(data, focis, multiplier) {
+
+    fociCount = focis.length
+    foci = {};
+    for (let i = 0; i < fociCount; i++) {
+        let focus = createFocus(i, focis[i], fociCount, multiplier);
+        foci[i] = focus;
+    }
+    let Foci_new = []
+    Object.keys(foci).map(function(key, index) {
+       Foci_new.push({
+        x: foci[index].x,
+        y: foci[index].y,
+        key: foci[index].key,
+        count: data ? data.find(d=>d.key === foci[index].key).values.length : 0
+      })     
+    })
+    return Foci_new
+}
+
+function createFocus(index, key, fociCount, multiplier) {
+    let angle = 2 * Math.PI / fociCount * index;
+    return {
+        key: key,
+        index: index,
+        angle: angle,
+        x: width/multiplier * Math.cos(angle) + width/2,
+        y: width/multiplier * Math.sin(angle) + height/2
+    };
+}
+
+function findID(d){
+  return d.properties['Name'].replace(' ', '_').toUpperCase()
+  //return d.properties.description.split('<td>')[1].split('</td>')[0]
+}
+
+function getKeyByValue(object, value) {
+  let key = ""
+  let arr = Object.values(object)
+  for (i = 0; i < arr.length; i++) {
+    if(arr[i].indexOf(value) !== -1){
+      key = Object.keys(object).find(k => object[k] === arr[i]);
+      break;
+    }
+  }
+  return colorScale(key)
+}
+
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.2, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")) || 0,
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y)
+    while (word = words.pop()) {
+      line.push(word)
+      tspan.text(line.join(" "))
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop()
+        tspan.text(line.join(" "))
+        line = [word]
+        tspan = text.append("tspan").attr("x", 0).attr("y", `${++lineNumber * lineHeight + dy}em`).text(word)
+      }
+    }
+  })
+}
+
+</script>
+<script src="./node-pie.js"></script>
+<script src="./dotplot.js"></script>
 </body>
 </html>

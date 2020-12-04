@@ -1,96 +1,96 @@
-Name,Party,Age,Years_In_Politics,Ethnicity,Gender,Type,Parliament,Type,Ministry_1,Ministry_2,Ministry_3,Title_1,Title_2,Title_3
-Alex Yam,People's Action Party,39,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Ang Wei Neng,People's Action Party,53,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Carrie Tan,People's Action Party,38,0,Chinese,Female,MP,14,Backbencher,,,,,,
-Cheng Li Hui,People's Action Party,44,5,Chinese,Female,MP,14,Backbencher,,,,,,
-Cheryl Chan,People's Action Party,43,5,Chinese,Female,MP,14,Backbencher,,,,,,
-Chong Kee Hiong,People's Action Party,54,5,Chinese,Male,MP,14,Backbencher,,,,,,
-Christopher de Souza,People's Action Party,44,14,Eurasian,Male,MP,14,Backbencher,,,,,,
-Louis Chua,Workers' Party,33,0,Chinese,Male,MP,14,Opposition,,,,,,
-Darryl David,People's Action Party,49,5,Indian,Male,MP,14,Backbencher,,,,,,
-Denise Phua,People's Action Party,60,14,Chinese,Female,MP,14,Backbencher,,,,,,
-Dennis Tan,Workers' Party,49,5,Chinese,Male,MP,14,Opposition,,,,,,
-Derrick Goh,People's Action Party,52,0,Chinese,Male,MP,14,Backbencher,,,,,,
-Desmond Choo,People's Action Party,42,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Don Wee,People's Action Party,43,0,Chinese,Male,MP,14,Backbencher,,,,,,
-Edward Chia,People's Action Party,36,0,Chinese,Male,MP,14,Backbencher,,,,,,
-Foo Mee Har,People's Action Party,54,9,Chinese,Female,MP,14,Backbencher,,,,,,
-Gan Thiam Poh,People's Action Party,56,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Gerald Giam,Workers' Party,42,9,Chinese,Male,MP,14,Opposition,,,,,,
-Hany Soh,People's Action Party,33,0,Chinese,Female,MP,14,Backbencher,,,,,,
-Hazel Poa,Progress Singapore Party,50,0,Chinese,Female,NCMP,14,Opposition,,,,,,
-He Ting Ru,Workers' Party,37,5,Chinese,Female,MP,14,Opposition,,,,,,
-Henry Kwek,People's Action Party,44,5,Chinese,Male,MP,14,Backbencher,,,,,,
-Jamus Lim,Workers' Party,44,0,Chinese,Male,MP,14,Opposition,,,,,,
-Jessica Tan,People's Action Party,54,14,Chinese,Female,MP,14,Backbencher,,,,,,
-Joan Pereira,People's Action Party,53,5,Eurasian,Female,MP,14,Backbencher,,,,,,
-Leon Perera,Workers' Party,49,5,Eurasian,Male,MP,14,Opposition,,,,,,
-Leong Mun Wai,Progress Singapore Party,60,0,Chinese,Male,NCMP,14,Opposition,,,,,,
-Liang Eng Hwa,People's Action Party,56,14,Chinese,Male,MP,14,Backbencher,,,,,,
-Lim Biow Chuan,People's Action Party,57,14,Chinese,Male,MP,14,Backbencher,,,,,,
-Lim Wee Kiak,People's Action Party,51,14,Chinese,Male,MP,14,Backbencher,,,,,,
-Louis Ng,People's Action Party,41,5,Chinese,Male,MP,14,Backbencher,,,,,,
-Mariam Jaafar,People's Action Party,43,0,Malay,Female,MP,14,Backbencher,,,,,,
-Melvin Yong,People's Action Party,48,5,Chinese,Male,MP,14,Backbencher,,,,,,
-Mohd Fahmi Aliman,People's Action Party,47,0,Malay,Male,MP,14,Backbencher,,,,,,
-Muhamad Faisal Manap,Workers' Party,45,9,Malay,Male,MP,14,Opposition,,,,,,
-Murali Pillai,People's Action Party,52,4,Indian,Male,MP,14,Backbencher,,,,,,
-Nadia Ahmad Samdin,People's Action Party,30,0,Malay,Female,MP,14,Backbencher,,,,,,
-Ng Ling Ling,People's Action Party,48,0,Chinese,Female,MP,14,Backbencher,,,,,,
-Patrick Tay,People's Action Party,48,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Poh Li San,People's Action Party,44,0,Chinese,Female,MP,14,Backbencher,,,,,,
-Rachel Ong,People's Action Party,47,0,Chinese,Female,MP,14,Backbencher,,,,,,
-Raeesah Khan,Workers' Party,26,0,Chinese,Female,MP,14,Opposition,,,,,,
-Saktiandi Supaat,People's Action Party,46,5,Malay,Male,MP,14,Backbencher,,,,,,
-Seah Kian Peng,People's Action Party,58,14,Chinese,Male,MP,14,Backbencher,,,,,,
-Mohamed Sharael Taha,People's Action Party,39,0,Malay,Male,MP,14,Backbencher,,,,,,
-Shawn Huang,People's Action Party,38,0,Chinese,Male,MP,14,Backbencher,,,,,,
-Sitoh Yih Pin,People's Action Party,56,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Sylvia Lim,Workers' Party,55,14,Chinese,Female,MP,14,Opposition,,,,,,
-Tan Chuan-Jin,People's Action Party,51,9,Chinese,Male,MP,14,Backbencher,,,,,,
-Tan Wu Meng,People's Action Party,45,5,Chinese,Male,MP,14,Backbencher,,,,,,
-Tin Pei Ling,People's Action Party,36,9,Chinese,Female,MP,14,Backbencher,,,,,,
-Vikram Nair,People's Action Party,42,9,Indian,Male,MP,14,Backbencher,,,,,,
-Wan Rizal,People's Action Party,41,0,Malay,Male,MP,14,Backbencher,,,,,,
-Xie Yao Quan,People's Action Party,35,0,Chinese,Male,MP,14,Backbencher,,,,,,
-Yeo Wan Ling,People's Action Party,44,0,Chinese,Female,MP,14,Backbencher,,,,,,
-Yip Hon Weng,People's Action Party,43,0,Chinese,Male,MP,14,Backbencher,,,,,,
-Zhulkarnain Abdul Rahim,People's Action Party,39,0,Malay,Male,MP,14,Backbencher,,,,,,
-Alvin Tan,People's Action Party,40,0,Chinese,Male,MP,14,Cabinet,"Culture, Community and Youth",Trade and Industry,,Minister of State,Minister of State,
-Amy Khor,People's Action Party,62,19,Chinese,Female,MP,14,Cabinet,Sustainability and the Environment,Transport,,Senior Minister of State,Senior Minister of State,
-Baey Yam Keng,People's Action Party,49,14,Chinese,Male,MP,14,Cabinet,Transport,,,Senior Parliamentary Secretary,,
-Chan Chun Sing,People's Action Party,50,9,Chinese,Male,MP,14,Cabinet,Trade and Industry,,,,,
-Chee Hong Tat,People's Action Party,46,5,Chinese,Male,MP,14,Cabinet,Foreign Affairs,Transport,,Senior Minister of State,Senior Minister of State,
-Desmond Lee,People's Action Party,44,9,Chinese,Male,MP,14,Cabinet,Social & Family Development,National Development,,Minister i/c of Social Services Integration,Minister,
-Desmond Tan,People's Action Party,50,0,Chinese,Male,MP,14,Cabinet,Sustainability and the Environment,Home Affairs,,Minister of State,Minister of State,
-Edwin Tong,People's Action Party,51,9,Chinese,Male,MP,14,Cabinet,"Culture, Community and Youth",Law,,Minister,Second Minister,
-Eric Chua,People's Action Party,41,0,Chinese,Male,MP,14,Cabinet,"Culture, Community and Youth",Social & Family Development,,Parliamentary Secretaries,Parliamentary Secretaries,
-Gan Kim Yong,People's Action Party,61,19,Chinese,Male,MP,14,Cabinet,Health,,,Minister,,
-Gan Siow Huang,People's Action Party,45,0,Chinese,Female,MP,14,Cabinet,Education,Manpower,,Minister of State,Minister of State,
-Grace Fu,People's Action Party,56,14,Chinese,Female,MP,14,Cabinet,Sustainability and the Environment,,,,,
-Heng Chee How,People's Action Party,59,19,Chinese,Male,MP,14,Cabinet,Defence,,,Senior Minister of State,,
-Heng Swee Keat,People's Action Party,59,9,Chinese,Male,MP,14,Cabinet,PMO,Finance,,Deputy Prime Minister,Minister,
-Indranee Rajah,People's Action Party,57,19,Indian,Female,MP,14,Cabinet,PMO,National Development,Finance,Minister,Second Minister,Second Minister
-Janil Puthucheary,People's Action Party,47,9,Indian,Male,MP,14,Cabinet,Communications & Information,Health,,Senior Minister of State,Senior Minister of State,
-Josephine Teo,People's Action Party,52,14,Chinese,Female,MP,14,Cabinet,Manpower,Home Affairs,,Minister,Second Minister,
-K. Shanmugam,People's Action Party,61,32,Indian,Male,MP,14,Cabinet,Law,Home Affairs,,Minister,Minister,
-Koh Poh Koon,People's Action Party,48,5,Chinese,Male,MP,14,Cabinet,Health,,,Senior Minister of State,,
-Lawrence Wong,People's Action Party,47,9,Chinese,Male,MP,14,Cabinet,Education,Finance,,Minister,Second Minister,
-Lee Hsien Loong,People's Action Party,68,36,Chinese,Male,MP,14,Cabinet,PMO,,,Prime Minister,,
-Low Yen Ling,People's Action Party,46,9,Chinese,Female,MP,14,Cabinet,"Culture, Community and Youth",Trade and Industry,,Minister of State,Minister of State,
-Masagos Zulkifli,People's Action Party,57,14,Malay,Male,MP,14,Cabinet,Social & Family Development,Health,,Minister,Second Minister,
-Maliki Osman,People's Action Party,55,19,Malay,Male,MP,14,Cabinet,PMO,Education,Foreign Affairs,Minister,Second Minister,Second Minister
-Muhammad Faishal Ibrahim,People's Action Party,52,14,Malay,Male,MP,14,Cabinet,Home Affairs,National Development,,Minister of State,Minister of State,
-Ng Eng Hen,People's Action Party,61,19,Chinese,Male,MP,14,Cabinet,Defence,,,Minister,,
-Ong Ye Kung,People's Action Party,50,5,Chinese,Male,MP,14,Cabinet,Transport,,,Minister,,
-Rahayu Mahzam,People's Action Party,40,5,Malay,Female,MP,14,Cabinet,Health,,,Parliamentary Secretaries,,
-S. Iswaran,People's Action Party,58,23,Indian,Male,MP,14,Cabinet,Communications & Information,Trade and Industry,,Minister,Minister i/c of Trade Relations,
-Sim Ann,People's Action Party,45,9,Chinese,Female,MP,14,Cabinet,Communications & Information,National Development,,Senior Minister of State,Senior Minister of State,
-Sun Xueling,People's Action Party,41,5,Chinese,Female,MP,14,Cabinet,Education,Social & Family Development,,Minister of State,Minister of State,
-Tan Kiat How,People's Action Party,43,0,Chinese,Male,MP,14,Cabinet,PMO,National Development,,Minister of State,Minister of State,
-Tan See Leng,People's Action Party,55,0,Chinese,Male,MP,14,Cabinet,PMO,Manpower,Trade and Industry,Minister,Second Minister,Second Minister
-Teo Chee Hean,People's Action Party,65,28,Chinese,Male,MP,14,Cabinet,PMO,,,Senior Minister,,
-Tharman Shanmugaratnam,People's Action Party,63,19,Indian,Male,MP,14,Cabinet,PMO,,,Senior Minister,,
-Vivian Balakrishnan,People's Action Party,59,19,Indian,Male,MP,14,Cabinet,Foreign Affairs,,,Minister,,
-Zaqy Mohamad,People's Action Party,45,14,Malay,Male,MP,14,Cabinet,Manpower,Defence,,Senior Minister of State,Senior Minister of State,
-Pritam Singh,Workers' Party,44,9,Indian,Male,MP,14,Opposition,,,,,,
+Name,Party,Age,Years_In_Politics,Ethnicity,Gender,Type,Parliament,Type,Ministry_1,Ministry_2,Ministry_3,Title_1,Title_2,Title_3,Defence,Foreign Affairs,Health,Transport,Sustainability and the Environment,Social & Family Development,Communications & Information,"Culture, Community and Youth",Education,Trade and Industry,Manpower,Finance,PMO,Law,National Development,Home Affairs
+Alex Yam,People's Action Party,39,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Ang Wei Neng,People's Action Party,53,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Carrie Tan,People's Action Party,38,0,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Cheng Li Hui,People's Action Party,44,5,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Cheryl Chan,People's Action Party,43,5,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Chong Kee Hiong,People's Action Party,54,5,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Christopher de Souza,People's Action Party,44,14,Eurasian,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Louis Chua,Workers' Party,33,0,Chinese,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Darryl David,People's Action Party,49,5,Indian,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Denise Phua,People's Action Party,60,14,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Dennis Tan,Workers' Party,49,5,Chinese,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Derrick Goh,People's Action Party,52,0,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Desmond Choo,People's Action Party,42,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Don Wee,People's Action Party,43,0,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Edward Chia,People's Action Party,36,0,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Foo Mee Har,People's Action Party,54,9,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Gan Thiam Poh,People's Action Party,56,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Gerald Giam,Workers' Party,42,9,Chinese,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Hany Soh,People's Action Party,33,0,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Hazel Poa,Progress Singapore Party,50,0,Chinese,Female,NCMP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+He Ting Ru,Workers' Party,37,5,Chinese,Female,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Henry Kwek,People's Action Party,44,5,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Jamus Lim,Workers' Party,44,0,Chinese,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Jessica Tan,People's Action Party,54,14,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Joan Pereira,People's Action Party,53,5,Eurasian,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Leon Perera,Workers' Party,49,5,Eurasian,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Leong Mun Wai,Progress Singapore Party,60,0,Chinese,Male,NCMP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Liang Eng Hwa,People's Action Party,56,14,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Lim Biow Chuan,People's Action Party,57,14,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Lim Wee Kiak,People's Action Party,51,14,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Louis Ng,People's Action Party,41,5,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Mariam Jaafar,People's Action Party,43,0,Malay,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Melvin Yong,People's Action Party,48,5,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Mohd Fahmi Aliman,People's Action Party,47,0,Malay,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Muhamad Faisal Manap,Workers' Party,45,9,Malay,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Murali Pillai,People's Action Party,52,4,Indian,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Nadia Ahmad Samdin,People's Action Party,30,0,Malay,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Ng Ling Ling,People's Action Party,48,0,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Patrick Tay,People's Action Party,48,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Poh Li San,People's Action Party,44,0,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Rachel Ong,People's Action Party,47,0,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Raeesah Khan,Workers' Party,26,0,Chinese,Female,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Saktiandi Supaat,People's Action Party,46,5,Malay,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Seah Kian Peng,People's Action Party,58,14,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Mohamed Sharael Taha,People's Action Party,39,0,Malay,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Shawn Huang,People's Action Party,38,0,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Sitoh Yih Pin,People's Action Party,56,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Sylvia Lim,Workers' Party,55,14,Chinese,Female,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Tan Chuan-Jin,People's Action Party,51,9,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Tan Wu Meng,People's Action Party,45,5,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Tin Pei Ling,People's Action Party,36,9,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Vikram Nair,People's Action Party,42,9,Indian,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Wan Rizal,People's Action Party,41,0,Malay,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Xie Yao Quan,People's Action Party,35,0,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Yeo Wan Ling,People's Action Party,44,0,Chinese,Female,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Yip Hon Weng,People's Action Party,43,0,Chinese,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Zhulkarnain Abdul Rahim,People's Action Party,39,0,Malay,Male,MP,14,Backbencher,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Alvin Tan,People's Action Party,40,0,Chinese,Male,MP,14,Cabinet,"Culture, Community and Youth",Trade and Industry,,Minister of State,Minister of State,,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0
+Amy Khor,People's Action Party,62,19,Chinese,Female,MP,14,Cabinet,Sustainability and the Environment,Transport,,Senior Minister of State,Senior Minister of State,,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+Baey Yam Keng,People's Action Party,49,14,Chinese,Male,MP,14,Cabinet,Transport,,,Senior Parliamentary Secretary,,,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+Chan Chun Sing,People's Action Party,50,9,Chinese,Male,MP,14,Cabinet,Trade and Industry,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+Chee Hong Tat,People's Action Party,46,5,Chinese,Male,MP,14,Cabinet,Foreign Affairs,Transport,,Senior Minister of State,Senior Minister of State,,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+Desmond Lee,People's Action Party,44,9,Chinese,Male,MP,14,Cabinet,Social & Family Development,National Development,,Minister i/c of Social Services Integration,Minister,,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0
+Desmond Tan,People's Action Party,50,0,Chinese,Male,MP,14,Cabinet,Sustainability and the Environment,Home Affairs,,Minister of State,Minister of State,,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+Edwin Tong,People's Action Party,51,9,Chinese,Male,MP,14,Cabinet,"Culture, Community and Youth",Law,,Minister,Second Minister,,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0
+Eric Chua,People's Action Party,41,0,Chinese,Male,MP,14,Cabinet,"Culture, Community and Youth",Social & Family Development,,Parliamentary Secretaries,Parliamentary Secretaries,,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0
+Gan Kim Yong,People's Action Party,61,19,Chinese,Male,MP,14,Cabinet,Health,,,Minister,,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+Gan Siow Huang,People's Action Party,45,0,Chinese,Female,MP,14,Cabinet,Education,Manpower,,Minister of State,Minister of State,,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0
+Grace Fu,People's Action Party,56,14,Chinese,Female,MP,14,Cabinet,Sustainability and the Environment,,,Member of Parliament,,,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Heng Chee How,People's Action Party,59,19,Chinese,Male,MP,14,Cabinet,Defence,,,Senior Minister of State,,,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Heng Swee Keat,People's Action Party,59,9,Chinese,Male,MP,14,Cabinet,PMO,Finance,,Deputy Prime Minister,Minister,,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0
+Indranee Rajah,People's Action Party,57,19,Indian,Female,MP,14,Cabinet,PMO,National Development,Finance,Minister,Second Minister,Second Minister,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0
+Janil Puthucheary,People's Action Party,47,9,Indian,Male,MP,14,Cabinet,Communications & Information,Health,,Senior Minister of State,Senior Minister of State,,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0
+Josephine Teo,People's Action Party,52,14,Chinese,Female,MP,14,Cabinet,Manpower,Home Affairs,,Minister,Second Minister,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1
+K. Shanmugam,People's Action Party,61,32,Indian,Male,MP,14,Cabinet,Law,Home Affairs,,Minister,Minister,,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+Koh Poh Koon,People's Action Party,48,5,Chinese,Male,MP,14,Cabinet,Health,,,Senior Minister of State,,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+Lawrence Wong,People's Action Party,47,9,Chinese,Male,MP,14,Cabinet,Education,Finance,,Minister,Second Minister,,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0
+Lee Hsien Loong,People's Action Party,68,36,Chinese,Male,MP,14,Cabinet,PMO,,,Prime Minister,,,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+Low Yen Ling,People's Action Party,46,9,Chinese,Female,MP,14,Cabinet,"Culture, Community and Youth",Trade and Industry,,Minister of State,Minister of State,,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0
+Masagos Zulkifli,People's Action Party,57,14,Malay,Male,MP,14,Cabinet,Social & Family Development,Health,,Minister,Second Minister,,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0
+Maliki Osman,People's Action Party,55,19,Malay,Male,MP,14,Cabinet,PMO,Education,Foreign Affairs,Minister,Second Minister,Second Minister,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0
+Muhammad Faishal Ibrahim,People's Action Party,52,14,Malay,Male,MP,14,Cabinet,Home Affairs,National Development,,Minister of State,Minister of State,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+Ng Eng Hen,People's Action Party,61,19,Chinese,Male,MP,14,Cabinet,Defence,,,Minister,,,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Ong Ye Kung,People's Action Party,50,5,Chinese,Male,MP,14,Cabinet,Transport,,,Minister,,,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+Rahayu Mahzam,People's Action Party,40,5,Malay,Female,MP,14,Cabinet,Health,,,Parliamentary Secretaries,,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+S. Iswaran,People's Action Party,58,23,Indian,Male,MP,14,Cabinet,Communications & Information,Trade and Industry,,Minister,Minister i/c of Trade Relations,,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0
+Sim Ann,People's Action Party,45,9,Chinese,Female,MP,14,Cabinet,Communications & Information,National Development,,Senior Minister of State,Senior Minister of State,,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+Sun Xueling,People's Action Party,41,5,Chinese,Female,MP,14,Cabinet,Education,Social & Family Development,,Minister of State,Minister of State,,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0
+Tan Kiat How,People's Action Party,43,0,Chinese,Male,MP,14,Cabinet,PMO,National Development,,Minister of State,Minister of State,,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0
+Tan See Leng,People's Action Party,55,0,Chinese,Male,MP,14,Cabinet,PMO,Manpower,Trade and Industry,Minister,Second Minister,Second Minister,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0
+Teo Chee Hean,People's Action Party,65,28,Chinese,Male,MP,14,Cabinet,PMO,,,Senior Minister,,,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+Tharman Shanmugaratnam,People's Action Party,63,19,Indian,Male,MP,14,Cabinet,PMO,,,Senior Minister,,,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+Vivian Balakrishnan,People's Action Party,59,19,Indian,Male,MP,14,Cabinet,Foreign Affairs,,,Minister,,,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Zaqy Mohamad,People's Action Party,45,14,Malay,Male,MP,14,Cabinet,Manpower,Defence,,Senior Minister of State,Senior Minister of State,,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+Pritam Singh,Workers' Party,44,9,Indian,Male,MP,14,Opposition,,,,Member of Parliament,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
