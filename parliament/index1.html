@@ -10,6 +10,9 @@
 <script src='https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.1.2/scrollama.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
 <style>
   body { 
     margin: 0; 
@@ -44,9 +47,9 @@
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    top: 20px;
-    left: 97vw;
-    width: 200px;
+    top: 92vh;
+    left: 95vw;
+    width: 150px;
     z-index: 2;
     display: none;
   }
@@ -78,7 +81,7 @@
   .tooltip {
     position: sticky;
     top: 67vh;
-    left: 30px;
+    left: 29rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,8 +145,8 @@
   article {
     position: relative;
     padding: 0;
-    max-width: 40rem;
-    margin: 0 auto;
+    max-width: 26.5rem;
+    margin-left: 20px;
     pointer-events: none;
   }
   #chart {
@@ -162,6 +165,7 @@
     margin: 0 auto 2rem auto;
     color: #000;
     background-color: transparent;
+    pointer-events: none;
   }
   .step:last-child {
     margin-bottom: 0;
@@ -172,19 +176,22 @@
     background-color: transparent !important;
   }
   .step-text {
-    font-size: 16px;
+    font-size: 12px;
+    line-height: 200%;
     margin: 3px 0px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: auto;
     height: auto;
-    opacity: 0.8;
+    opacity: 0.95;
     background-color: white;
     border: solid;
     border-width: 1px;
     border-radius: 6px;
     padding: 8px;
+    pointer-events: auto;
   }
 </style>
 </head>
@@ -241,56 +248,66 @@
       </div>
       <article>
         <div class='step' data-step='0'>
-            <p>The Prime Minister of Singapore chooses the other members of the Cabinet by advising the President. Even as PM, he has his own constituency to take care and stands for election representing his constituency.</p>        
+          <div class='step-text'>
+            <p>Singapore's current Prime Minister is Lee Hsien Loong. Even as PM, he has his own constituency to care for and stands for election representing his constituency.</p>
+          </div>    
         </div>
         <div class='step' data-step='1'>
           <div class='step-text'>
-            <p>Based on the single night count that took place in July 2019, there were a total of <span class='text-highlight'>921 homeless people</span> in Singapore. Homelessness was geographically widespread on count night, with observations recorded in 23 of the 24 districts covered. There was significant variation aross districts.</p>
-          </div>
+            <p>The Prime Minister of Singapore chooses the other members of the Cabinet by advising the President.</p>    
+          </div> 
         </div>
         <div class='step' data-step='2'>
           <div class='step-text'>
-            <p>A large homeless population resides in the <span class='text-highlight'>City district (comprising Downtown Core, Marina East, Marina South, Straits View and Outram), Bedok and Jurong West</span>. These are locations in Singapore with a traditionally older resident population.</p>
+            <h3>Uniquely Singaporean: Group Representation Constituency (GRC)</h3>
+            <p>GRC is a type of electoral division or constituency in Singapore in which teams of candidates, instead of individual candidates, compete to be elected into Parliament as the Members of Parliament (MPs) for the constituency. The Government stated that the GRC scheme was primarily implemented to enshrine minority representation in Parliament: at least one of the MPs in a GRC must be a member of the Malay, Indian or another minority community of Singapore. In addition, it was economical for town councils, which manage public housing estates, to handle larger constituencies.</p>
           </div>
         </div>
         <div class='step' data-step='3'>
           <div class='step-text'>
-            <p>The most common location where the homeless sleep at was <span class='text-highlight'>void decks (31.9%)</span>, followed by <span class='text-highlight'>commercial buildings (28.6%))</span>. This could be because the physical environment of these locations are more likely exposed (i.e in full view of passers-by) and well-lit at night, which bodes well for the safety of these homeless</p>
+            <h3>Stagnant racial diversity in Parliament</h3>
+            <p>Critics disagree with the government's justifications for introducing the GRC scheme, noting that the proportion of minority MPs per GRC has decreased with the advent of five-member and six-member GRCs. By having teams of candidates standing for election for GRCs helmed by senior politicians, the ruling People's Action Party has also used GRCs as a means for bringing first-time candidates into Parliament. Moreover, the GRC scheme is also said to disadvantage opposition parties because it is more difficult for them to find enough candidates to contest GRCs. Furthermore, it is said that the GRC scheme means that electors have unequal voting power, weakens the relationship between electors and MPs, and entrenches racialism in Singapore politics</p>
+            <div class='vegaChart' id="vega-ethnicity-vis"></div>
           </div>
         </div>
         <div class='step' data-step='4'>
           <div class='step-text'>
-            <p>Amongst the 921 homeless people found in the single night count, only 191 were awake and <span class='text-highlight'>88 of them were interviewed</span>.</p>
+            <h3>A one party state?</h3>
+            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1959. The Worker's Party won 4 extra seats in the latest election compared to the previous in 2015. The WP's numbers in parliament are still small and short of the one-third required to break the PAP's parliamentary supermajority, which allows the PAP the ability to amend the Constitution with few other barriers.</p>
+            <div class='vegaChart' id="vega-party-vis"></div>
           </div>
         </div>
         <div class='step' data-step='5'>
           <div class='step-text'>
-            <p>The statistics shown from now on are only reflective of these <span class='text-highlight'>88 people</span>. They are mostly Singaporean citizens (88%), male (92%), older and in work. Persistent street homelessness combined with constant instability characterises their housing insecurity. What are reasons for homelessness?</p>
+            <h3>Growing participation of women in Singapore politics</h3>
+            <p>Traditionally, women in Singapore played a small role in the country's political scene. There were no women in parliament for 14 years from 1970 to 1984. In recent years, while Singapore has seen an increase in female representation in Parliament, there are few women in the Cabinet. On 1 October 2015, Grace Fu was appointed the Minister for Culture, Community and Youth, and Josephine Teo as Minister of Manpower. Both retain their role in the cabinet.</p>
+            <div class='vegaChart' id="vega-gender-vis"></div>
           </div>
         </div>
         <div class='step' data-step='6'>
           <div class='step-text'>
-            <p>The first is <span class='text-highlight'>insecure work and poverty</span>. While <span class='text-highlight'>60%</span> of the homeless people interviewed work (with some holding full-time jobs), they have irregular work and low wages, resulting in inability to afford accommodation. Common occupations cited included cleaning, odd jobs, security and retail, which are among the lowest-paying occupations in Singapore. Low-wage work can also mean working during odd hours, when public transport is not available and commuting by other means is too expensive, so some opt to sleep near their workplace instead.</p>
+           <h3>Young Parliamentarians alongside veterans</h3>
+            <p>Heng Swee Keat and Tan See Leng entered Parliament in their 50s, but became ministers in their first term. S. Iswaran and K. Shanmugam are one of the longest serving MPs, with both entering Parliament relatively young. K.Shanmugam entered Parliament when he was just 29 years of age. Amongst the current MPs, only Tin Pei Ling, Raeesah Khan and Nadia Samdin, have been sowrn in as MPs by that age,. Desmond Lee can take pride in being Singapore's youngest Minister, a position he achieved when he was 41 years old.</p>
+            <h3>Delay of 3G to 4G Leadership transition</h3>
+            <p>It appears that PM Lee had initially meant for 2020 to be the year of transition into the 4G leadership. However, when the new Cabinet line-up was announcted after the latest election, the 3G leadership was still very much in command, with only a reshuffle of the 4G ministers amongst ministries. PM Lee commented that most of the younger ministers came in one or two terms ago, and as such, their exposure in government is not as comprehensive nor as long, compared with the experience of 3G ministers.</p>
           </div>
         </div>
         <div class='step' data-step='7'>
-          <div class='step-text'>
-            <p>The second cause is the <span class='text-highlight'>loss of social resources or the breakdown of family support</span>. The study found that nearly <span class='text-highlight'>40%</span> of the interviewees had housing in their names, usually public rental housing or purchased flats. However, because of family conflicts, they no longer live in their homes.</p>
-          </div>
         </div>
         <div class='step' data-step='8'>
           <div class='step-text'>
-            <p><span class='text-highlight'>Inadequate housing standards within the public rental sector</span> make up the third cause. Public rental flats are small and have no separate bedrooms, but must be shared by two single people (who are usually strangers). The flats are affordable, but the lack of privacy and difficulties in getting along with co-tenants are seen as deal breakers for <span class='text-highlight'>24%</span> of the people interviwed.</p>
+            <h3>Beyond party affliation, is there diversity in Parliament?</h3>
+            <p>Based on the subset of attributes of each MP discussed so far, with the exception of party affliation and constituency representation, I applied a clustering algorithm to group similar MPs, with each attribute (gender, age, ethnicity, number of terms served and ministry currently serving) having equal weight. Some small clusters can be observed, with no large and tight clusters.</p>
           </div>
         </div>
         <div class='step' data-step='9'>
-
         </div>
       </article>
     </section>
   </main>
 
 <script>
+
   // Ensure that page is flushed to top everytime a user refreshes the page
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
@@ -319,13 +336,13 @@
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
   var map = g.append("g").attr("id", "map")
-              .attr("transform", "translate(" + (-width/5) + "," + 0 + ")")
+              .attr("transform", "translate(" + (-width/4) + "," + 0 + ")")
 
   var bubbles_explore = g.append("g").attr("id", "bubbles_explore")
-    .attr("transform", "translate(" + (-width/5) + "," + 0 + ")")
+    .attr("transform", "translate(" + (-width/4) + "," + 0 + ")")
 
   var svgLegend = g.append("g").attr("id", "legend")
-              .attr("transform", "translate(" + (width-330).toString() + "," + 50 + ")")
+              .attr("transform", "translate(" + (width-330).toString() + "," + (height-260) + ")")
 
   var centroids = []
 
@@ -694,7 +711,7 @@
       .nodes(nodes)
       .force("collide", forceCollide)
       .force('charge', d3.forceManyBody().strength(-10))
-      .force("x", d3.forceX(function (d) { return d.x+width/4 }))
+      .force("x", d3.forceX(function (d) { return d.x+width/3+80 }))
       .force("y", d3.forceY(function (d) { return d.y }))
 
     simulateStatic(nodes, simulation, 1)
@@ -775,7 +792,7 @@
     scroller.setup({
       step: '#scrolly article .step',
       offset: 0.25,
-      debug: true,
+      debug: false,
       progress: true,
       threshold: 1
     })
@@ -810,7 +827,7 @@
     d3.select(".party-view")
       .on("click", function() {
         clear()
-        drawCategory(data0, 'Party', ['PAP', 'WP']) 
+        drawCategory(data0, 'Party', ["People's Action Party", "Workers' Party"]) 
       })
 
     d3.select(".age-view")
@@ -836,7 +853,7 @@
     d3.select(".scatter-view")
       .on("click", function() {
         clear()
-        let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+20, width-20+width/4], rangeY: [height-40, 20], show_axis: true})
+        let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+40, width+width/6], rangeY: [height-40, 20], show_axis: true})
         var simulation = d3.forceSimulation()
           .nodes(data)
           .force("collide", forceCollide)
@@ -857,7 +874,7 @@
     d3.select(".tsne-view")
       .on("click", function() {
         clear()
-        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width], rangeY: [height-40, 40], show_axis: false})
+        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width+width/6], rangeY: [height-40, 40], show_axis: false})
         updateCircles(data, 400, 1)
       })
 
@@ -910,6 +927,7 @@
         d3.selectAll(".div-legend").style('display', 'none')
         clear()
         drawMap(fixed2, projection2)
+        drawClustersOnMap(data0, projection2, ['lat_ward', 'lon_ward'], 0.3)
 
         scroller.onStepProgress(handleStepProgress)
 
@@ -932,7 +950,7 @@
       } else if (response.index === 4) { 
 
         clear()
-        drawCategory(data0, 'Party', ['PAP', 'WP']) 
+        drawCategory(data0, 'Party', ["People's Action Party", "Workers' Party"]) 
 
       } else if (response.index === 5) {
 
@@ -942,7 +960,7 @@
       } else if (response.index === 6) { 
 
         clear()
-        let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+40, width], rangeY: [height-40, 20], show_axis: true})
+        let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+40, width+width/6], rangeY: [height-40, 20], show_axis: true})
         var simulation = d3.forceSimulation()
           .nodes(data)
           .force("collide", forceCollide)
@@ -952,16 +970,19 @@
 
         simulateStatic(data, simulation, 1) 
 
-      } else if (response.index === 7) { 
-
-        clear()
-        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width], rangeY: [height-40, 40], show_axis: false})
-        updateCircles(data, 400, 1)
-
       } else if (response.index === 8) { 
 
+        clear()
+        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width+width/6], rangeY: [height-40, 40], show_axis: false})
+        updateCircles(data, 400, 1)
+
+        d3.selectAll('.panel').style('display', 'none')
+        //d3.selectAll("#legend").attr('opacity', 0)
+
+      } else if (response.index === 9) { 
+
         d3.selectAll('.panel').style('display', 'block')
-        d3.selectAll("#legend").attr('opacity', 1)
+        //d3.selectAll("#legend").attr('opacity', 1)
 
       } 
     }
@@ -994,6 +1015,7 @@
           d3.selectAll('#node-Senior_Parliamentary_Secretary').style('opacity', 1)
           d3.selectAll('#node-Parliamentary_Secretaries').style('opacity', 1)
         } else if(response.progress <= 0.1){
+          d3.selectAll('#node-Prime_Minister').style('opacity', 1)
           d3.selectAll('g.nodegroup').style('opacity', 0.3)
         }
       }
@@ -1136,7 +1158,7 @@ function updateTexts1(focis) {
 
   let entered_texts = texts.enter().append("text")
     .attr('class', 'fociText')
-    .attr('transform', d=> { return 'translate(' + (d.x+width/4).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
+    .attr('transform', d=> { return 'translate(' + (d.x+width/3+80).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
     .attr('text-anchor', 'middle')
     .attr('fill',  'black')
     .attr('font-size', '14px')
@@ -1146,7 +1168,7 @@ function updateTexts1(focis) {
     
   texts.merge(entered_texts)         
     .transition().duration(750).delay(400)
-    .attr('transform', d=> { return 'translate(' + (d.x+width/4).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
+    .attr('transform', d=> { return 'translate(' + (d.x+width/3+80).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
     .style('opacity', 1)
 
   texts.exit()
@@ -1229,6 +1251,236 @@ function wrap(text, width) {
   })
 }
 
+var opt = {"actions":false,
+           "renderer": 'svg',
+           'theme': 'vox', 
+           "padding": {"left": 15, "top": 15, "right": 15, "bottom": 15}
+};
+
+var color = ["#f2cc8f","#81b29a","#3d405b","#e07a5f", "#f4f1de", "#cbc0d3"]
+
+var vegaEthnicityVis = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "data/ethnicity_timeline.csv"},
+  "width": 250, "height": 200,
+  "layer": [
+    {
+      "encoding": {
+        "x": {
+          "field": "Parliament", "type": "quantitative"
+        },
+        "y": {
+          "aggregate": "sum", "field": "value",
+          "axis": {"format": "%", "title": null},
+          "stack": "normalize"
+        },
+        "color": {"field":"Ethnicity", "scale": {"range": color}}
+      },
+      "layer": [
+        {
+          "mark": "area"
+        },
+        {
+          "selection": {
+            "tooltip": {
+              "type": "single",
+              "nearest": true,
+              "on": "mouseover",
+              "encodings": [
+                "x"
+              ],
+              "empty": "none"
+            }
+          },
+          "mark": "point",
+          "encoding": {
+            "opacity": {
+              "condition": {
+                "selection": "tooltip",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+  },
+  {
+    "transform": [
+      {
+        "filter": {
+          "selection": "tooltip"
+        }
+      }
+    ],
+    "layer": [{
+      "mark": {
+       "type": "rule",
+       "color": "gray"
+      },
+      "encoding": {
+        "x": {
+          "type": "quantitative",
+          "field": "Parliament"
+        }
+      }
+    }, {
+      "mark": {
+          "type": "text",
+          "align": "left",
+          "dx": 5,
+          "dy": -5
+      },
+      "encoding": {
+        "text": {
+          "type": "quantitative",
+          "field": "value"
+        },
+        "color": {
+          "type": "nominal",
+          "field": "Ethnicity"
+        },
+        "x": {
+          "type": "quantitative",
+          "field": "Parliament"
+        },
+        "y": {
+          "aggregate": "sum", "field": "value",
+          "axis": {"format": "%", "title": null},
+          "stack": "normalize"
+        }
+      }
+    }]
+  }]
+}
+
+
+var vegaGenderVis = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "data/gender_timeline.csv"},
+  "width": 250, "height": 200,
+  "layer": [
+    {
+      "encoding": {
+        "x": {
+          "field": "Parliament", "type": "quantitative"
+        },
+        "y": {
+          "aggregate": "sum", "field": "value",
+          "axis": {"format": "%", "title": null},
+          "stack": "normalize"
+        },
+        "color": {"field":"Gender", "scale": {"range": color}}
+      },
+      "layer": [
+        {
+          "mark": "area"
+        },
+        {
+          "selection": {
+            "tooltip": {
+              "type": "single",
+              "nearest": true,
+              "on": "mouseover",
+              "encodings": [
+                "x"
+              ],
+              "empty": "none"
+            }
+          },
+          "mark": "point",
+          "encoding": {
+            "opacity": {
+              "condition": {
+                "selection": "tooltip",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+  },
+  {
+    "transform": [
+      {
+        "filter": {
+          "selection": "tooltip"
+        }
+      }
+    ],
+    "layer": [{
+      "mark": {
+       "type": "rule",
+       "color": "gray"
+      },
+      "encoding": {
+        "x": {
+          "type": "quantitative",
+          "field": "Parliament"
+        }
+      }
+    }, {
+      "mark": {
+          "type": "text",
+          "align": "left",
+          "dx": 5,
+          "dy": -5,
+          "format": "%"
+      },
+      "encoding": {
+        "text": {
+          "type": "quantitative",
+          "field": "value"
+        },
+        "color": {
+          "type": "nominal",
+          "field": "Gender"
+        },
+        "x": {
+          "type": "quantitative",
+          "field": "Parliament"
+        },
+        "y": {
+          "aggregate": "sum", "field": "value",
+          "axis": {"format": "%", "title": null},
+          "stack": "normalize"
+        }
+      }
+    }]
+  }]
+}
+
+var vegaPartyVis = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "data/party_timeline.csv"},
+  "width": 280, "height": 200,
+  "mark": {"type": "bar", "cornerRadiusTopLeft": 6, "cornerRadiusTopRight": 6, "tooltip": {"content": "data"}},
+  "encoding": {
+    "x": {
+      "field": "Parliament", 
+      "type": "ordinal", "sort": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 
+      "axis": {"labelAngle": 0}
+    },
+    "y": {"field": "value", "type": "quantitative", "axis": {"title": "No. of MPs"}},
+    "tooltip": [
+      {"field": "Parliament", "type": "quantitative"},
+      {"field": "Party", "type": "ordinal"},
+      {"field": "value", "type": "quantitative"}
+    ],
+    "color": {
+      "field": "Party", 
+      "scale": {"range": color}, 
+      "legend": {"direction": "horizontal", "orient": "bottom", "columns": 2}
+    },
+    "sort": ["People's Action Party", "Workers' Party", 'Barisan Sosialis', 'Independent', 'Singapore Democratic Alliance','Singapore Democratic Party'],
+
+  }
+}
+
+vegaEmbed('#vega-ethnicity-vis', vegaEthnicityVis, opt);
+vegaEmbed('#vega-party-vis', vegaPartyVis, opt);
+vegaEmbed('#vega-gender-vis', vegaGenderVis, opt);
 </script>
 <script src="./node-pie.js"></script>
 <script src="./dotplot.js"></script>

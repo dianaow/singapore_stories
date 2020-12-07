@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Embedding Vega-Lite</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+  </head>
+  <body>
+    <div id="vega-p-vis"></div>
+
+    <script type="text/javascript">
+      var vegaPartyVis = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+        "data": {"url": "data/party_timeline.csv"},
+        "mark": {"type": "bar", "cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3},
+        "encoding": {
+          "x": {"field": "Parliament", "type": "quantitative"},
+          "y": {"field": "value", "type": "quantitative"},
+          "color": {"field": "Party"}
+        }
+      }
+      vegaEmbed('#vega-p-vis', vegaPartyVis);
+    </script>
+  </body>
+</html>

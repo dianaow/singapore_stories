@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Embedding Vega-Lite</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+  </head>
+  <body>
+    <div id="vega-ethnicity-vis"></div>
+    <div id="vega-p-vis"></div>
+    <div id="vega-gender-vis"></div>
+
+    <script type="text/javascript">
+
+      var opt = {"actions":false,
+                 "renderer": 'svg',
+                 'theme': 'vox', 
+                 "padding": {"left": 15, "top": 15, "right": 15, "bottom": 15}
+      };
+
+      var color = ["#f2cc8f","#81b29a","#3d405b","#e07a5f", "#f4f1de", "#cbc0d3"]
+
+      var vegaEthnicityVis = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+        "data": {"url": "data/ethnicity_timeline.csv"},
+        "width": 500, "height": 200,
+        "layer": [
+          {
+            "encoding": {
+              "x": {
+                "field": "Parliament", "type": "quantitative"
+              },
+              "y": {
+                "aggregate": "sum", "field": "value",
+                "axis": {"format": "%", "title": null},
+                "stack": "normalize"
+              },
+              "color": {"field":"Ethnicity", "scale": {"range": color}}
+            },
+            "layer": [
+              {
+                "mark": "area"
+              },
+              {
+                "selection": {
+                  "tooltip": {
+                    "type": "single",
+                    "nearest": true,
+                    "on": "mouseover",
+                    "encodings": [
+                      "x"
+                    ],
+                    "empty": "none"
+                  }
+                },
+                "mark": "point",
+                "encoding": {
+                  "opacity": {
+                    "condition": {
+                      "selection": "tooltip",
+                      "value": 1
+                    },
+                    "value": 0
+                  }
+                }
+              }
+            ]
+        },
+        {
+          "transform": [
+            {
+              "filter": {
+                "selection": "tooltip"
+              }
+            }
+          ],
+          "layer": [{
+            "mark": {
+             "type": "rule",
+             "color": "gray"
+            },
+            "encoding": {
+              "x": {
+                "type": "quantitative",
+                "field": "Parliament"
+              }
+            }
+          }, {
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 5,
+                "dy": -5
+            },
+            "encoding": {
+              "text": {
+                "type": "quantitative",
+                "field": "value"
+              },
+              "color": {
+                "type": "nominal",
+                "field": "Ethnicity"
+              },
+              "x": {
+                "type": "quantitative",
+                "field": "Parliament"
+              },
+              "y": {
+                "aggregate": "sum", "field": "value",
+                "axis": {"format": "%", "title": null},
+                "stack": "normalize"
+              }
+            }
+          }]
+        }]
+      }
+
+
+      var vegaGenderVis = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+        "data": {"url": "data/gender_timeline.csv"},
+        "width": 500, "height": 200,
+        "layer": [
+          {
+            "encoding": {
+              "x": {
+                "field": "Parliament", "type": "quantitative"
+              },
+              "y": {
+                "aggregate": "sum", "field": "value",
+                "axis": {"format": "%", "title": null},
+                "stack": "normalize"
+              },
+              "color": {"field":"Gender", "scale": {"range": color}}
+            },
+            "layer": [
+              {
+                "mark": "area"
+              },
+              {
+                "selection": {
+                  "tooltip": {
+                    "type": "single",
+                    "nearest": true,
+                    "on": "mouseover",
+                    "encodings": [
+                      "x"
+                    ],
+                    "empty": "none"
+                  }
+                },
+                "mark": "point",
+                "encoding": {
+                  "opacity": {
+                    "condition": {
+                      "selection": "tooltip",
+                      "value": 1
+                    },
+                    "value": 0
+                  }
+                }
+              }
+            ]
+        },
+        {
+          "transform": [
+            {
+              "filter": {
+                "selection": "tooltip"
+              }
+            }
+          ],
+          "layer": [{
+            "mark": {
+             "type": "rule",
+             "color": "gray"
+            },
+            "encoding": {
+              "x": {
+                "type": "quantitative",
+                "field": "Parliament"
+              }
+            }
+          }, {
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 5,
+                "dy": -5,
+                "format": "%"
+            },
+            "encoding": {
+              "text": {
+                "type": "quantitative",
+                "field": "value"
+              },
+              "color": {
+                "type": "nominal",
+                "field": "Gender"
+              },
+              "x": {
+                "type": "quantitative",
+                "field": "Parliament"
+              },
+              "y": {
+                "aggregate": "sum", "field": "value",
+                "axis": {"format": "%", "title": null},
+                "stack": "normalize"
+              }
+            }
+          }]
+        }]
+      }
+
+      var vegaPartyVis = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+        "data": {"url": "data/party_timeline.csv"},
+        "width": 500, "height": 200,
+        "mark": {"type": "bar", "cornerRadiusTopLeft": 6, "cornerRadiusTopRight": 6, "tooltip": {"content": "data"}},
+        "encoding": {
+          "x": {
+            "field": "Parliament", 
+            "type": "ordinal", "sort": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 
+            "axis": {"labelAngle": 0}
+          },
+          "y": {"field": "value", "type": "quantitative", "axis": {"title": "No. of MPs"}},
+          "tooltip": [
+            {"field": "Parliament", "type": "quantitative"},
+            {"field": "Party", "type": "ordinal"},
+            {"field": "value", "type": "quantitative"}
+          ],
+          "color": {"field": "Party", "scale": {"range": color}},
+          "sort": ["People's Action Party", "Workers' Party", 'Barisan Sosialis', 'Independent', 'Singapore Democratic Alliance','Singapore Democratic Party']
+        }
+      }
+
+      vegaEmbed('#vega-ethnicity-vis', vegaEthnicityVis, opt);
+      vegaEmbed('#vega-p-vis', vegaPartyVis, opt);
+      vegaEmbed('#vega-gender-vis', vegaGenderVis, opt);
+    </script>
+  </body>
+</html>
