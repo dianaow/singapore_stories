@@ -4,7 +4,8 @@
 <meta charset="utf-8" />
 <title>Singapore's 14th Parliament</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-<link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <script src='//unpkg.com/d3@5.0.0/dist/d3.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.min.js"></script>
 <script src='https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js'></script>
@@ -17,16 +18,33 @@
   body { 
     margin: 0; 
     padding: 0; 
-    font-family: 'Open Sans', sans-serif; 
+    font-family: 'Playfair Display', sans-serif; 
     width: 100vw;
     height: 100vh;
     position: relative;
+    background-color: #fbf5e9;
 /*    background-image:
       radial-gradient(
         circle closest-side,
         white,
         gainsboro
       );*/
+  }
+  h1, h2, h3 {
+    font-family: 'Playfair Display', sans-serif;
+  }
+  text, p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+  }
+  h4 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400; 
+    font-size: 10px;
+  }
+  span {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
   }
   .panel {
     position: -webkit-sticky;
@@ -35,11 +53,12 @@
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     top: 20px;
-    left: 80px;
+    left: 30px;
     display: flex;
     flex-wrap: wrap;
     width: 400px;
     display: none;
+    background-color: #fbf5e9;
   }
   .div-legend {
     position: -webkit-sticky;
@@ -47,7 +66,7 @@
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    top: 92vh;
+    top: 90vh;
     left: 95vw;
     width: 150px;
     z-index: 2;
@@ -56,19 +75,20 @@
 
   .btn {
     color: black;
-    background: transparent; 
+    background: #fbf5e9; 
     border: 2px solid black; 
     border-radius: 6px; 
-    padding: 8px 16px;
+    padding: 4px 8px;
     text-align: center;
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 11px;
     margin: 4px 2px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
   }
   .btn:hover {
       background-color: black;
@@ -81,20 +101,18 @@
   .tooltip {
     position: sticky;
     top: 67vh;
-    left: 29rem;
+    left: 29.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     width: auto;
-    max-width: 400px;
+    max-width: 460px;
     height: auto;
     opacity: 0;
     background-color: white;
-    border: solid;
-    border-width: 1px;
-    border-radius: 6px;
     padding: 8px;
     z-index: 99;
+    pointer-events: auto;
   }
   .tooltip p {
     font-size: 12px;
@@ -117,10 +135,11 @@
   }
   .mini-button {
     width: auto;
-    font-size: 12px;
+    font-size: 10px;
     border: 1px solid black;
     border-radius: 6px;
-    padding: 2px;    
+    padding: 2px;  
+    margin: 2px 2px 6px 0px;  
   }
 
   .introWrapper {
@@ -141,11 +160,13 @@
   }
   #scrolly {
     position: absolute;
+    height: 8900px;
   }
   article {
     position: relative;
     padding: 0;
-    max-width: 26.5rem;
+    max-width: 27rem;
+    max-height: 8900px;
     margin-left: 20px;
     pointer-events: none;
   }
@@ -187,11 +208,12 @@
     height: auto;
     opacity: 0.95;
     background-color: white;
-    border: solid;
-    border-width: 1px;
-    border-radius: 6px;
-    padding: 8px;
+    padding: 8px 20px;
     pointer-events: auto;
+  }
+  .footer {
+    padding: 20px;
+    background-color: #fbf5e9;
   }
 </style>
 </head>
@@ -249,58 +271,78 @@
       <article>
         <div class='step' data-step='0'>
           <div class='step-text'>
-            <p>Singapore's current Prime Minister is Lee Hsien Loong. Even as PM, he has his own constituency to care for and stands for election representing his constituency.</p>
+            <p>The Parliament of Singapore is largely based from the Westminster system. It is made up of Members of Parliament (MPs) who are elected, as well as Non-constituency Members of Parliament (NCMPs) and Nominated Members of Parliament (NMPs) who are appointed. Following the 2020 General Election, 93 MPs and two NCMPs were elected to the 14th Parliament.</p>
+            <p>Singapore's current Prime Minister (PM) is <span>Lee Hsien Loong</span>. Even as PM, he has his own constituency division to care for and stands for election representing his constituency.</p>
           </div>    
         </div>
         <div class='step' data-step='1'>
           <div class='step-text'>
-            <p>The Prime Minister of Singapore chooses the other members of the Cabinet by advising the President.</p>    
+            <p>The Prime Minister of Singapore chooses members of the Cabinet by advising the President. The Cabinet is responsible for all government policies and the day-to-day administration of the affairs of state.</p>
+
+            <p>It comprises the Prime Minister, Deputy Prime Ministers, Ministers, Ministers of State and Parliamentary Secretaries of the various ministries. They are <span style="color: #f7524f">Defence, Foreign Affairs</span>, <span style="color: #f8bc2e">Health</span>, <span style="color: #4561cc">Transport</span>, <span style="color: #f8bc2e">Sustainability and the Environment, Social & Family Development, Communications & Information, Culture, Community and Youth, Education</span>, <span style="color: #696969">Trade and Industry, Manpower, Finance</span>, <span style="color: #a71172">Prime Ministers Office</span>, <span style="color: #2b8da5">Law, National Development, Home Affairs</span>.</p>    
           </div> 
         </div>
         <div class='step' data-step='2'>
           <div class='step-text'>
-            <h3>Uniquely Singaporean: Group Representation Constituency (GRC)</h3>
-            <p>GRC is a type of electoral division or constituency in Singapore in which teams of candidates, instead of individual candidates, compete to be elected into Parliament as the Members of Parliament (MPs) for the constituency. The Government stated that the GRC scheme was primarily implemented to enshrine minority representation in Parliament: at least one of the MPs in a GRC must be a member of the Malay, Indian or another minority community of Singapore. In addition, it was economical for town councils, which manage public housing estates, to handle larger constituencies.</p>
+            <h2>Uniquely Singaporean: Group Representation Constituency (GRC)</h2>
+            <p>GRC is a type of electoral division or constituency in Singapore in which teams of candidates, instead of individual candidates, compete to be elected into Parliament as the Members of Parliament (MPs) for the constituency. Each voter of a GRC casts a ballot for a team, and not for individuals. The GRC scheme was brought into existence on 1988.</p>
+            <p>The original justification of the scheme was to guarantee a minimum representation of minorities in Parliament and ensure that there would always be a multiracial Parliament. At least one of the MPs in a GRC must be a member of the Malay, Indian or another minority community of Singapore. It was also deemed economical for town councils, which manage public housing estates, to handle larger constituencies.</p>
           </div>
         </div>
         <div class='step' data-step='3'>
           <div class='step-text'>
-            <h3>Stagnant racial diversity in Parliament</h3>
-            <p>Critics disagree with the government's justifications for introducing the GRC scheme, noting that the proportion of minority MPs per GRC has decreased with the advent of five-member and six-member GRCs. By having teams of candidates standing for election for GRCs helmed by senior politicians, the ruling People's Action Party has also used GRCs as a means for bringing first-time candidates into Parliament. Moreover, the GRC scheme is also said to disadvantage opposition parties because it is more difficult for them to find enough candidates to contest GRCs. Furthermore, it is said that the GRC scheme means that electors have unequal voting power, weakens the relationship between electors and MPs, and entrenches racialism in Singapore politics</p>
+            <h2>Stagnant racial diversity in Parliament</h2>
+            <p>Since the introduction of the GRC scheme, the proportion of minority MPs has not improved. Critics note that the scheme may undermine the esteem of minority candidates as they would not be sure if they are elected on their own merit or due to the scheme. One wonders if the slate of candidates at each election would have been more or less diverse without the scheme.</p>
+            <p>GRCs can also be used by the PAP as a fail-proof manner for bringing first-time candidates into Parliament. Every PAP GRC team is helmed by an "anchor" minister, and this may allow new candidates to enter Parliament based on the merits of experienced PAP members. The scheme is also said to disadvantage opposition parties because it is more difficult for them to find enough competent candidates to contest GRCs.</p>
             <div class='vegaChart' id="vega-ethnicity-vis"></div>
           </div>
         </div>
         <div class='step' data-step='4'>
           <div class='step-text'>
-            <h3>A one party state?</h3>
-            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1959. The Worker's Party won 4 extra seats in the latest election compared to the previous in 2015. The WP's numbers in parliament are still small and short of the one-third required to break the PAP's parliamentary supermajority, which allows the PAP the ability to amend the Constitution with few other barriers.</p>
+            <h2>A one party state?</h2>
+            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1959. The Worker's Party won a further 4 seats in the 2020 General Election. The WP's numbers in Parliament are still small and lack the one-third required to break the PAP's parliamentary supermajority, which allows the PAP the ability to amend the Constitution with few obstacles.</p>
             <div class='vegaChart' id="vega-party-vis"></div>
           </div>
         </div>
         <div class='step' data-step='5'>
           <div class='step-text'>
-            <h3>Growing participation of women in Singapore politics</h3>
-            <p>Traditionally, women in Singapore played a small role in the country's political scene. There were no women in parliament for 14 years from 1970 to 1984. In recent years, while Singapore has seen an increase in female representation in Parliament, there are few women in the Cabinet. On 1 October 2015, Grace Fu was appointed the Minister for Culture, Community and Youth, and Josephine Teo as Minister of Manpower. Both retain their role in the cabinet.</p>
+            <h2>Growing participation of women</h2>
+            <p>Traditionally, women in Singapore played a small role in the country's political scene. There were no women in Parliament for 14 years from 1970 to 1984. In recent years, Singapore has seen an increase in female representation in Parliament, but there are only 3 women in the rrent cuCabinet. In 2015, <span>Grace Fu</span> was appointed the Minister for Culture, Community and Youth, and <span>Josephine Teo</span> as Minister of Manpower in 2017 and Indranee Rajah as Minister in the Prime Minister’s Office in 2018.</p>
             <div class='vegaChart' id="vega-gender-vis"></div>
           </div>
         </div>
         <div class='step' data-step='6'>
           <div class='step-text'>
-           <h3>Young Parliamentarians alongside veterans</h3>
-            <p>Heng Swee Keat and Tan See Leng entered Parliament in their 50s, but became ministers in their first term. S. Iswaran and K. Shanmugam are one of the longest serving MPs, with both entering Parliament relatively young. K.Shanmugam entered Parliament when he was just 29 years of age. Amongst the current MPs, only Tin Pei Ling, Raeesah Khan and Nadia Samdin, have been sowrn in as MPs by that age,. Desmond Lee can take pride in being Singapore's youngest Minister, a position he achieved when he was 41 years old.</p>
-            <h3>Delay of 3G to 4G Leadership transition</h3>
-            <p>It appears that PM Lee had initially meant for 2020 to be the year of transition into the 4G leadership. However, when the new Cabinet line-up was announcted after the latest election, the 3G leadership was still very much in command, with only a reshuffle of the 4G ministers amongst ministries. PM Lee commented that most of the younger ministers came in one or two terms ago, and as such, their exposure in government is not as comprehensive nor as long, compared with the experience of 3G ministers.</p>
+           <h2>Young Parliamentarians alongside veterans</h2>
+            <p><span>Heng Swee Keat</span> and <span>Tan See Leng</span> entered Parliament in their 50s, but became ministers in their first term. <span>S. Iswaran</span> and <span>K. Shanmugam</span> are one of the longest serving MPs, with both entering Parliament relatively young. <span>K.Shanmugam</span> entered Parliament when he was just 29 years of age. Amongst the current MPs, only <span>Tin Pei Ling</span>, <span>Raeesah Khan</span> and <span>Nadia Samdin</span>, have become MPs by that age. <span>Desmond Lee</span> can take pride in being Singapore's youngest Minister, a position he achieved when he was 41 years old.</p>
+            <h2>Delay of 3G to 4G Leadership transition</h2>
+            <p>It appears that PM Lee had initially meant for 2020 to be the year of transition into the 4G leadership. However, when the new Cabinet line-up was announcted after the latest election, the 3G leadership was still in command, with only a reshuffle of the 4G ministers amongst ministries. PM Lee commented that most of the younger ministers came in one or two terms ago, and as such, their exposure in government is not as comprehensive nor as long, compared with the experience of 3G ministers.</p>
           </div>
         </div>
         <div class='step' data-step='7'>
         </div>
         <div class='step' data-step='8'>
           <div class='step-text'>
-            <h3>Beyond party affliation, is there diversity in Parliament?</h3>
-            <p>Based on the subset of attributes of each MP discussed so far, with the exception of party affliation and constituency representation, I applied a clustering algorithm to group similar MPs, with each attribute (gender, age, ethnicity, number of terms served and ministry currently serving) having equal weight. Some small clusters can be observed, with no large and tight clusters.</p>
+            <h2>Beyond party affliation, is there diversity in Parliament?</h2>
+            <p>Based on the subset of attributes of each MP discussed so far, with the exception of party affliation and constituency representation, a clustering algorithm is applied to group similar MPs, with each attribute (gender, age, ethnicity, number of terms served and ministry currently serving) having equal weight. Some small clusters can be observed, with no large and tight clusters.</p>
           </div>
         </div>
         <div class='step' data-step='9'>
+        </div>
+        <div class='footer'>
+          <div class='credits'>
+            <p>Credits</p>
+            <h4>Design & Development: Diana Ow</h4>
+          </div>
+          <div class='references'>
+            <p>References</p>
+            <h4>Glossary, <a href="https://www.parliament.gov.sg/parliamentary-business/glossary">Singapore Parliament</a>, 28 July 2020</h4>
+            <h4>List of Current MPs, <a href="https://www.parliament.gov.sg/mps/list-of-current-mps">Singapore Parliament</a>, 22 May 2020</h4>
+            <h4>Goh Chok Tong (Deputy Prime Minister and Minister for Defence), speech during the Second Reading of the Parliamentary Elections (Amendment) Bill, Singapore Parliamentary Debates, Official Report (11 January 1988), vol. 50, col. 180, 183-184.</h4>
+            <h4>Bilveer Singh (2006), Politics and Governance in Singapore: An Introduction, Singapore: McGraw-Hill, ISBN 978-0-07-126184-5.</h4>
+            <h4>Li Xueying, "GRCs make it easier to find top talent: SM: Without good chance of winning at polls, they might not be willing to risk careers for politics", The Straits Times. 27 June 2006.</p>
+            <h4>Linette Lai, "PM Lee Hsien Loong announces new Cabinet line-up; changes at the helm for 6 ministries", The Straits Times. 1 August 2020.</h4>
+          </div>
         </div>
       </article>
     </section>
@@ -367,23 +409,33 @@
 
   var categoryList = Object.values(category).flat()
 
+  // var color = {
+  //   'Group 1' : "#f94144", 
+  //   "Group 2" : "#f20089", 
+  //   "Group 3": "#f8961e", 
+  //   "Group 4" : "#ffd500", 
+  //   "Group 5" : "#90be6d", 
+  //   "Group 6" : "#2d00f7", 
+  //   'Group 7' : "#7209b7"
+  // }
+
   var color = {
-    'Group 1' : "#f94144", 
-    "Group 2" : "#f20089", 
-    "Group 3": "#f8961e", 
-    "Group 4" : "#ffd500", 
-    "Group 5" : "#90be6d", 
-    "Group 6" : "#2d00f7", 
-    'Group 7' : "#7209b7"
+    'Group 1' : "#f7524f", 
+    "Group 2" : "#f8bc2e", 
+    "Group 3": "#4561cc", 
+    "Group 4" : "#f8bc2e", 
+    "Group 5" : "#696969",
+    "Group 6" : "#a71172", 
+    'Group 7' : "#2b8da5"
   }
 
   var widths = {
     'Prime Minister' : 6, 
     "Deputy Prime Minister" : 5.5,
     "Senior Minister" : 5.5,
-    "Minister" : 5,  
-    "Senior Minister Of State": 3.5, 
-    "Minister Of State" : 3, 
+    "Minister" : 5.5,  
+    "Senior Minister of State": 3.5, 
+    "Minister of State" : 3, 
     "Senior Parliamentary Secretary" : 1.5,
     "Parliamentary Secretaries" : 1
   }
@@ -402,6 +454,12 @@
   function drawLegend(svgLegend){
 
     svgLegend.attr("opacity", 0)
+
+    svgLegend.append('rect')
+      .attr("transform", 'translate(-40,-55)')
+      .attr('fill', '#fbf5e9')
+      .attr('width', 300)
+      .attr('height', 500)
 
     svgLegend.append('text')
       .attr("transform", 'translate(0,-30)')
@@ -528,18 +586,18 @@
         if(d.Ministry_2){ items.push(d.Ministry_2) }
         if(d.Ministry_3){ items.push(d.Ministry_3) }
 
-        let keywordList = "<span>";
+        let keywordList = "<p>Portfolio: ";
         for(var i = 0; i < items.length; i++){
           keywordList += "<span class='mini-button'>" + items[i] + "</span>"
         }
-        keywordList += "</span>";
+        keywordList += "</p>";
 
         let ID = d['Division'].replace(' ', '_').toUpperCase()
         d3.select('#map-label-'+ ID).attr('opacity', 1)
         d3.select('#map-'+ ID).attr('stroke-opacity', 1)
         d3.select(".tooltip")
           .html(
-            "<div style='padding: 10px'><img width='100px' src=" + `./images/${d.newName}.jpg` + "></div><div>" + 
+            "<div style='padding: 10px 20px 10px 0px'><img width='100px' src=" + `./images/${d.newName}.jpg` + "></div><div>" + 
             "<h3>" + d.Name + "</h3><p>" + 
             "Title: <span>" + d.Title_1 + "</span></p><p>" +
             "Party: <span>" + d.Party + "</span></p><p>" + 
@@ -547,8 +605,8 @@
             "Gender: <span>" + d.Gender + "</span></p><p>" + 
             "Age: <span>" + d.Age + "</span></p><p>" + 
             "Ethnicity: <span>" + d.Ethnicity + "</span></p><p>" +
-            "No. of terms: <span>" + d.sessions_group + "</span></p><p>" + 
-            "Portfolio: " + keywordList 
+            "No. of terms: <span>" + d.sessions_group + "</span></p>" + 
+            keywordList 
           )
           //.style("left", (d3.event.clientX + 25).toString() + "px")
           //.style("top", (d3.event.clientY - 70).toString() + "px")
@@ -579,7 +637,7 @@
     entered_circles.append("circle").attr('class', 'bubble')
       .attr('r', radius)
       .attr('stroke', 'black')
-      .attr('stroke-width', d => d['Type.1'] == 'Cabinet' ? '0px' : '1px')
+      .attr('stroke-width', d => d['Type.1'] == 'Cabinet' ? '0px' : '0px')
       .attr('fill', d => fillAccessor(d))
       .style('opacity', 0)
 
@@ -891,7 +949,7 @@
     function clear() {
       map.selectAll('path').remove()
       map.selectAll(".constituencies-labels").remove()
-      bubbles_explore.selectAll("text.fociText").remove()
+      bubbles_explore.selectAll("g.fociText").remove()
       bubbles_explore.selectAll(".scatter_x_axis").remove()
       bubbles_explore.selectAll(".scatter_y_axis").remove()
     }
@@ -1151,21 +1209,42 @@ function updateTexts(focis) {
 function updateTexts1(focis) {
 
   function getRadius(count){
-    return count ? (count < 30 ? (count*radius)/2 : (count*radius/2.5)/2) : 0
+    return count ? (count < 25 ? ((count*radius)/1.2)-20 : (count*radius/2.5)/2) : 0
   }
 
   texts = bubbles_explore.selectAll("text.fociText").data(focis, (d,i)=>d['key'])
 
-  let entered_texts = texts.enter().append("text")
+  let entered_texts = texts.enter().append("g")
     .attr('class', 'fociText')
     .attr('transform', d=> { return 'translate(' + (d.x+width/3+80).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
+    .style('opacity', 0)
+
+  entered_texts.append('text')
     .attr('text-anchor', 'middle')
     .attr('fill',  'black')
-    .attr('font-size', '14px')
-    .style('opacity', 0)
+    .attr('font-size', '16px')
     .text(d=>d['key'])
-    .call(wrap, 80);
+    .call(getBB)
+    //.call(wrap, 80);
     
+  entered_texts
+    .insert("rect", ".fociText text")
+    .attr("x", (d) => d.bbox.x-5)
+    .attr("y", (d) => d.bbox.y-5)
+    .attr("width", function (d) {
+      return d.bbox.width + 10 
+    })
+    .attr("height", function (d) {
+      return d.bbox.height + 10
+    })
+    .style("fill", 'white')
+
+  function getBB(selection) {
+    selection.each(function (d) {
+      d.bbox = this.getBBox()
+    })
+  }
+
   texts.merge(entered_texts)         
     .transition().duration(750).delay(400)
     .attr('transform', d=> { return 'translate(' + (d.x+width/3+80).toString() + "," + (d.y-getRadius(d.count)).toString() + ")" })
@@ -1262,7 +1341,7 @@ var color = ["#f2cc8f","#81b29a","#3d405b","#e07a5f", "#f4f1de", "#cbc0d3"]
 var vegaEthnicityVis = {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "data/ethnicity_timeline.csv"},
-  "width": 250, "height": 200,
+  "width": 250, "height": 150,
   "layer": [
     {
       "encoding": {
@@ -1454,8 +1533,8 @@ var vegaGenderVis = {
 var vegaPartyVis = {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "data/party_timeline.csv"},
-  "width": 280, "height": 200,
-  "mark": {"type": "bar", "cornerRadiusTopLeft": 6, "cornerRadiusTopRight": 6, "tooltip": {"content": "data"}},
+  "width": 280, "height": 150,
+  "mark": {"type": "bar", "cornerRadiusTopLeft": 0, "cornerRadiusTopRight": 0, "tooltip": {"content": "data"}},
   "encoding": {
     "x": {
       "field": "Parliament", 
