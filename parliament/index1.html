@@ -30,12 +30,21 @@
         gainsboro
       );*/
   }
-  h1, h2, h3 {
+  h1, h2 {
+    font-family: 'Playfair Display', sans-serif;
+    text-align: center;
+  }
+  h3 {
     font-family: 'Playfair Display', sans-serif;
   }
-  text, p {
+  text{
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
+  } 
+  p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 1.1em;
   }
   h4 {
     font-family: 'Raleway', sans-serif;
@@ -112,7 +121,7 @@
     background-color: white;
     padding: 8px;
     z-index: 99;
-    pointer-events: auto;
+    pointer-events: none;
   }
   .tooltip p {
     font-size: 12px;
@@ -160,13 +169,11 @@
   }
   #scrolly {
     position: absolute;
-    height: 8900px;
   }
   article {
     position: relative;
     padding: 0;
     max-width: 27rem;
-    max-height: 8900px;
     margin-left: 20px;
     pointer-events: none;
   }
@@ -221,13 +228,16 @@
   <main>
     <div class='introWrapper'>
       <div class='intro'>
-        <div class='header'><h1>Singapore's Members of the 14th Parliament</h1></div>
+        <div class='header'>
+        <h1>Beyond party affliation, is there diversity in Parliament?</h1>
+        <h3 style="text-align: center">An analysis of Singapore's 14th Parliament</h3>
+        </div>
       </div>
     </div>
     <section id='scrolly'>
       <div id='chart'></div>
       <div class='panel'>
-       <h2>Singapore's 14th Parliament</h2>
+        <h2>Singapore's 14th Parliament</h2>
          <input name="type" 
           type="button" 
           class="btn map-view"
@@ -258,6 +268,10 @@
           value="Age vs Terms"/>
           <input name="type" 
           type="button" 
+          class="btn occupation-view"
+          value="Previous Occupation"/>
+          <input name="type" 
+          type="button" 
           class="btn tsne-view"
           value="Similarity"/>
       </div>
@@ -269,66 +283,103 @@
           value="Show Legend"/>
       </div>
       <article>
+
         <div class='step' data-step='0'>
           <div class='step-text'>
-            <p>The Parliament of Singapore is largely based from the Westminster system. It is made up of Members of Parliament (MPs) who are elected, as well as Non-constituency Members of Parliament (NCMPs) and Nominated Members of Parliament (NMPs) who are appointed. Following the 2020 General Election, 93 MPs and two NCMPs were elected to the 14th Parliament.</p>
+            <h2>A brief introduction</h2>
+            <p>Since Singapore gained independence from the British in 1963, there have been 14 general elections held. Each candidate represents a constituency and voters can choose who will represent them in Parliament for the next term. Following the 2020 general election, 93 Members of Parliament (MP) were elected to the 14th Parliament. Parliamentary terms last for a maximum of five years, and with each new Parliament, about a quarter of them are new faces.</p>
             <p>Singapore's current Prime Minister (PM) is <span>Lee Hsien Loong</span>. Even as PM, he has his own constituency division to care for and stands for election representing his constituency.</p>
           </div>    
         </div>
+
         <div class='step' data-step='1'>
           <div class='step-text'>
-            <p>The Prime Minister of Singapore chooses members of the Cabinet by advising the President. The Cabinet is responsible for all government policies and the day-to-day administration of the affairs of state.</p>
+            <p>The Prime Minister chooses members of the Cabinet by advising the President. The Cabinet is responsible for all government policies and the day-to-day administration of the affairs of state.</p>
 
             <p>It comprises the Prime Minister, Deputy Prime Ministers, Ministers, Ministers of State and Parliamentary Secretaries of the various ministries. They are <span style="color: #f7524f">Defence, Foreign Affairs</span>, <span style="color: #f8bc2e">Health</span>, <span style="color: #4561cc">Transport</span>, <span style="color: #f8bc2e">Sustainability and the Environment, Social & Family Development, Communications & Information, Culture, Community and Youth, Education</span>, <span style="color: #696969">Trade and Industry, Manpower, Finance</span>, <span style="color: #a71172">Prime Ministers Office</span>, <span style="color: #2b8da5">Law, National Development, Home Affairs</span>.</p>    
           </div> 
         </div>
+
         <div class='step' data-step='2'>
           <div class='step-text'>
             <h2>Uniquely Singaporean: Group Representation Constituency (GRC)</h2>
-            <p>GRC is a type of electoral division or constituency in Singapore in which teams of candidates, instead of individual candidates, compete to be elected into Parliament as the Members of Parliament (MPs) for the constituency. Each voter of a GRC casts a ballot for a team, and not for individuals. The GRC scheme was brought into existence on 1988.</p>
+            <p>GRC is a type of electoral division or constituency in Singapore in which teams of candidates, instead of individual candidates, compete to be elected into Parliament as the Members of Parliament for the constituency. Each voter of a GRC casts a ballot for a team, and not for individuals. The GRC scheme was brought into existence on 1988.</p>
+            <p>There are 31 constituencies in Singapore, comprising 17 GRCs and 14 single-member constituencies (SMCs).</p>
             <p>The original justification of the scheme was to guarantee a minimum representation of minorities in Parliament and ensure that there would always be a multiracial Parliament. At least one of the MPs in a GRC must be a member of the Malay, Indian or another minority community of Singapore. It was also deemed economical for town councils, which manage public housing estates, to handle larger constituencies.</p>
           </div>
         </div>
+
         <div class='step' data-step='3'>
           <div class='step-text'>
             <h2>Stagnant racial diversity in Parliament</h2>
-            <p>Since the introduction of the GRC scheme, the proportion of minority MPs has not improved. Critics note that the scheme may undermine the esteem of minority candidates as they would not be sure if they are elected on their own merit or due to the scheme. One wonders if the slate of candidates at each election would have been more or less diverse without the scheme.</p>
-            <p>GRCs can also be used by the PAP as a fail-proof manner for bringing first-time candidates into Parliament. Every PAP GRC team is helmed by an "anchor" minister, and this may allow new candidates to enter Parliament based on the merits of experienced PAP members. The scheme is also said to disadvantage opposition parties because it is more difficult for them to find enough competent candidates to contest GRCs.</p>
+            <p>Since the introduction of the GRC scheme, the proportion of minority MPs has remained stagnant. Critics note that the scheme may undermine the esteem of minority candidates as they would not be sure if they are elected on their own merit or due to the scheme. One wonders if the slate of candidates at each election would have been more or less diverse without the scheme.</p>
+            <p>When viewed in the context of the proportions of each race in Singapore’s population, political representation of racial minorities is balanced. In 2019,  <span style="color: #e07a5f">Malays</span> account for <span style="color: #e07a5f; font-weight: bold">15%</span> of the Singapore population, they represent <span style="color: #e07a5f;">12%</span> of the MPs. <span style="color: #3d405b">Indians</span> and <span style="color: #81b29a">minorities of other groups</span> account for <span style="color: #3d405b; font-weight: bold">7.5%</span> and <span style="color: #81b29a; font-weight: bold">1.5%</span> of the population respectively in 2019, they represent <span style="color: #3d405b">10%</span> and <span style="color: #81b29a">2%</span> of MPs respectively.</p>
             <div class='vegaChart' id="vega-ethnicity-vis"></div>
           </div>
         </div>
+
         <div class='step' data-step='4'>
           <div class='step-text'>
-            <h2>A one party state?</h2>
-            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1959. The Worker's Party won a further 4 seats in the 2020 General Election. The WP's numbers in Parliament are still small and lack the one-third required to break the PAP's parliamentary supermajority, which allows the PAP the ability to amend the Constitution with few obstacles.</p>
-            <div class='vegaChart' id="vega-party-vis"></div>
-          </div>
-        </div>
-        <div class='step' data-step='5'>
-          <div class='step-text'>
             <h2>Growing participation of women</h2>
-            <p>Traditionally, women in Singapore played a small role in the country's political scene. There were no women in Parliament for 14 years from 1970 to 1984. In recent years, Singapore has seen an increase in female representation in Parliament, but there are only 3 women in the rrent cuCabinet. In 2015, <span>Grace Fu</span> was appointed the Minister for Culture, Community and Youth, and <span>Josephine Teo</span> as Minister of Manpower in 2017 and Indranee Rajah as Minister in the Prime Minister’s Office in 2018.</p>
+            <p>Historically, women in Singapore played a small role in the country's political scene. There were no women in Parliament for 14 years from 1970 to 1984. In recent years, Singapore has seen an increase in female representation in Parliament, but there are only 3 women in the current Cabinet. In 2015, <span>Grace Fu</span> was appointed the Minister for Culture, Community and Youth, and <span>Josephine Teo</span> as Minister of Manpower in 2017. <span>Indranee Rajah</span> spent 4 terms in Parliament before she was appointed a Minister in 2018.</p>
             <div class='vegaChart' id="vega-gender-vis"></div>
           </div>
         </div>
-        <div class='step' data-step='6'>
+
+        <div class='step' data-step='5'>
           <div class='step-text'>
            <h2>Young Parliamentarians alongside veterans</h2>
             <p><span>Heng Swee Keat</span> and <span>Tan See Leng</span> entered Parliament in their 50s, but became ministers in their first term. <span>S. Iswaran</span> and <span>K. Shanmugam</span> are one of the longest serving MPs, with both entering Parliament relatively young. <span>K.Shanmugam</span> entered Parliament when he was just 29 years of age. Amongst the current MPs, only <span>Tin Pei Ling</span>, <span>Raeesah Khan</span> and <span>Nadia Samdin</span>, have become MPs by that age. <span>Desmond Lee</span> can take pride in being Singapore's youngest Minister, a position he achieved when he was 41 years old.</p>
-            <h2>Delay of 3G to 4G Leadership transition</h2>
-            <p>It appears that PM Lee had initially meant for 2020 to be the year of transition into the 4G leadership. However, when the new Cabinet line-up was announcted after the latest election, the 3G leadership was still in command, with only a reshuffle of the 4G ministers amongst ministries. PM Lee commented that most of the younger ministers came in one or two terms ago, and as such, their exposure in government is not as comprehensive nor as long, compared with the experience of 3G ministers.</p>
           </div>
         </div>
-        <div class='step' data-step='7'>
+
+        <div class='step' data-step='6'>
+          <div class='step-text'>
+           <h2>Public vs private sector</h2>
+           <p>In the visual on the right, MPs are grouped according to their first occupation. Tradionally, the ruling party has a preference for candidates with some public sector experience, especially for those earmarked for potential appointments in the Cabinet after being elected. Many senior officials from th military and police force have also entered politics.</p>
+          </div>
         </div>
+
+        <div class='step' data-step='7'>
+          <div class='step-text'>
+           <h2>Diverse pathways to a seat in Parliament</h2>
+           <p>MPs are now grouped according to their last held occupation before entering Parliament. Ideally, MPs should offer a wealth of experiences garnered from their years of working experience and community involvement. Some MPs have either switched career tracks, or succeeded in climbing up the corporate ladder, while have time for community or grassroot work.</p>
+          </div>
+        </div>
+
         <div class='step' data-step='8'>
           <div class='step-text'>
-            <h2>Beyond party affliation, is there diversity in Parliament?</h2>
-            <p>Based on the subset of attributes of each MP discussed so far, with the exception of party affliation and constituency representation, a clustering algorithm is applied to group similar MPs, with each attribute (gender, age, ethnicity, number of terms served and ministry currently serving) having equal weight. Some small clusters can be observed, with no large and tight clusters.</p>
+            <h2>A one-party political system?</h2>
+            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1959.</p> 
+            <p>The Worker's Party won a further 4 seats in the 2020 General Election. The WP's numbers in Parliament are still small and lack the one-third required to break the PAP's parliamentary supermajority, which allows the PAP the ability to amend the Constitution with few obstacles.</p>
+            <div class='vegaChart' id="vega-party-vis"></div>
           </div>
         </div>
+
         <div class='step' data-step='9'>
+          <div class='step-text'>
+            <h2>Beyond party affliation, is there diversity in Parliament?</h2>
+            <p>Parliament should be representative to offer the electorate a sense of belonging and inclusion. It should draw upon the widest possible pools of talent and experience from people and reflect the different gender, age and ethnic groups within society. Based on the subset of attributes of each MP,</p> 
+            <ul>
+              <li>Gender</li>
+              <li>Age</li>
+              <li>Ethnicity</li>
+              <li>Occupation</li>
+              <li>Years in Politics</li>
+            </ul>
+            <p>with the exception of party affliation and constituency representation, a clustering algorithm is applied to group similar MPs, with each attribute having equal weight. A distinct separation of female and male clusters can be observed, but beyond that, there are no large and tight clusters, with only some tight pairs or trios. This can be interpreted to mean that there are few MPs who are similar to one another.</p>
+          </div>
         </div>
+
+        <div class='step' data-step='10'>
+            <div class='step-text'>
+              <p>Chasing after a better proportion of representation alone is not ideal. What matters is that the people Singaporeans have voted for to represent them contribute constructively and voice the concerns of their constituents during Parliament sessions. Singaporeans should look at each MP's persongal backgrounds, understand their thinking, what they stand for and evaluate their contribution, rather than stereotyping based on a single dimension of their background. Hopefully, with this diverse group of members, a more robust debate and exchange of alternative perspectives will flow and lead to better policy-making.</p>
+            </div>
+        </div>
+
+        <div class='step' data-step='11'>
+        </div>
+
         <div class='footer'>
           <div class='credits'>
             <p>Credits</p>
@@ -343,12 +394,14 @@
             <h4>Li Xueying, "GRCs make it easier to find top talent: SM: Without good chance of winning at polls, they might not be willing to risk careers for politics", The Straits Times. 27 June 2006.</p>
             <h4>Linette Lai, "PM Lee Hsien Loong announces new Cabinet line-up; changes at the helm for 6 ministries", The Straits Times. 1 August 2020.</h4>
           </div>
-        </div>
+
       </article>
     </section>
   </main>
 
 <script>
+
+  var TRANSFORM_LEFT = (window.innerWidth <= 1800 ? 200 : 300)
 
   // Ensure that page is flushed to top everytime a user refreshes the page
   window.onbeforeunload = function () {
@@ -408,6 +461,7 @@
   }
 
   var categoryList = Object.values(category).flat()
+  var occupationList = ['Public Service (Labour)', 'IT/Engineering', 'Infrastructure (Transport/Telecomms/Real Estate)', 'Public Service (Multiple Stat Boards)', 'Social Enterprise/Charity', 'SAF/SPF/SCDF', 'Law', 'Education', 'Finance', 'Entrepreneur', 'Public Service (Finance)', 'Biz Dev', 'Specialist - Healthcare', 'Public Service (Social/Healthcare)', 'Public Service / Govt-linked (Biz Dev)', 'Other(HR/Management)']
 
   // var color = {
   //   'Group 1' : "#f94144", 
@@ -471,6 +525,7 @@
       .enter().append('g')
         .attr("class", "legend")
         .attr("transform", function (d, i) {return "translate(0," + getY(i)+ ")"})
+        .attr("display", "none")
         
     legend.append("circle")
         .attr("class", "legend-node")
@@ -516,7 +571,7 @@
        .attr('stroke', 'black')
        .attr('stroke-width', 0.2)
        .attr('stroke-opacity', 0.5)
-       .attr("transform", "translate(" + 200 + "," + 20 + ")")
+       .attr("transform", "translate(" + TRANSFORM_LEFT + "," + 20 + ")")
 
     map
        .selectAll("text")
@@ -661,7 +716,7 @@
 
     data.forEach(d=>{
       let point = projection([+d[coords[0]], +d[coords[1]]])
-      d.x = point[0] + 200
+      d.x = point[0] + TRANSFORM_LEFT
       d.y = point[1]
     })
 
@@ -673,6 +728,55 @@
       .force("y", d3.forceY(function (d) { return d.y }).strength(1))
 
     simulateStatic(data, simulation, opacity)
+
+  }
+
+
+  function drawGrid(data, col) {
+
+    var modsPerRow = 6
+    var modsSize = (width*0.85) / 6
+    var modulePosition = []
+    for(var i = 0; i < occupationList.length ; i++) {
+      var rowNumber = Math.floor(i / modsPerRow)
+      modulePosition.push(
+      { 
+        "key": occupationList[i],
+        "coordinates" : { 
+          x: ((i % modsPerRow) * modsSize) + modsSize,
+          y: -(rowNumber + 1) * modsSize + height
+        }
+      })
+    }
+
+    let nodes = createNodes(modulePosition, data) 
+
+    var simulation = d3.forceSimulation()
+      .nodes(nodes)
+      .force("collide", forceCollide)
+      .force('charge', d3.forceManyBody().strength(-10))
+      .force("x", d3.forceX(function (d) { return d.x+width/4 }))
+      .force("y", d3.forceY(function (d) { return d.y }))
+
+    simulateStatic(nodes, simulation, 1)
+
+    ////////////////////////////////// Create nodes //////////////////////////////
+    function createNodes(focis, data) {
+
+      var n = []
+      data.map((d,i)=> {
+        let F = focis.find(f=>f.key == d[col]) 
+        n.push({
+          ...d,
+          key: d['newName'] + '-' + d.Ministry_1, // unique index for each node
+          x: F.coordinates.x,
+          y: F.coordinates.y,
+        })
+      })
+
+      return n
+
+    }
 
   }
 
@@ -888,6 +992,12 @@
         drawCategory(data0, 'Party', ["People's Action Party", "Workers' Party"]) 
       })
 
+    d3.select(".occupation-view")
+      .on("click", function() {
+        clear()
+        drawGrid(data0)
+      })
+
     d3.select(".age-view")
       .on("click", function() {
         clear()
@@ -940,9 +1050,13 @@
       .on("click", function() {
         show_legend = !show_legend
         if(show_legend){
-          d3.selectAll("#legend").attr('opacity', 1)
+          d3.selectAll("#legend")
+            .attr("display", "block")
+            //.attr('opacity', 1)
         } else {
-          d3.selectAll("#legend").attr('opacity', 0)
+          d3.selectAll("#legend")
+            .attr("display", "none")
+            //.attr('opacity', 0)
         }
       })
 
@@ -1005,17 +1119,12 @@
         clear()
         drawCategory(data0, 'Ethnicity', ['Malay', 'Eurasian', 'Chinese', 'Indian']) 
 
-      } else if (response.index === 4) { 
-
-        clear()
-        drawCategory(data0, 'Party', ["People's Action Party", "Workers' Party"]) 
-
-      } else if (response.index === 5) {
+      } else if (response.index === 4) {
 
         clear()
         drawCategory(data0, 'Gender', ['Female', 'Male']) 
 
-      } else if (response.index === 6) { 
+      } else if (response.index === 5) { 
 
         clear()
         let data = createScatter(data0, {x: 'Years_In_Politics', y: 'Age', rangeX: [width/3+40, width+width/6], rangeY: [height-40, 20], show_axis: true})
@@ -1028,16 +1137,31 @@
 
         simulateStatic(data, simulation, 1) 
 
+      } else if (response.index === 6) { 
+
+        clear()
+        drawGrid(data0, 'First_Occupation')
+
+      } else if (response.index === 7) { 
+
+        clear()
+        drawGrid(data0, 'Previous_Occupation')
+
       } else if (response.index === 8) { 
 
         clear()
-        let data = createScatter(data0, {x: 'X', y: 'Y', rangeX: [width/4+40, width+width/6], rangeY: [height-40, 40], show_axis: false})
+        drawCategory(data0, 'Party', ["People's Action Party", "Workers' Party"]) 
+
+      } else if (response.index === 9) { 
+
+        clear()
+        let data = createScatter(data0, {x: 'X1', y: 'Y1', rangeX: [width/4+40, width+width/6], rangeY: [height-40, 40], show_axis: false})
         updateCircles(data, 400, 1)
 
         d3.selectAll('.panel').style('display', 'none')
         //d3.selectAll("#legend").attr('opacity', 0)
 
-      } else if (response.index === 9) { 
+      } else if (response.index === 10) { 
 
         d3.selectAll('.panel').style('display', 'block')
         //d3.selectAll("#legend").attr('opacity', 1)
@@ -1338,202 +1462,253 @@ var opt = {"actions":false,
 
 var color = ["#f2cc8f","#81b29a","#3d405b","#e07a5f", "#f4f1de", "#cbc0d3"]
 
+// var vegaEthnicityVis = {
+//   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+//   "data": {"url": "data/ethnicity_timeline.csv"},
+//   "width": 250, "height": 150,
+//   "layer": [
+//     {
+//       "encoding": {
+//         "x": {
+//           "field": "Parliament", "type": "quantitative"
+//         },
+//         "y": {
+//           "aggregate": "sum", "field": "value",
+//           "axis": {"format": "%", "title": null},
+//           "stack": "normalize"
+//         },
+//         "color": {"field":"Ethnicity", "scale": {"range": color}}
+//       },
+//       "layer": [
+//         {
+//           "mark": "bar",
+//           "width": {"step": 17},
+//         },
+//         {
+//           "selection": {
+//             "tooltip": {
+//               "type": "single",
+//               "nearest": true,
+//               "on": "mouseover",
+//               "encodings": [
+//                 "x"
+//               ],
+//               "empty": "none"
+//             }
+//           },
+//           "mark": "point",
+//           "encoding": {
+//             "opacity": {
+//               "condition": {
+//                 "selection": "tooltip",
+//                 "value": 1
+//               },
+//               "value": 0
+//             }
+//           }
+//         }
+//       ]
+//   },
+//   {
+//     "transform": [
+//       {
+//         "filter": {
+//           "selection": "tooltip"
+//         }
+//       }
+//     ],
+//     "layer": [{
+//       "mark": {
+//        "type": "rule",
+//        "color": "gray"
+//       },
+//       "encoding": {
+//         "x": {
+//           "type": "quantitative",
+//           "field": "Parliament"
+//         }
+//       }
+//     }, {
+//       "mark": {
+//           "type": "text",
+//           "align": "left",
+//           "dx": 5,
+//           "dy": -5
+//       },
+//       "encoding": {
+//         "text": {
+//           "type": "quantitative",
+//           "field": "value"
+//         },
+//         "color": {
+//           "type": "nominal",
+//           "field": "Ethnicity"
+//         },
+//         "x": {
+//           "type": "quantitative",
+//           "field": "Parliament"
+//         },
+//         "y": {
+//           "aggregate": "sum", "field": "value",
+//           "axis": {"format": "%", "title": null},
+//           "stack": "normalize"
+//         }
+//       }
+//     }]
+//   }]
+// }
+
+
+// var vegaGenderVis = {
+//   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+//   "data": {"url": "data/gender_timeline.csv"},
+//   "width": 250, "height": 200,
+//   "layer": [
+//     {
+//       "encoding": {
+//         "x": {
+//           "field": "Parliament", "type": "quantitative"
+//         },
+//         "y": {
+//           "aggregate": "sum", "field": "value",
+//           "axis": {"format": "%", "title": null},
+//           "stack": "normalize"
+//         },
+//         "color": {"field":"Gender", "scale": {"range": color}}
+//       },
+//       "layer": [
+//         {
+//           "mark": "area"
+//         },
+//         {
+//           "selection": {
+//             "tooltip": {
+//               "type": "single",
+//               "nearest": true,
+//               "on": "mouseover",
+//               "encodings": [
+//                 "x"
+//               ],
+//               "empty": "none"
+//             }
+//           },
+//           "mark": "point",
+//           "encoding": {
+//             "opacity": {
+//               "condition": {
+//                 "selection": "tooltip",
+//                 "value": 1
+//               },
+//               "value": 0
+//             }
+//           }
+//         }
+//       ]
+//   },
+//   {
+//     "transform": [
+//       {
+//         "filter": {
+//           "selection": "tooltip"
+//         }
+//       }
+//     ],
+//     "layer": [{
+//       "mark": {
+//        "type": "rule",
+//        "color": "gray"
+//       },
+//       "encoding": {
+//         "x": {
+//           "type": "quantitative",
+//           "field": "Parliament"
+//         }
+//       }
+//     }, {
+//       "mark": {
+//           "type": "text",
+//           "align": "left",
+//           "dx": 5,
+//           "dy": -5,
+//           "format": "%"
+//       },
+//       "encoding": {
+//         "text": {
+//           "type": "quantitative",
+//           "field": "value"
+//         },
+//         "color": {
+//           "type": "nominal",
+//           "field": "Gender"
+//         },
+//         "x": {
+//           "type": "quantitative",
+//           "field": "Parliament"
+//         },
+//         "y": {
+//           "aggregate": "sum", "field": "value",
+//           "axis": {"format": "%", "title": null},
+//           "stack": "normalize"
+//         }
+//       }
+//     }]
+//   }]
+// }
+
 var vegaEthnicityVis = {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "data/ethnicity_timeline.csv"},
-  "width": 250, "height": 150,
-  "layer": [
-    {
-      "encoding": {
-        "x": {
-          "field": "Parliament", "type": "quantitative"
-        },
-        "y": {
-          "aggregate": "sum", "field": "value",
-          "axis": {"format": "%", "title": null},
-          "stack": "normalize"
-        },
-        "color": {"field":"Ethnicity", "scale": {"range": color}}
-      },
-      "layer": [
-        {
-          "mark": "area"
-        },
-        {
-          "selection": {
-            "tooltip": {
-              "type": "single",
-              "nearest": true,
-              "on": "mouseover",
-              "encodings": [
-                "x"
-              ],
-              "empty": "none"
-            }
-          },
-          "mark": "point",
-          "encoding": {
-            "opacity": {
-              "condition": {
-                "selection": "tooltip",
-                "value": 1
-              },
-              "value": 0
-            }
-          }
-        }
-      ]
-  },
-  {
-    "transform": [
-      {
-        "filter": {
-          "selection": "tooltip"
-        }
-      }
-    ],
-    "layer": [{
-      "mark": {
-       "type": "rule",
-       "color": "gray"
-      },
-      "encoding": {
-        "x": {
-          "type": "quantitative",
-          "field": "Parliament"
-        }
-      }
-    }, {
-      "mark": {
-          "type": "text",
-          "align": "left",
-          "dx": 5,
-          "dy": -5
-      },
-      "encoding": {
-        "text": {
-          "type": "quantitative",
-          "field": "value"
-        },
-        "color": {
-          "type": "nominal",
-          "field": "Ethnicity"
-        },
-        "x": {
-          "type": "quantitative",
-          "field": "Parliament"
-        },
-        "y": {
-          "aggregate": "sum", "field": "value",
-          "axis": {"format": "%", "title": null},
-          "stack": "normalize"
-        }
-      }
-    }]
-  }]
+  "width": 280, "height": 150,
+  "mark": {"type": "bar", "cornerRadiusTopLeft": 0, "cornerRadiusTopRight": 0, "tooltip": true},
+  "encoding": {
+    "x": {
+      "field": "Parliament", 
+      "type": "ordinal", "sort": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 
+      "axis": {"labelAngle": 0}
+    },
+    "y": {"field": "value", "type": "quantitative", "format": ".1%", "axis": {"title": "% of MPs"},  "stack":  "normalize"},
+    //"tooltip": [
+      //{"field": "Parliament", "type": "quantitative"},
+      //{"field": "Ethnicity", "type": "ordinal"},
+      //{"field": "value", "type": "quantitative"}
+    //],
+    "color": {
+      "field": "Ethnicity", 
+      "scale": {"range": color}, 
+      "legend": {"direction": "horizontal", "orient": "bottom"}
+    }
+  }
 }
-
 
 var vegaGenderVis = {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "data/gender_timeline.csv"},
-  "width": 250, "height": 200,
-  "layer": [
-    {
-      "encoding": {
-        "x": {
-          "field": "Parliament", "type": "quantitative"
-        },
-        "y": {
-          "aggregate": "sum", "field": "value",
-          "axis": {"format": "%", "title": null},
-          "stack": "normalize"
-        },
-        "color": {"field":"Gender", "scale": {"range": color}}
-      },
-      "layer": [
-        {
-          "mark": "area"
-        },
-        {
-          "selection": {
-            "tooltip": {
-              "type": "single",
-              "nearest": true,
-              "on": "mouseover",
-              "encodings": [
-                "x"
-              ],
-              "empty": "none"
-            }
-          },
-          "mark": "point",
-          "encoding": {
-            "opacity": {
-              "condition": {
-                "selection": "tooltip",
-                "value": 1
-              },
-              "value": 0
-            }
-          }
-        }
-      ]
-  },
-  {
-    "transform": [
-      {
-        "filter": {
-          "selection": "tooltip"
-        }
-      }
-    ],
-    "layer": [{
-      "mark": {
-       "type": "rule",
-       "color": "gray"
-      },
-      "encoding": {
-        "x": {
-          "type": "quantitative",
-          "field": "Parliament"
-        }
-      }
-    }, {
-      "mark": {
-          "type": "text",
-          "align": "left",
-          "dx": 5,
-          "dy": -5,
-          "format": "%"
-      },
-      "encoding": {
-        "text": {
-          "type": "quantitative",
-          "field": "value"
-        },
-        "color": {
-          "type": "nominal",
-          "field": "Gender"
-        },
-        "x": {
-          "type": "quantitative",
-          "field": "Parliament"
-        },
-        "y": {
-          "aggregate": "sum", "field": "value",
-          "axis": {"format": "%", "title": null},
-          "stack": "normalize"
-        }
-      }
-    }]
-  }]
+  "width": 280, "height": 150,
+  "mark": {"type": "bar", "cornerRadiusTopLeft": 0, "cornerRadiusTopRight": 0, "tooltip": true},
+  "encoding": {
+    "x": {
+      "field": "Parliament", 
+      "type": "ordinal", "sort": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 
+      "axis": {"labelAngle": 0}
+    },
+    "y": {"field": "value", "type": "quantitative", "format": ".1%", "axis": {"title": "% of MPs"},  "stack":  "normalize"},
+    //"tooltip": [
+      //{"field": "Parliament", "type": "quantitative"},
+      //{"field": "Gender", "type": "ordinal"},
+      //{"field": "value", "type": "quantitative"}
+    //],
+    "color": {
+      "field": "Gender", 
+      "scale": {"range": color}, 
+      "legend": {"direction": "horizontal", "orient": "bottom"}
+    }
+  }
 }
 
 var vegaPartyVis = {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "data/party_timeline.csv"},
-  "width": 280, "height": 150,
+  "width": 280, "height": 180,
   "mark": {"type": "bar", "cornerRadiusTopLeft": 0, "cornerRadiusTopRight": 0, "tooltip": {"content": "data"}},
   "encoding": {
     "x": {
@@ -1551,9 +1726,7 @@ var vegaPartyVis = {
       "field": "Party", 
       "scale": {"range": color}, 
       "legend": {"direction": "horizontal", "orient": "bottom", "columns": 2}
-    },
-    "sort": ["People's Action Party", "Workers' Party", 'Barisan Sosialis', 'Independent', 'Singapore Democratic Alliance','Singapore Democratic Party'],
-
+    }
   }
 }
 

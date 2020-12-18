@@ -1,33 +1,33 @@
-,Parliament,Party,value
-0,1,Barisan Sosialis,12
-1,1,Independent,1
-2,1,People's Action Party,50
-3,2,People's Action Party,63
-4,3,People's Action Party,65
-5,4,People's Action Party,78
-6,5,People's Action Party,74
-7,5,Workers' Party,1
-8,6,People's Action Party,76
-9,6,Singapore Democratic Alliance,1
-10,6,Workers' Party,1
-11,7,People's Action Party,79
-12,7,Singapore Democratic Alliance,1
-13,8,People's Action Party,77
-14,8,Singapore Democratic Alliance,1
-15,8,Singapore Democratic Party,2
-16,8,Workers' Party,1
-17,9,People's Action Party,80
-18,9,Singapore Democratic Alliance,1
-19,9,Workers' Party,1
-20,10,People's Action Party,80
-21,10,Singapore Democratic Alliance,1
-22,10,Workers' Party,1
-23,11,People's Action Party,80
-24,11,Singapore Democratic Alliance,1
-25,11,Workers' Party,1
-26,12,People's Action Party,80
-27,12,Workers' Party,8
-28,13,People's Action Party,83
-29,13,Workers' Party,6
-30,14,People's Action Party,81
-31,14,Workers' Party,10
+,Parliament,Party,value,Party_Rank
+2,1,People's Action Party,50,0
+0,1,Barisan Sosialis,12,2
+1,1,Independent,1,3
+3,2,People's Action Party,63,0
+4,3,People's Action Party,65,0
+5,4,People's Action Party,78,0
+6,5,People's Action Party,74,0
+7,5,Workers' Party,1,1
+8,6,People's Action Party,76,0
+10,6,Workers' Party,1,1
+9,6,Singapore Democratic Alliance,1,4
+11,7,People's Action Party,79,0
+12,7,Singapore Democratic Alliance,1,4
+13,8,People's Action Party,77,0
+16,8,Workers' Party,1,1
+14,8,Singapore Democratic Alliance,1,4
+15,8,Singapore Democratic Party,2,5
+17,9,People's Action Party,80,0
+19,9,Workers' Party,1,1
+18,9,Singapore Democratic Alliance,1,4
+20,10,People's Action Party,80,0
+22,10,Workers' Party,1,1
+21,10,Singapore Democratic Alliance,1,4
+23,11,People's Action Party,80,0
+25,11,Workers' Party,1,1
+24,11,Singapore Democratic Alliance,1,4
+26,12,People's Action Party,80,0
+27,12,Workers' Party,8,1
+28,13,People's Action Party,83,0
+29,13,Workers' Party,6,1
+30,14,People's Action Party,81,0
+31,14,Workers' Party,10,1
