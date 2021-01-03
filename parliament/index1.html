@@ -46,6 +46,11 @@
     font-weight: 400;
     font-size: 1.1em;
   }
+  a, a:hover, a:visited {
+    text-decoration: underline;
+    color: black;
+  }
+
   h4 {
     font-family: 'Raleway', sans-serif;
     font-weight: 400; 
@@ -247,7 +252,7 @@
     }
   }
 
-  @media screen and (orientation:landscape)
+  @media screen and (orientation:portrait)
   and (max-device-width: 900px) {
     .introWrapper {
       display: none;
@@ -269,7 +274,7 @@
     <div class='introWrapper'>
       <div class='intro'>
         <div class='header'>
-        <h1>Beyond party affliation, is there diversity in Parliament?</h1>
+        <h1>Beyond party affiliation, is there diversity in Parliament?</h1>
         <h3 style="text-align: center">An analysis of Singapore's 14th Parliament</h3>
         </div>
       </div>
@@ -332,7 +337,7 @@
           <div class='step-text'>
             <h2>A brief introduction</h2>
             <p>Since Singapore gained independence from the British in 1963, there have been 14 general elections held. Each candidate represents a constituency and voters can choose who will represent them in Parliament for the next term. Following the 2020 general election, 93 Members of Parliament (MP) were elected to the 14th Parliament. Parliamentary terms last for a maximum of five years, and with each new Parliament, about a quarter of them are new faces.</p>
-            <p>Singapore's current Prime Minister (PM) is <span>Lee Hsien Loong</span>. Even as PM, he has his own constituency division to care for and stands for election representing his constituency.</p>
+            <p>Singapore's current Prime Minister (PM) is <span class='hl'>Lee Hsien Loong</span>. Even as PM, he has his own constituency division to care for and stands for election representing his constituency.</p>
           </div>    
         </div>
 
@@ -340,7 +345,7 @@
           <div class='step-text'>
             <p>The Prime Minister chooses members of the Cabinet by advising the President. The Cabinet is responsible for all government policies and the day-to-day administration of the affairs of state.</p>
 
-            <p>It comprises the Prime Minister, Deputy Prime Ministers, Ministers, Ministers of State and Parliamentary Secretaries of the various ministries. They are <span style="color: #f7524f">Defence, Foreign Affairs</span>, <span style="color: #f8bc2e">Health</span>, <span style="color: #4561cc">Transport</span>, <span style="color: #f8bc2e">Sustainability and the Environment, Social & Family Development, Communications & Information, Culture, Community and Youth, Education</span>, <span style="color: #696969">Trade and Industry, Manpower, Finance</span>, <span style="color: #a71172">Prime Ministers Office</span>, <span style="color: #2b8da5">Law, National Development, Home Affairs</span>.</p>    
+            <p>It comprises the Prime Minister, Deputy Prime Ministers, Ministers, Ministers of State and Parliamentary Secretaries of the various ministries. They are <span style="color: #f7524f">Defence, Foreign Affairs</span>, <span style="color: #FEC7C4">Health</span>, <span style="color: #4561cc">Transport</span>, <span style="color: #f8bc2e">Sustainability and the Environment, Social & Family Development, Communications & Information, Culture, Community and Youth, Education</span>, <span style="color: #696969">Trade and Industry, Manpower, Finance</span>, <span style="color: #a71172">Prime Ministers Office</span>, <span style="color: #2b8da5">Law, National Development, Home Affairs</span>.</p>    
           </div> 
         </div>
 
@@ -349,7 +354,7 @@
             <h2>Uniquely Singaporean: Group Representation Constituency (GRC)</h2>
             <p>GRC is a type of electoral division or constituency in Singapore in which teams of candidates, instead of individual candidates, compete to be elected into Parliament as the Members of Parliament for the constituency. Each voter of a GRC casts a ballot for a team, and not for individuals. The GRC scheme was brought into existence on 1988.</p>
             <p>There are 31 constituencies in Singapore, comprising 17 GRCs and 14 single-member constituencies (SMCs).</p>
-            <p>The original justification of the scheme was to guarantee a minimum representation of minorities in Parliament and ensure that there would always be a multiracial Parliament. At least one of the MPs in a GRC must be a member of the Malay, Indian or another minority community of Singapore. It was also deemed economical for town councils, which manage public housing estates, to handle larger constituencies.</p>
+            <p>The original justification of the scheme was to guarantee a minimum representation of minorities in Parliament and ensure that there will always be a multiracial Parliament. At least one of the MPs in a GRC must be a member of the Malay, Indian or another minority community of Singapore.</p>
           </div>
         </div>
 
@@ -357,7 +362,7 @@
           <div class='step-text'>
             <h2>Stagnant racial diversity in Parliament</h2>
             <p>Since the introduction of the GRC scheme, the proportion of minority MPs has remained stagnant. Critics note that the scheme may undermine the esteem of minority candidates as they would not be sure if they are elected on their own merit or due to the scheme. One wonders if the slate of candidates at each election would have been more or less diverse without the scheme.</p>
-            <p>When compared to the proportion of each race in Singapore’s population, political representation of racial minorities is balanced. In 2019,  <span style="color: #e07a5f">Malays</span> account for <span style="color: #e07a5f; font-weight: 900">15%</span> of the Singapore population, they represent <span style="color: #e07a5f;">12%</span> of the MPs. <span style="color: #3d405b">Indians</span> and <span style="color: #81b29a">minorities of other groups</span> account for <span style="color: #3d405b; font-weight: 900">7.5%</span> and <span style="color: #81b29a; font-weight: 900">1.5%</span> of the population respectively in 2019, they represent <span style="color: #3d405b">10%</span> and <span style="color: #81b29a">2%</span> of MPs respectively.</p>
+            <p>When compared to the proportion of each race in Singapore’s population, political representation of racial minorities is balanced. In 2019,  <span style="color: #e07a5f">Malays</span> account for <span style="color: #e07a5f; font-weight: 900">15%</span> of the Singapore population, they represent <span style="color: #e07a5f;">13.2%</span> of the MPs. <span style="color: #3d405b">Indians</span> and <span style="color: #81b29a">minorities of other groups</span> account for <span style="color: #3d405b; font-weight: 900">7.5%</span> and <span style="color: #81b29a; font-weight: 900">1.5%</span> of the population respectively in 2019, they represent <span style="color: #3d405b">11%</span> and <span style="color: #81b29a">3.3%</span> of MPs respectively.</p>
             <div class='vegaChart' id="vega-ethnicity-vis"></div>
           </div>
         </div>
@@ -365,7 +370,7 @@
         <div class='step' data-step='4'>
           <div class='step-text'>
             <h2>Growing participation of women</h2>
-            <p>Historically, women in Singapore played a small role in the country's political scene. There were no women in Parliament for 14 years from 1970 to 1984. In recent years, Singapore has seen an increase in female representation in Parliament, but there are only 3 women in the current Cabinet. In 2015, <span>Grace Fu</span> was appointed the Minister for Culture, Community and Youth, and <span>Josephine Teo</span> as Minister of Manpower in 2017. <span>Indranee Rajah</span> spent 4 terms in Parliament before she was appointed a Minister in 2018.</p>
+            <p>Historically, women in Singapore played a small role in the country's political scene. There were no women in Parliament for 14 years from 1970 to 1984. In recent years, Singapore has seen an increase in female representation in Parliament, but there are only 3 women in the current Cabinet. In 2015, <span class='hl'>Grace Fu</span> was appointed the Minister for Culture, Community and Youth, and <span class='hl'>Josephine Teo</span> as Minister of Manpower in 2017. <span class='hl'>Indranee Rajah</span> spent 4 terms in Parliament before she was appointed a Minister in 2018.</p>
             <div class='vegaChart' id="vega-gender-vis"></div>
           </div>
         </div>
@@ -373,28 +378,28 @@
         <div class='step' data-step='5'>
           <div class='step-text'>
            <h2>Young Parliamentarians alongside veterans</h2>
-            <p><span>Heng Swee Keat</span> and <span>Tan See Leng</span> entered Parliament in their 50s, but became ministers in their first term. <span>S. Iswaran</span> and <span>K. Shanmugam</span> are one of the longest serving MPs, with both entering Parliament relatively young. <span>K.Shanmugam</span> entered Parliament when he was just 29 years of age. Amongst the current MPs, only <span>Tin Pei Ling</span>, <span>Raeesah Khan</span> and <span>Nadia Samdin</span>, have become MPs by that age. <span>Desmond Lee</span> can take pride in being Singapore's youngest Minister, a position he achieved when he was 41 years old.</p>
+            <p><span class='hl'>Heng Swee Keat</span> and <span class='hl'>Tan See Leng</span> entered Parliament in their 50s, but became ministers in their first term. <span class='hl'>S Iswaran</span> and <span class='hl'>K Shanmugam</span> are one of the longest serving MPs, with both entering Parliament relatively young. <span class='hl'>K Shanmugam</span> entered Parliament when he was just 29 years of age. Amongst the current MPs, only <span class='hl'>Tin Pei Ling</span>, <span class='hl'>Raeesah Khan</span> and <span class='hl'>Nadia Samdin</span>, have become MPs by that age. <span class='hl'>Desmond Lee</span> can take pride in being Singapore's youngest Minister, a position he achieved when he was 41 years old.</p>
           </div>
         </div>
 
         <div class='step' data-step='6'>
           <div class='step-text'>
            <h2>Public vs private sector</h2>
-           <p>In the visual on the right, MPs are grouped according to their first occupation. Tradionally, the ruling party has a preference for candidates with some public sector experience, especially for those earmarked for potential appointments in the Cabinet after being elected. Many senior officials from the military and police force have also entered politics.</p>
+           <p>In this visual, MPs are grouped according to their first occupation. Tradionally, the ruling party has a preference for candidates with some public sector experience, especially for those earmarked for potential appointments in the Cabinet after being elected. Many senior officials from the military and police force have also entered politics.</p>
           </div>
         </div>
 
         <div class='step' data-step='7'>
           <div class='step-text'>
            <h2>Diverse pathways to a seat in Parliament</h2>
-           <p>MPs are now grouped according to their last held occupation before entering Parliament. Ideally, MPs should offer a wealth of experiences gained from their years of working experience and community involvement. Some MPs have either switched career tracks, or succeeded in climbing up the corporate ladder to senior roles, while making time for community or grassroot work.</p>
+           <p>MPs are now grouped according to their last held occupation before entering Parliament. Ideally, MPs should offer a wealth of experiences gained from their years of working and community involvement. Some MPs have either switched career tracks, or succeeded in climbing up the corporate ladder to senior roles, while making time for community or grassroot activities. With t</p>
           </div>
         </div>
 
         <div class='step' data-step='8'>
           <div class='step-text'>
             <h2>A one-party political system?</h2>
-            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1959.</p> 
+            <p>Singapore has never and will unlikely see a rotation of the ruling party like in Western models of democracy such as United States. Opposition parties contesting have long maintained their position of simply providing a check and balance to the People's Action Party, which has won every election since Singapore gained independence from the British in 1963.</p> 
             <p>The Worker's Party won a further 4 seats in the 2020 General Election. The WP's numbers in Parliament are still small and lack the one-third required to break the PAP's parliamentary supermajority, which allows the PAP the ability to amend the Constitution with few obstacles.</p>
             <div class='vegaChart' id="vega-party-vis"></div>
           </div>
@@ -402,16 +407,16 @@
 
         <div class='step' data-step='9'>
           <div class='step-text'>
-            <h2>Beyond party affliation, is there diversity in Parliament?</h2>
-            <p>Parliament should be representative to offer the electorate a sense of belonging and inclusion. It should draw upon the widest possible pools of talent and experience from people and reflect the different gender, age and ethnic groups within society. Based on the subset of attributes of each MP,</p> 
+            <h2>Beyond party affiliation, is there diversity in Parliament?</h2>
+            <p>Parliament should be representative to offer the electorate a sense of belonging and inclusion. It should draw upon the widest possible pools of talent and experience and reflect the different gender, age and ethnic groups within society. Based on the subset of attributes of each MP,</p> 
             <ul>
               <li>Gender</li>
               <li>Age</li>
               <li>Ethnicity</li>
-              <li>Prior work experience</li>
-              <li>Years in Politics</li>
+              <li>Prior work experiences</li>
+              <li>Years in politics</li>
             </ul>
-            <p>with the exception of party affliation and constituency representation, a clustering algorithm is applied to group similar MPs, with each attribute having equal weight. A distinct separation of female and male clusters can be observed, but beyond that, there are no large and tight clusters, with only some tight pairs or trios. This can be interpreted to mean that there are few MPs who are similar to one another.</p>
+            <p>with the exception of party affiliation and constituency representation, a <a href='https://lvdmaaten.github.io/tsne/' target="_blank">clustering algorithm</a> is applied to group similar MPs, with each attribute having equal weight. A distinct separation of female and male MPs can be observed, along with some obvious groupings, which are loosely clustered. Within these groups, some are relatively tight pairs or trios. This can be interpreted to mean that there are few MPs who are similar to one another.</p>
           </div>
         </div>
 
@@ -431,6 +436,7 @@
           <div class='credits'>
             <p>Credits</p>
             <h4>Design & Development: Diana Ow</h4>
+            <h4>Completion Date: December 2020</h4>
           </div>
           <div class='references'>
             <p>References</p>
@@ -439,7 +445,7 @@
             <h4>Goh Chok Tong (Deputy Prime Minister and Minister for Defence), speech during the Second Reading of the Parliamentary Elections (Amendment) Bill, Singapore Parliamentary Debates, Official Report (11 January 1988), vol. 50, col. 180, 183-184.</h4>
             <h4>Bilveer Singh (2006), Politics and Governance in Singapore: An Introduction, Singapore: McGraw-Hill, ISBN 978-0-07-126184-5.</h4>
             <h4>Li Xueying, "GRCs make it easier to find top talent: SM: Without good chance of winning at polls, they might not be willing to risk careers for politics", The Straits Times. 27 June 2006.</p>
-            <h4>Linette Lai, "PM Lee Hsien Loong announces new Cabinet line-up; changes at the helm for 6 ministries", The Straits Times. 1 August 2020.</h4>
+            <h4>"Singapore GE2020: Don't pigeonhole new candidates because of their background, says Chan Chun Sing", Channel News Asia (Youtube). 26 June 2020.</h4>
           </div>
 
       </article>
@@ -508,7 +514,7 @@
   }
 
   var categoryList = Object.values(category).flat()
-  var occupationList = ['Public Service (Labour)', 'IT/Engineering', 'Infrastructure (Transport/Telecomms/Real Estate)', 'Public Service (Multiple Stat Boards)', 'Social Enterprise/Charity', 'SAF/SPF/SCDF', 'Law', 'Education', 'Finance', 'Entrepreneur', 'Public Service (Finance)', 'Biz Dev', 'Specialist - Healthcare', 'Public Service (Social/Healthcare)', 'Public Service / Govt-linked (Biz Dev)', 'Other(HR/Management)']
+  var occupationList = ['Public Service (Labour)', 'IT/Engineering', 'Infrastructure (Transport/Telecomms/Real Estate)', 'Public Service (Multiple Statutory Boards)', 'Social Enterprise/Charity', 'Military or Police Force', 'Law', 'Education', 'Finance', 'Entrepreneur', 'Public Service (Finance)', 'Biz Dev', 'Specialist - Healthcare', 'Public Service (Social/Healthcare)', 'Public Service / Govt-linked (Biz Dev)', 'Other(HR/Management)']
 
   // var color = {
   //   'Group 1' : "#f94144", 
@@ -550,6 +556,17 @@
     .range(Object.values(widths))
 
   drawLegend(svgLegend)
+
+  d3.selectAll('.hl')
+    .style('cursor', 'pointer')
+    .on('mouseover', function(d){
+      d3.selectAll(".nodegroup").style('opacity', 0.2)
+      let name = d3.select(this).html().replace(/\s/g, '_')
+      d3.select(`.nodegroup-${name}`).style('opacity', 1)  
+    })
+    .on('mouseout', function(d){
+      d3.selectAll(".nodegroup").style('opacity', 1)
+    })
 
   /////////////////////// Draw Legend //////////////////////////
   function drawLegend(svgLegend){
@@ -670,7 +687,7 @@
     circles = bubbles_explore.selectAll("g.nodegroup").data(data, (d,i)=>d['key'])
 
     let entered_circles = circles.enter().append("g")
-      .attr('class', 'nodegroup')
+      .attr('class',  d=> `nodegroup nodegroup-${d.newName}`)
       .attr('id', d => 'node-' + d.Title_1.trim().replaceAll(' ', '_'))
       .attr('transform', d=> { return 'translate(' + d.x + "," + d.y + ")" })
       .style('opacity', opacity)
@@ -724,12 +741,17 @@
           //.style("left", (d3.event.clientX + 25).toString() + "px")
           //.style("top", (d3.event.clientY - 70).toString() + "px")
           .style("opacity", 1)
+
+        //d3.selectAll(".nodegroup").style('opacity', 0.1)
+        //d3.select(this).style('opacity', 1)
+
       })
       .on('mouseout', function(d){
         let ID = d['Division'].replace(' ', '_').toUpperCase()
         d3.select('#map-label-'+ ID).attr('opacity', 0)
         d3.select('#map-'+ ID).attr('stroke-opacity', 0)
         d3.select(".tooltip").style("opacity", 0)
+        //d3.selectAll(".nodegroup").style('opacity', 1)
       })
 
     const imageAccessor = d => `./images/${d.newName}.jpg`
@@ -747,7 +769,8 @@
         .attr("width", 35)
         .attr("preserveAspectRatio", "xMidYMid slice")
         
-    entered_circles.append("circle").attr('class', 'bubble')
+    entered_circles.append("circle")
+      .attr('class', 'bubble')
       .attr('r', radius)
       .attr('stroke', 'black')
       .attr('stroke-width', d => d['Type.1'] == 'Cabinet' ? '0px' : '0px')
@@ -847,6 +870,7 @@
       var n = []
       data.map((d,i)=> {
         let F = focis.find(f=>f.key == d[col]) 
+        F ? F : console.log(d[col])
         n.push({
           ...d,
           key: d['newName'] + '-' + d.Ministry_1, // unique index for each node

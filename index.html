@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Singapore's changing boundaries of Constituency Wards</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
+<script src='//unpkg.com/d3@5.0.0/dist/d3.min.js'></script>
+<script src="https://unpkg.com/flubber@0.3.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.min.js"></script>
+<style>
+  body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; background-color: #fff; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  p {
+    color: #6c757d;
+    padding: 4px 0px;
+    margin: 0px;
+  }
+  .panel {
+    position: absolute;
+    top: 0px;
+    left: 30px;
+    width: 320px;
+    z-index: 1;
+    color: #03071e;
+  }
+  .description {
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+    width: 470px;
+    z-index: 1;
+    color: #03071e;
+    font-size: 0.85em;
+    font-color: gray;
+  }
+  .legend { 
+    height: 30px;
+  }
+  .btn {
+    color: #03071e;
+    background: transparent; 
+    border: 1.6px solid #03071e; 
+    border-radius: 6px; 
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1em;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .btn:hover {
+    background-color: #03071e;
+    color: white;
+  }
+  .btn:focus {
+    background-color: #03071e;
+    color: white;
+  }
+  .active {
+    background-color: #03071e;
+    color: white;   
+  }
+  .footer {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    font-size: 0.65em;
+  }
+  .footer a {
+    color: #6c757d;
+  }
+  .footer a:hover {
+    color: #6c757d;
+  }
+  .footer a:visited {
+    color: #6c757d;
+  }
+</style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class='panel'>
+   <h1 style='font-size: 1.85em; font-weight: 900;'>Singapore's changing boundaries of Constituency Wards</h1>
+   <p>Switch year of General Election</p>
+     <input name="type" 
+      type="button" 
+      class="btn view-2015 active"
+      value="2015"/>
+      <input name="type" 
+      type="button" 
+      class="btn view-2020"
+      value="2020"/>
+  </div>
+  <div class='footer'>
+    <span>Map Source:</span>
+    <span><a href="https://www.google.com/maps/d/viewer?mid=12vZFyd7VqJyI2v5XOhBK5olnPnw&usp=sharing" target="_blank"> GE2015 </a></span>
+    <span><a href="https://www.google.com/maps/d/viewer?mid=1p4VfSRkaNZViwdsr-KRvpiEjQESuP3vP&usp=sharing" target="_blank"> GE2020 </a></span>
+    <span>Data Source: Elections Department Singapore</span>
+  </div>
+  <div class='description'>
+    <p style='font-size: 0.8em'>Percentage of valid votes won by ruling party (People's Action Party)</p>
+    <div class='legend'></div>
+    <p>
+      Constituencies in Singapore are electoral divisions which may be represented by single or multiple seats in the Parliament of Singapore. At each General Election, Singaporeans vote to elect Members of Parliament (MPs) to represent their constituency. For Single Member Constituencies (SMCs), individual candidates compete, whereas for Group Representation Constituencies (GRCs), teams of 4 to 6 candidates compete to be elected, which each candidate representing a ward. GRCs are unique to Singaporean politics.   
+    </p>
+    <p>
+      <span style='font-weight: 900; color: #03071e;'>At every election, not only do boundaries of some constituencies get redrawn, boundaries of wards within constituencies can change too.</span> Frequent changes to electoral boundaries may affect residents who find different MPs representing them after each election.
+    </p>
+  </div>
+
+<script>
+    var COLOR = "#213948"
+    var svg = d3.select("#map").append("svg").append("g").attr("transform", "translate(10, 20)");
+
+    // create a tooltip
+    var tooltip2 = d3.select("#map")
+      .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "1.6px")
+        .style("border-radius", "6px")
+        .style("padding", "10px")
+        .html("");
+
+    Promise.all([
+      d3.json("./data/GE2015.json"),
+      d3.json("./data/GE2020.json"),
+      d3.csv("./data/Parliamentary-general-election-results-filtered.csv")
+    ]).then(function(data) {
+
+      var lines;
+
+      let data0 = data[0]
+      let data1 = data[1]
+      let election_results = data[2]
+
+      const t = svg.transition()
+          .duration(750);
+
+      let samePaths = ["Siglap_5", "Telok Blangah_1", "Ayer Rajah-Gek Poh_2", "Keat Hong_4"]
+      let fixed = data0.features.map(function(f) {
+        return {
+          type: "Feature",
+          properties: f.properties,
+          geometry: {type: "Polygon", coordinates: [f.geometry.coordinates[0].reverse()]}
+        }
+      })
+
+      let projection = d3.geoMercator()
+        .fitSize([window.innerWidth, window.innerHeight*0.95],{"type": "FeatureCollection","features":fixed})
+
+      let fixed1 = data1.features.map(function(f) {
+        return {
+          type: "Feature",
+          properties: f.properties,
+          geometry: {type: "Polygon", coordinates: samePaths.indexOf(f.properties.Name) !== -1 ? [f.geometry.coordinates[0].reverse()] : f.geometry.coordinates[0]}
+        }
+      })
+      
+      let projection1 = d3.geoMercator()
+        .fitSize([window.innerWidth, window.innerHeight*0.95],{"type": "FeatureCollection","features":fixed1})
+
+      let path = d3.geoPath()
+         .projection(projection)
+
+      //var colorScale = d3.scaleSequential(d3.interpolateMagma).domain([0.85, 0.35]);
+      var colorScale = d3.scaleLinear()
+        //.range(["#7D1211", "#FCFCFC", "#213948"])
+        //.domain([0.8, 0.5, 0.3]);
+        //.range(["#fff", "#2F5AC9"])
+        //.domain([0.85, 0.35]);
+        //.range(["#f72585","#7209b7","#3a0ca3","#4361ee","#4cc9f0"].reverse())
+        //.domain([0.85, 0.75, 0.65, 0.45, 0.35]);
+        .range(["#7400b8", "#4ea8de", "#80ffdb"])
+        .domain([0.85, 0.6, 0.35]);
+
+      function morphData(geojson, type) {
+
+        lines = svg.selectAll("path." + type).data(geojson.features, d=>findID(d))
+
+        linesEntered = lines.enter().append("path")
+          .attr("class", 'constituency_ward')
+          .attr("id", d=> findID(d))
+          .attr('stroke-width', '1.2px')
+          .attr("fill-opacity", 0.65)
+          .attr("stroke", d => colorScale(d.properties.result))
+          .attr("fill", d => colorScale(d.properties.result))
+          .attr("d", path)
+
+        lines.merge(linesEntered)
+          .attr("stroke", d => colorScale(d.properties.result))
+          .attr("fill", d => colorScale(d.properties.result))
+          .attr("d", path)
+          
+        lines.exit().remove()
+
+      }
+      
+      let to_remove = []
+      data0.features.forEach(d=>{
+        let grc = d.properties.Description.split(':')[1].split('<br>')[0].trim()
+
+        if(grc === "Single Member Constituency"){
+          grc = d.properties.Name
+        }
+        d.properties.grc = grc
+        let result = election_results.find(el=>
+          (el.constituency.toUpperCase().trim() + " " + el.constituency_type.trim() === grc) &
+          (el.party === 'PAP') & 
+          (el.year === "2015"))
+        d.properties.result = result ? +result.vote_percentage : 0
+        if(!result){
+          console.log(grc)
+          if(grc === 'SENGKANG WEST SMC_SK1'){
+            d.properties.result = 0.6213
+          }
+          if(grc === 'PUNGGOL EAST SMC_SK2'){
+            d.properties.result = 0.5177
+          }
+        }
+        let tmp = data1.features.find(el=> findID(el) === findID(d)) ? 'found' : findID(d)
+        if(tmp !== 'found'){
+          to_remove.push(tmp)
+        }
+      })
+
+      let to_add = []
+      data1.features.forEach(d=>{
+        let grc = d.properties.Description.split(':')[1].split('<br>')[0].trim()
+        if(grc === "Single Member Constituency"){
+          grc = d.properties.Name
+        }
+        d.properties.grc = grc
+        let result = election_results.find(el=>
+          (el.constituency.toUpperCase().trim() + " " + el.constituency_type.trim() === grc) &
+          (el.party === 'PAP') & 
+          (el.year === "2020"))
+        if(!result){
+          console.log(grc)
+        }
+        d.properties.result = result ? +result.vote_percentage : 0
+        let tmp = data0.features.find(el=> findID(el) === findID(d)) ? 'found' : findID(d)
+        if(tmp !== 'found'){
+          to_add.push(tmp)
+        }
+      })
+
+      morphData(data0, 'existing')
+      
+      tooltip(data0)
+
+      let new2020Polygons = data1.features.filter(d=>to_add.indexOf(findID(d)) !== -1)
+      let dataFiltered = 
+      {
+        "type": "FeatureCollection",
+        "name": "GE2020 Constituencies",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": new2020Polygons
+      }
+
+      let old2015Polygons = data0.features.filter(d=>to_remove.indexOf(findID(d)) !== -1)
+      let dataFiltered1 = 
+      {
+        "type": "FeatureCollection",
+        "name": "GE2020 Constituencies",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": old2015Polygons
+      }
+      console.log(dataFiltered1)
+
+      d3.select(".view-2015")
+        .on("click", function() {
+
+        d3.select(".view-2020").classed('active', false);
+        d3.select(this).classed('active', true);
+
+        d3.selectAll("path")
+          .transition().duration(4000)
+          .attr("stroke", function(d,i){
+            let c = data0.features.find(el=> findID(el) === findID(d))
+            return colorScale(c ? c.properties.result : 0)
+          })
+          .attr("fill", function(d,i){
+            let c = data0.features.find(el=> findID(el) === findID(d))
+            return colorScale(c ? c.properties.result : 0)
+          })
+          .attrTween('d', function(d,i) { 
+            let string1 = path(d)
+            let string2 = path(data1.features.find(el=> findID(el) === findID(d))) || path(d)
+            return flubber.interpolate(string2, string1) 
+          })
+
+          d3.selectAll("path")
+            .filter(d=>to_add.indexOf(findID(d)) !== -1)
+            //.transition().duration(350).delay(2000)
+            .remove()
+
+          setTimeout(function(){
+            morphData(dataFiltered1, 'existing')
+            tooltip(data0)
+          }, 3200)
+
+        })
+
+      d3.select(".view-2020")
+        .on("click", function() {
+
+          d3.select(".view-2015").classed('active', false);
+          d3.select(this).classed('active', true);
+
+          d3.selectAll("path")
+            .transition().duration(4000)
+            .attr("stroke", function(d,i){
+              let c = data1.features.find(el=> findID(el) === findID(d))
+              return colorScale(c ? c.properties.result : 0)
+            })
+            .attr("fill", function(d,i){
+              let c = data1.features.find(el=> findID(el) === findID(d))
+              return colorScale(c ? c.properties.result : 0)
+            })
+            .attrTween('d', function(d,i) { 
+              let string1 = path(d)
+              let string2 = path(data1.features.find(el=> findID(el) === findID(d))) || path(d)
+              return flubber.interpolate(string1, string2) 
+            })
+
+          d3.selectAll("path")
+            .filter(d=>to_remove.indexOf(findID(d)) !== -1)
+            //.transition().duration(350).delay(2000)
+            .remove()
+
+          setTimeout(function(){
+            morphData(dataFiltered, 'new')
+            tooltip(data1)
+          }, 3200)
+           
+        })
+
+      function tooltip(data) {
+
+        let centroids =[]
+        data.features.map(d=> {
+          centroids.push({
+            name: d.properties["Name"],
+            id: findID(d),
+            x: path.centroid(d)[0],
+            y: path.centroid(d)[1]
+          })
+        }) 
+
+        d3.selectAll('path')
+            .on("mouseover", function(){return tooltip2.style("visibility", "visible");})
+            .on("mousemove", function(d){
+              let c = centroids.find(el=>el.id === findID(d))
+              let b = data.features.find(el=>findID(el) === findID(d))
+              return tooltip2.style("top", (c.y).toString() + "px").style("left", (c.x+20).toString() + "px")
+                .html(`<b>${b.properties.Name.split("_")[0]}</b><p>${b.properties.grc}</p><p>% of votes won: ${Math.round((b.properties.result*100 + Number.EPSILON) * 100) / 100}</p>`)
+            })
+            .on("mouseout", function(){return tooltip2.style("visibility", "hidden");});
+      }
+
+    })
+  
+    function findID(d){
+      if(d.properties.Description){
+        let grc = d.properties.Description.split(':')[1].split('<br>')[0].replace(/\s/g, '')
+        let index = d.properties.Name.split('_')[1] || d.properties.Name.replace(/\s/g, '')
+        return grc + '-' + index
+      } else {
+        return d.properties.Name
+      }
+    }
+
+    setTimeout(function(){
+      var data = [{"color":"#80ffdb","value":35},{"color":"#4ea8de","value":60},{"color":"#7400b8","value":85}];
+      var extent = d3.extent(data, d => d.value);
+      
+      var padding = 9;
+      var width = 320;
+      var innerWidth = width - (padding * 2);
+      var barHeight = 10;
+      var height = 28;
+
+      var xScale = d3.scaleLinear()
+          .range([0, innerWidth])
+          .domain(extent);
+
+      var xTicks = data.filter(f => f.value % 5 === 0).map(d => d.value);
+
+      var xAxis = d3.axisBottom(xScale)
+          .tickSize(barHeight * 2)
+          .tickValues(xTicks);
+
+      var svgLegend = d3.select(".legend").append("svg").attr("width", width).attr("height", height);
+      var g = svgLegend.append("g").attr("transform", "translate(" + padding + ", 0)");
+
+      var defs = svgLegend.append("defs");
+      var linearGradient = defs.append("linearGradient").attr("id", "myGradient");
+      linearGradient.selectAll("stop")
+          .data(data)
+        .enter().append("stop")
+          .attr("offset", d => ((d.value - extent[0]) / (extent[1] - extent[0]) * 100) + "%")
+          .attr("stop-color", d => d.color);
+
+      g.append("rect")
+          .attr("width", innerWidth)
+          .attr("height", barHeight)
+          .style("fill", "url(#myGradient)");
+
+      g.append("g")
+          .call(xAxis)
+        .select(".domain").remove();
+    }, 300)
+
+
+</script>
+
+</body>
+</html>
